@@ -20,6 +20,8 @@ module.exports = {
     browsers: '> 0.1%'
   },
 
+  devtool: 'source-map',
+
   module: {
     loaders: [
       {
