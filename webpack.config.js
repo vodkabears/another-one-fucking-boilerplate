@@ -3,7 +3,7 @@ var optimize = require('webpack').optimize;
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src/App.js'),
+  entry: path.resolve(__dirname, 'client/app.js'),
 
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -27,7 +27,7 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        include: path.resolve(__dirname, 'src'),
+        include: path.resolve(__dirname, 'client'),
         exclude: /node_modules/,
         loader: 'babel'
       },

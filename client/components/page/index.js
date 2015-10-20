@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
-import './Page.css';
+import './page.css';
 
 export default class Page extends React.Component {
   render() {
     return (
-      <div className="Page">
-        <div className="Page-container">
-          <div className="Page-image"></div>
+      <div className="page">
+        <div className="page__container">
+          <div className="page__image"></div>
           <h1>{this.props.title}</h1>
           <p>{this.props.description}</p>
         </div>

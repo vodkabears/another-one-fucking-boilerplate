@@ -1,4 +1,4 @@
-.Page-container {
+.page__container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -8,16 +8,16 @@
   transform: translate(-50%, -50%);
 }
 
-.Page-image {
+.page__image {
   width: 125px;
   height: 183px;
 
-  background: url(Page-image.jpg) no-repeat;
+  background: url(page__image.jpg) no-repeat;
   background-size: 100%;
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  .Page-image {
-    background-image: url(Page-image@2x.jpg);
+  .page__image {
+    background-image: url(page__image@2x.jpg);
   }
 }

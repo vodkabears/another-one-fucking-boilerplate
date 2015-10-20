@@ -4,8 +4,8 @@
   "version": "0.0.1",
   "description": "Boilerplate",
   "scripts": {
-    "lint": "eslint webpack.config.js src/ && csscomb -l -v src/",
-    "fix": "eslint --fix webpack.config.js src/ && csscomb src/",
+    "lint": "eslint webpack.config.js client/ && csscomb -l -v client/",
+    "fix": "eslint --fix webpack.config.js client/ && csscomb client/",
     "build": "npm run lint && rm -rf build/ && node --harmony node_modules/.bin/webpack",
     "start": "webpack-dev-server"
   },
