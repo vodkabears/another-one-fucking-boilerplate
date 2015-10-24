@@ -7,8 +7,9 @@
     "lint": "eslint webpack.client.config.js webpack.server.config.js src/ && csscomb -l -v src/",
     "fix": "eslint --fix webpack.client.config.js webpack.server.config.js src/ && csscomb src/",
     "clean": "rm -rf build/",
+    "copy-public": "mkdir -p build/ && cp -r src/client/public/ build/public/",
     "bundle-server": "webpack --config webpack.server.config.js",
-    "bundle-client": "webpack --config webpack.client.config.js",
+    "bundle-client": "npm run copy-public && webpack --config webpack.client.config.js",
     "build": "npm run lint && npm run clean && npm run bundle-server && npm run bundle-client",
     "start": "npm install && npm run build && node build/server.js"
   },
