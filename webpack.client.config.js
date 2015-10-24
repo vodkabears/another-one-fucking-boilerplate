@@ -3,12 +3,11 @@ var optimize = require('webpack').optimize;
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'client/app.js'),
+  entry: path.resolve(__dirname, 'src', 'client'),
 
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
-    publicPath: '/build/'
+    path: path.resolve(__dirname, 'build', 'public', 'assets'),
+    filename: 'bundle.js'
   },
 
   plugins: [
@@ -23,11 +22,15 @@ module.exports = {
 
   devtool: 'source-map',
 
+  resolve: {
+    root: path.resolve(__dirname, 'src')
+  },
+
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
-        include: path.resolve(__dirname, 'client'),
+        include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
         loader: 'babel'
       },
