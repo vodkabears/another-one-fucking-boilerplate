@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "description": "Another one boilerplate.",
   "scripts": {
-    "lint": "eslint webpack.client.config.js webpack.server.config.js src/ && csscomb -l -v src/",
+    "lint": "eslint --debug webpack.client.config.js webpack.server.config.js src/ && csscomb -l -v src/",
     "fix": "eslint --fix webpack.client.config.js webpack.server.config.js src/ && csscomb src/",
     "clean": "rm -rf build/",
     "copy-public": "mkdir -p build/ && cp -r src/client/public/ build/public/",
@@ -26,8 +26,10 @@
     "image-webpack-loader": "^1.6.2",
     "json-loader": "^0.5.3",
     "null-loader": "^0.1.1",
+    "pre-commit": "^1.1.2",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "url-loader": "^0.5.6"
-  }
+  },
+  "pre-commit": "lint"
 }
