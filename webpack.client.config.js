@@ -15,6 +15,10 @@ module.exports = {
     filename: 'bundle.js'
   },
 
+  cache: IS_DEBUG,
+
+  debug: IS_DEBUG,
+
   plugins: [
     new DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENV) }),
     new ExtractTextPlugin('bundle.css'),

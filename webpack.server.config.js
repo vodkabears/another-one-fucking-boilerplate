@@ -26,6 +26,10 @@ module.exports = {
     __dirname: false
   },
 
+  cache: IS_DEBUG,
+
+  debug: IS_DEBUG,
+
   plugins: [
     new DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENV) }),
     new optimize.OccurenceOrderPlugin()

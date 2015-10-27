@@ -6,12 +6,18 @@
   "scripts": {
     "lint": "eslint --debug webpack.client.config.js webpack.server.config.js src/ && csscomb -l -v src/",
     "fix": "eslint --fix webpack.client.config.js webpack.server.config.js src/ && csscomb src/",
+    "test": "npm run lint",
     "clean": "rm -rf build/",
     "copy-public": "mkdir -p build/ && cp -r src/client/public/ build/public/",
-    "bundle-server": "webpack --config webpack.server.config.js",
-    "bundle-client": "npm run copy-public && webpack --config webpack.client.config.js",
-    "build": "npm run lint && npm run clean && npm run bundle-server && npm run bundle-client",
-    "start": "npm install && npm run build && node build/server.js"
+    "build:server": "webpack --config webpack.server.config.js --progress",
+    "build:client": "npm run copy-public && webpack --config webpack.client.config.js --progress",
+    "build": "npm-run-all build:client build:server",
+    "watch:client": "webpack --config webpack.client.config.js --progress --watch",
+    "watch:server": "webpack --config webpack.server.config.js --progress --watch",
+    "watch:server-bundle": "nodemon build/server.js",
+    "watch": "npm-run-all --parallel watch:client watch:server watch:server-bundle",
+    "dev": "npm-run-all install test clean build watch",
+    "prod": "NODE_ENV=production npm-run-all install test clean build && node build/server.js"
   },
   "dependencies": {
     "babel": "^5.8.23",
@@ -25,6 +31,8 @@
     "file-loader": "^0.8.4",
     "image-webpack-loader": "^1.6.2",
     "json-loader": "^0.5.3",
+    "nodemon": "^1.8.0",
+    "npm-run-all": "^1.2.12",
     "null-loader": "^0.1.1",
     "pre-commit": "^1.1.2",
     "react": "^0.14.0",
