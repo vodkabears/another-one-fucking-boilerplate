@@ -1,5 +1,10 @@
 var path = require('path');
-var optimize = require('webpack').optimize;
+var webpack = require('webpack');
+var optimize = webpack.optimize;
+var DefinePlugin = webpack.DefinePlugin;
+
+const ENV = process.env.NODE_ENV || 'development';
+const IS_DEBUG = ENV === 'development';
 
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'server'),
@@ -22,10 +27,11 @@ module.exports = {
   },
 
   plugins: [
+    new DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENV) }),
     new optimize.OccurenceOrderPlugin()
   ],
 
-  devtool: 'source-map',
+  devtool: IS_DEBUG ? 'source-map' : '',
 
   resolve: {
     root: path.resolve(__dirname, 'src')
