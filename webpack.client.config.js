@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var optimize = webpack.optimize;
 var DefinePlugin = webpack.DefinePlugin;
+var AssetsPlugin = require('assets-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const ENV = process.env.NODE_ENV || 'development';
@@ -12,7 +13,7 @@ module.exports = {
 
   output: {
     path: path.resolve(__dirname, 'build', 'public', 'assets'),
-    filename: 'bundle.js'
+    filename: 'bundle_[hash].js'
   },
 
   cache: IS_DEBUG,
@@ -21,7 +22,11 @@ module.exports = {
 
   plugins: [
     new DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENV) }),
-    new ExtractTextPlugin('bundle.css'),
+    new AssetsPlugin({
+      path: path.resolve(__dirname, 'build'),
+      filename: 'assets.json'
+    }),
+    new ExtractTextPlugin('bundle_[hash].css'),
     new optimize.DedupePlugin(),
     new optimize.OccurenceOrderPlugin(),
     new optimize.AggressiveMergingPlugin(),

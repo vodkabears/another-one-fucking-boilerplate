@@ -4,6 +4,8 @@ import YandexMetricaElem from './elems/yandex-metrica';
 
 export default class Html extends React.Component {
   render() {
+    var bundle = this.props.bundle;
+
     return (
       <html lang={this.props.lang}>
         <head>
@@ -13,11 +15,11 @@ export default class Html extends React.Component {
           <meta name="description" content={this.props.description} />
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
           <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-          <link rel="stylesheet" href="/assets/bundle.css" />
+          <link rel="stylesheet" href={`/assets/${bundle.css}`} />
         </head>
         <body>
           <div id="app" dangerouslySetInnerHTML={{ __html: this.props.body }} />
-          <script src="/assets/bundle.js"></script>
+          <script src={`/assets/${bundle.js}`}></script>
           <GoogleAnalyticsElem id="UA-XXXXX-X" />
           <YandexMetricaElem id="XXXXXXXX" />
         </body>
