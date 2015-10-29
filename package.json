@@ -17,7 +17,7 @@
     "watch:server-bundle": "nodemon build/server.js",
     "watch": "npm-run-all --parallel watch:client watch:server watch:server-bundle",
     "dev": "npm-run-all install test clean build watch",
-    "prod": "NODE_ENV=production npm-run-all install test clean build && node build/server.js"
+    "prod": "NODE_ENV=production npm-run-all install test clean build && pm2 start build/server.js -i 0"
   },
   "dependencies": {
     "babel": "^5.8.23",
