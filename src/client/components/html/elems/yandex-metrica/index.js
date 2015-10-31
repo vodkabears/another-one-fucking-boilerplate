@@ -5,7 +5,7 @@ export default class YandexMetricaElem extends React.Component {
     var id = this.props.id;
 
     return (
-      <div className="html__yandex-metrica">
+      <div>
         <script dangerouslySetInnerHTML={{ __html:
           '(function(d,w,c){(w[c]=w[c]||[]).push(function(){' +
           `try{w.yaCounter${id}=new Ya.Metrika(` +

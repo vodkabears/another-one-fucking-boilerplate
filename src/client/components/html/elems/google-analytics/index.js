@@ -3,7 +3,7 @@ import React, { PropTypes } from 'react';
 export default class GoogleAnalyticsElem extends React.Component {
   render() {
     return (
-      <div className="html__google-analytics">
+      <div>
         <script dangerouslySetInnerHTML={{ __html:
           '(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=' +
           'function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;' +

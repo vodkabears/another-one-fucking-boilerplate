@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var optimize = webpack.optimize;
 var DefinePlugin = webpack.DefinePlugin;
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const ENV = process.env.NODE_ENV || 'development';
 const IS_DEBUG = ENV === 'development';
@@ -32,6 +33,7 @@ module.exports = {
 
   plugins: [
     new DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENV) }),
+    new ExtractTextPlugin('.modules.css'),
     new optimize.OccurenceOrderPlugin()
   ],
 
@@ -55,7 +57,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'null-loader'
+        loader: ExtractTextPlugin.extract('style', 'css?modules')
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,

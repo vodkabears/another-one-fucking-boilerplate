@@ -1,5 +1,6 @@
 var path = require('path');
 var webpack = require('webpack');
+var cssnext = require('cssnext');
 var optimize = webpack.optimize;
 var DefinePlugin = webpack.DefinePlugin;
 var AssetsPlugin = require('assets-webpack-plugin');
@@ -33,9 +34,12 @@ module.exports = {
     new optimize.UglifyJsPlugin({ comments: false })
   ],
 
-  cssnext: {
-    browsers: '> 0.1%'
-  },
+  postcss: [
+    cssnext({
+      browsers: '> 0.1%',
+      url: false
+    })
+  ],
 
   devtool: IS_DEBUG ? 'source-map' : '',
 
@@ -53,7 +57,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('css?minimize!cssnext')
+        loader: ExtractTextPlugin.extract('style', 'css?modules&minimize!postcss-loader')
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
