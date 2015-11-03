@@ -5,7 +5,8 @@ import express from 'express';
 import React from 'react';  // eslint-disable-line no-unused-vars
 import ReactDOM from 'react-dom/server';
 import Html from 'client/components/html';
-import Page from 'client/components/page';
+import PageTypeWelcome from 'client/components/page/mods/type/welcome';
+import PageTypeTodoExample from 'client/components/page/mods/type/todo-example';
 
 const ENV = process.env.NODE_ENV || 'development';
 const PORT = 3000;
@@ -23,7 +24,17 @@ server.get('/', (req, res) => {
     .status(200)
     .send(
       '<!doctype html>' +
-      ReactDOM.renderToStaticMarkup(<Html bundle={ASSETS.main} body={ReactDOM.renderToString(<Page />)} />));
+      ReactDOM.renderToStaticMarkup(<Html
+        pageType="welcome" bundle={ASSETS.main} body={ReactDOM.renderToString(<PageTypeWelcome />)} />));
+});
+
+server.get('/examples/todo', (req, res) => {
+  res
+    .status(200)
+    .send(
+      '<!doctype html>' +
+      ReactDOM.renderToStaticMarkup(<Html
+        pageType="examples-todo" bundle={ASSETS.main} body={ReactDOM.renderToString(<PageTypeTodoExample />)} />));
 });
 
 server.listen(PORT, () => {

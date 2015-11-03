@@ -1,0 +1,4 @@
+.input {
+  composes: input from './mods/theme/normal/styles.css';
+  composes: input from './mods/size/normal/styles.css';
+}

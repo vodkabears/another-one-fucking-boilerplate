@@ -22,6 +22,7 @@
   "tab-size": 2,
   "unitless-zero": true,
   "sort-order": [
+    [ "composes" ],
     [
       "font",
       "font-family",
@@ -130,6 +131,7 @@
       "word-spacing",
       "-ms-writing-mode",
       "text-outline",
+      "text-rendering",
       "text-transform",
       "text-wrap",
       "text-overflow",

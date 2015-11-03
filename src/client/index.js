@@ -1,3 +1,4 @@
 import 'babel/polyfill';
-import 'react';
-import './components/page';
+import './components/html';
+import './components/page/mods/type/welcome';
+import './components/page/mods/type/todo-example';

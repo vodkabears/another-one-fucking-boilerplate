@@ -57,7 +57,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css?modules&minimize!postcss-loader')
+        loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&minimize!postcss-loader')
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,

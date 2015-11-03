@@ -1,0 +1,36 @@
+:root {
+  --font-weight: 300;
+  --placeholder-font-style: italic;
+  --placeholder-color: #e6e6e6;
+}
+
+.input {
+  font-family: inherit;
+  font-weight: var(--font-weight);
+
+  color: inherit;
+  border: none;
+  background: rgba(0, 0, 0, 0.003);
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+}
+
+.input::-webkit-input-placeholder {
+  font-weight: var(--font-weight);
+  font-style: var(--placeholder-font-style);
+
+  color: var(--placeholder-color);
+}
+
+.input::-moz-placeholder {
+  font-weight: var(--font-weight);
+  font-style: var(--placeholder-font-style);
+
+  color: var(--placeholder-color);
+}
+
+.input::input-placeholder {
+  font-weight: var(--font-weight);
+  font-style: var(--placeholder-font-style);
+
+  color: var(--placeholder-color);
+}

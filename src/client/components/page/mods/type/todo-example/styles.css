@@ -1,0 +1,15 @@
+.page {
+  width: 550px;
+  margin: auto;
+}
+
+.title {
+  font-size: 100px;
+  font-weight: 100;
+  line-height: 20px;
+
+  text-align: center;
+  text-rendering: optimizeLegibility;
+
+  color: rgba(175, 47, 47, 0.15);
+}
