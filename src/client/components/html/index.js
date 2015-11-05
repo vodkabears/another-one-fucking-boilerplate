@@ -9,7 +9,7 @@ export default class Html extends React.Component {
     var bundle = props.bundle;
 
     return (
-      <html lang={props.lang} className={styles[props.pageType]}>
+      <html lang={props.lang}>
         <head>
           <meta charsSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
@@ -19,7 +19,7 @@ export default class Html extends React.Component {
           <link rel="apple-touch-icon" href="apple-touch-icon.png" />
           <link rel="stylesheet" href={`/assets/${bundle.css}`} />
         </head>
-        <body>
+        <body className={styles[props.pageType]}>
           <div id="app" dangerouslySetInnerHTML={{ __html: props.body }} />
           <script src={`/assets/${bundle.js}`}></script>
           <GoogleAnalyticsElem id="UA-XXXXX-X" />

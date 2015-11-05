@@ -4,8 +4,12 @@ body {
   padding: 0;
 }
 
-.examples-todo body {
-  font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.pageExamplesTodo {
+  font-size: 14px;
   font-weight: 300;
 
   color: #4d4d4d;

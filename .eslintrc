@@ -40,7 +40,6 @@
    "no-const-assign": 2,
    "no-this-before-super": 2,
    "object-shorthand": 2,
-   "prefer-const": 2,
    "prefer-spread": 2,
    "require-yield": 2,
 

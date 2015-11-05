@@ -4,9 +4,10 @@ import path from 'path';
 import express from 'express';
 import React from 'react';  // eslint-disable-line no-unused-vars
 import ReactDOM from 'react-dom/server';
+import { match, RoutingContext } from 'react-router';
 import Html from 'client/components/html';
-import PageTypeWelcome from 'client/components/page/mods/type/welcome';
-import PageTypeTodoExample from 'client/components/page/mods/type/todo-example';
+import routes from 'client/routes';
+import getPageType from 'lib/getPageType';
 
 const ENV = process.env.NODE_ENV || 'development';
 const PORT = 3000;
@@ -19,22 +20,25 @@ if (IS_DEBUG) {
   server.use(express.static(path.join(__dirname, 'public')));
 }
 
-server.get('/', (req, res) => {
-  res
-    .status(200)
-    .send(
-      '<!doctype html>' +
-      ReactDOM.renderToStaticMarkup(<Html
-        pageType="welcome" bundle={ASSETS.main} body={ReactDOM.renderToString(<PageTypeWelcome />)} />));
-});
-
-server.get('/examples/todo', (req, res) => {
-  res
-    .status(200)
-    .send(
-      '<!doctype html>' +
-      ReactDOM.renderToStaticMarkup(<Html
-        pageType="examples-todo" bundle={ASSETS.main} body={ReactDOM.renderToString(<PageTypeTodoExample />)} />));
+server.use((req, res) => {
+  match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
+    if (error) {
+      res.status(500).send(error.message);
+    } else if (redirectLocation) {
+      res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+    } else if (renderProps) {
+      res
+        .status(200).send(
+          '<!doctype html>' +
+          ReactDOM.renderToStaticMarkup(<Html
+            pageType={getPageType(req.url)}
+            bundle={ASSETS.main}
+            body={ReactDOM.renderToString(<RoutingContext {...renderProps} />)}
+          />));
+    } else {
+      res.status(404).send('Not found');
+    }
+  });
 });
 
 server.listen(PORT, () => {
