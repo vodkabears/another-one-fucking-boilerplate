@@ -37,6 +37,7 @@
      "before": true,
      "after": false
    }],
+   "no-var": 2,
    "no-const-assign": 2,
    "no-this-before-super": 2,
    "object-shorthand": 2,

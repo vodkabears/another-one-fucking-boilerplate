@@ -14,7 +14,7 @@ const PORT = 3000;
 const ASSETS = JSON.parse(fs.readFileSync(path.join(__dirname, 'assets.json'), 'utf8'));
 const IS_DEBUG = ENV === 'development';
 
-var server = express();
+let server = express();
 
 if (IS_DEBUG) {
   server.use(express.static(path.join(__dirname, 'public')));

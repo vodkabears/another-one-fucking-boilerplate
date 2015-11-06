@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
-import GoogleAnalyticsElem from './elems/google-analytics';
-import YandexMetricaElem from './elems/yandex-metrica';
+import HtmlYandexMetrica from './elems/yandex-metrica';
+import HtmlGoogleAnalytics from './elems/google-analytics';
 import styles from './styles.css';
 
 export default class Html extends React.Component {
   render() {
-    var props = this.props;
-    var bundle = props.bundle;
+    let props = this.props;
+    let bundle = props.bundle;
 
     return (
       <html lang={props.lang}>
@@ -22,8 +22,8 @@ export default class Html extends React.Component {
         <body className={styles[props.pageType]}>
           <div id="app" dangerouslySetInnerHTML={{ __html: props.body }} />
           <script src={`/assets/${bundle.js}`}></script>
-          <GoogleAnalyticsElem id="UA-XXXXX-X" />
-          <YandexMetricaElem id="XXXXXXXX" />
+          <HtmlGoogleAnalytics id="UA-XXXXX-X" />
+          <HtmlYandexMetrica id="XXXXXXXX" />
         </body>
       </html>
     );
