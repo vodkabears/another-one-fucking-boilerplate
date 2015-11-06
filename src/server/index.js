@@ -35,8 +35,6 @@ server.use((req, res) => {
             bundle={ASSETS.main}
             body={ReactDOM.renderToString(<RoutingContext {...renderProps} />)}
           />));
-    } else {
-      res.status(404).send('Not found');
     }
   });
 });
