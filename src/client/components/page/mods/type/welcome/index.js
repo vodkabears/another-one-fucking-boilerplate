@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { Link } from 'react-router';
 import styles from './styles.css';
 
-export default class Page extends React.Component {
+export default class PageTypeWelcome extends React.Component {
   render() {
     return (
       <div>
@@ -17,12 +17,12 @@ export default class Page extends React.Component {
   }
 }
 
-Page.propTypes = {
+PageTypeWelcome.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string
 };
 
-Page.defaultProps = {
+PageTypeWelcome.defaultProps = {
   title: 'Boilerplate',
   description: 'Another one'
 };

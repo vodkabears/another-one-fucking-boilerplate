@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export default class GoogleAnalyticsElem extends React.Component {
+export default class HtmlGoogleAnalytics extends React.Component {
   render() {
     return (
       <div>
@@ -17,6 +17,6 @@ export default class GoogleAnalyticsElem extends React.Component {
   }
 }
 
-GoogleAnalyticsElem.propTypes = {
+HtmlGoogleAnalytics.propTypes = {
   id: PropTypes.string.isRequired
 };

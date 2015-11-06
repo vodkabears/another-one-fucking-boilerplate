@@ -1,8 +1,10 @@
-var path = require('path');
-var webpack = require('webpack');
-var optimize = webpack.optimize;
-var DefinePlugin = webpack.DefinePlugin;
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+'use strict';
+
+let path = require('path');
+let webpack = require('webpack');
+let optimize = webpack.optimize;
+let DefinePlugin = webpack.DefinePlugin;
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const ENV = process.env.NODE_ENV || 'development';
 const IS_DEBUG = ENV === 'development';

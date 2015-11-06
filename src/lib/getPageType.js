@@ -1,16 +1,16 @@
-const RE_SLASH = /\/(\w)/g;
+const RE_SLASH = /\/(\w?)/g;
 
 /**
  * Converts a path to the page type
  * @param {String} path Format: '/route/one'
- * @returns {String|null} Format: 'routeOne'
+ * @returns {String|null} Format: 'pageRouteOne'
  */
 export default function getPageType(path) {
-  if ( ! path) {
+  if (!path) {
     return null;
   }
 
-  return path.slice(1).replace(RE_SLASH, (all, letter) => {
+  return 'page' + path.replace(RE_SLASH, (all, letter) => {
     return letter.toUpperCase();
   });
 }

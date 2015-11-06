@@ -1,10 +1,12 @@
-var path = require('path');
-var webpack = require('webpack');
-var cssnext = require('cssnext');
-var optimize = webpack.optimize;
-var DefinePlugin = webpack.DefinePlugin;
-var AssetsPlugin = require('assets-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+'use strict';
+
+let path = require('path');
+let webpack = require('webpack');
+let cssnext = require('cssnext');
+let optimize = webpack.optimize;
+let DefinePlugin = webpack.DefinePlugin;
+let AssetsPlugin = require('assets-webpack-plugin');
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const ENV = process.env.NODE_ENV || 'development';
 const IS_DEBUG = ENV === 'development';

@@ -20,6 +20,7 @@
     "prod": "NODE_ENV=production npm-run-all install test clean build && pm2 start build/server.js -i 0"
   },
   "dependencies": {
+    "assets-webpack-plugin": "^3.1.0",
     "babel": "^5.8.23",
     "babel-loader": "^5.3.2",
     "css-loader": "^0.21.0",

@@ -7,12 +7,10 @@ import routes from './routes';
 import getPageType from 'lib/getPageType';
 import styles from './components/html/styles.css';
 
-var history = createBrowserHistory();
+let history = createBrowserHistory();
 
 history.listen(location => {
-  var className = styles[getPageType(location.pathname)] || '';
-
-  document.body.className = className;
+  document.body.className = styles[getPageType(location.pathname)] || '';
 });
 
 render(
