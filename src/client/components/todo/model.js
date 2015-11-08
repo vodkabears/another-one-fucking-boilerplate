@@ -30,7 +30,7 @@ export default class TodoModel {
 
   destroy() {
     Dispatcher
-      .removeListener(EVENTS.TodoItemCreate, this._todoItemCreateHandler)
-      .removeListener(EVENTS.TodoToggleAll, this._todoToggleAllHandler);
+      .off(EVENTS.TodoItemCreate, this._todoItemCreateHandler)
+      .off(EVENTS.TodoToggleAll, this._todoToggleAllHandler);
   }
 }
