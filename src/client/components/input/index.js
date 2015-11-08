@@ -4,14 +4,20 @@ import styles from './styles.css';
 export default class Input extends React.Component {
   render() {
     return (
-      <input className={this.props.styles.input} type="text" placeholder={this.props.placeholder} />
+      <input
+        type="text"
+        className={this.props.styles.input}
+        placeholder={this.props.placeholder}
+        onKeyDown={this.props.onKeyDown}
+      />
     );
   }
 }
 
 Input.propTypes = {
   styles: PropTypes.object,
-  placeholder: PropTypes.string
+  placeholder: PropTypes.string,
+  onKeyDown: PropTypes.func
 };
 
 Input.defaultProps = { styles };

@@ -3,7 +3,11 @@ import React, { PropTypes } from 'react';
 export default class Checkbox extends React.Component {
   render() {
     return (
-      <input className={this.props.styles.checkbox} type="checkbox" />
+      <input
+        type="checkbox"
+        className={this.props.styles.checkbox}
+        onChange={this.props.onChange}
+      />
     );
   }
 }
@@ -13,5 +17,6 @@ Checkbox.propTypes = {
 };
 
 Checkbox.defaultProps = {
-  styles: {}
+  styles: {},
+  onChange: PropTypes.func
 };
