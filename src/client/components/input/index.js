@@ -7,7 +7,9 @@ export default class Input extends React.Component {
       <input
         type="text"
         className={this.props.styles.input}
+        value={this.props.value}
         placeholder={this.props.placeholder}
+        onChange={this.props.onChange}
         onKeyDown={this.props.onKeyDown}
       />
     );
@@ -16,7 +18,9 @@ export default class Input extends React.Component {
 
 Input.propTypes = {
   styles: PropTypes.object,
+  value: PropTypes.string,
   placeholder: PropTypes.string,
+  onChange: PropTypes.func,
   onKeyDown: PropTypes.func
 };
 

@@ -1,16 +1,25 @@
 import React, { PropTypes } from 'react';
-import { Dispatcher, EVENTS } from 'lib/dispatcher';
 import InputTypeTodoHeader from 'client/components/input/mods/type/todo-header';
 import CheckboxTypeTodoHeader from 'client/components/checkbox/mods/type/todo-header';
+import TodoHeaderModel from './model';
 import styles from './styles.css';
 
 const ENTER_KEY = 13;
 
 export default class TodoHeader extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = { input: '' };
+    this._model = new TodoHeaderModel(this);
+  }
+
   _handleCheckboxChange(e) {
-    Dispatcher.emit(EVENTS.TodoToggleAll, {
-      areCompleted: e.target.checked
-    });
+    this._model.toggleAll(e.target.checked);
+  }
+
+  _handleInputChange(e) {
+    this._model.syncInputText(e.target.value);
   }
 
   _handleInputKeyDown(e) {
@@ -18,16 +27,19 @@ export default class TodoHeader extends React.Component {
       return;
     }
 
-    Dispatcher.emit(EVENTS.TodoItemCreate, {
-      text: e.target.value
-    });
+    this._model.createTodo(e.target.value);
   }
 
   render() {
     return (
       <header className={styles.todoHeader}>
         <CheckboxTypeTodoHeader onChange={this._handleCheckboxChange.bind(this)} />
-        <InputTypeTodoHeader onKeyDown={this._handleInputKeyDown.bind(this)} placeholder={this.props.placeholder} />
+        <InputTypeTodoHeader
+          value={this.state.input}
+          placeholder={this.props.placeholder}
+          onChange={this._handleInputChange.bind(this)}
+          onKeyDown={this._handleInputKeyDown.bind(this)}
+        />
       </header>
     );
   }
