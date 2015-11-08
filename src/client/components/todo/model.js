@@ -1,15 +1,13 @@
+import Model from 'lib/component-model';
 import { Dispatcher, EVENTS } from 'lib/dispatcher';
 
-export default class TodoModel {
+export default class TodoModel extends Model {
   constructor(view) {
-    this._view = view;
-
-    this._todoItemCreateHandler = this._handleTodoItemCreate.bind(this);
-    this._todoToggleAllHandler = this._handleTodoToggleAll.bind(this);
+    super(view);
 
     Dispatcher
-      .on(EVENTS.TodoItemCreate, this._todoItemCreateHandler)
-      .on(EVENTS.TodoToggleAll, this._todoToggleAllHandler);
+      .on(EVENTS.TodoItemCreate, this.bindToThis(this._handleTodoItemCreate))
+      .on(EVENTS.TodoToggleAll, this.bindToThis(this._handleTodoToggleAll));
   }
 
   _handleTodoItemCreate(data) {
@@ -30,7 +28,7 @@ export default class TodoModel {
 
   destroy() {
     Dispatcher
-      .off(EVENTS.TodoItemCreate, this._todoItemCreateHandler)
-      .off(EVENTS.TodoToggleAll, this._todoToggleAllHandler);
+      .off(EVENTS.TodoItemCreate, this.bindToThis(this._handleTodoItemCreate))
+      .off(EVENTS.TodoToggleAll, this.bindToThis(this._handleTodoToggleAll));
   }
 }
