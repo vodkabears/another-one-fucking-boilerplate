@@ -1,12 +1,12 @@
-import React, { PropTypes } from 'react';
+import Component, { PropTypes } from 'lib/component';
 import styles from './styles.css';
 
-export default class Input extends React.Component {
+export default class Input extends Component {
   render() {
     return (
       <input
         type="text"
-        className={this.props.styles.input}
+        className={this._styles.input}
         value={this.props.value}
         placeholder={this.props.placeholder}
         onChange={this.props.onChange}
@@ -17,7 +17,6 @@ export default class Input extends React.Component {
 }
 
 Input.propTypes = {
-  styles: PropTypes.object,
   value: PropTypes.string,
   placeholder: PropTypes.string,
   onChange: PropTypes.func,

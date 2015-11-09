@@ -1,4 +1,4 @@
-export default class Model {
+export default class ComponentModel {
   /**
    * @param {React.Component} view View part of the component
    */

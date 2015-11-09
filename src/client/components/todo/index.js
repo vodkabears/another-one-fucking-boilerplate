@@ -1,22 +1,12 @@
-import React, { PropTypes } from 'react';
+import Component, { PropTypes } from 'lib/component';
 import TodoHeader from './elems/header';
 import TodoModel from './model';
 import styles from './styles.css';
 
-export default class Todo extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this._model = new TodoModel(this);
-  }
-
-  componentWillUnmount() {
-    this._model.destroy();
-  }
-
+export default class Todo extends Component {
   render() {
     return (
-      <section className={styles.todo}>
+      <section className={this._styles.todo}>
         <TodoHeader />
       </section>
     );
@@ -28,5 +18,7 @@ Todo.propTypes = {
 };
 
 Todo.defaultProps = {
+  styles,
+  model: TodoModel,
   title: 'todos'
 };

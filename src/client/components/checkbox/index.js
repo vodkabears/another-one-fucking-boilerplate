@@ -1,22 +1,17 @@
-import React, { PropTypes } from 'react';
+import Component, { PropTypes } from 'lib/component';
 
-export default class Checkbox extends React.Component {
+export default class Checkbox extends Component {
   render() {
     return (
       <input
         type="checkbox"
-        className={this.props.styles.checkbox}
+        className={this._styles.checkbox}
         onChange={this.props.onChange}
       />
     );
   }
 }
 
-Checkbox.propTypes = {
-  styles: PropTypes.object
-};
-
 Checkbox.defaultProps = {
-  styles: {},
   onChange: PropTypes.func
 };

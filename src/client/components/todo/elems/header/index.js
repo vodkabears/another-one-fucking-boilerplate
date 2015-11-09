@@ -1,4 +1,4 @@
-import React, { PropTypes } from 'react';
+import Component, { PropTypes } from 'lib/component';
 import InputTypeTodoHeader from 'client/components/input/mods/type/todo-header';
 import CheckboxTypeTodoHeader from 'client/components/checkbox/mods/type/todo-header';
 import TodoHeaderModel from './model';
@@ -6,12 +6,11 @@ import styles from './styles.css';
 
 const ENTER_KEY = 13;
 
-export default class TodoHeader extends React.Component {
+export default class TodoHeader extends Component {
   constructor(props) {
     super(props);
 
     this.state = { input: '' };
-    this._model = new TodoHeaderModel(this);
   }
 
   _handleCheckboxChange(e) {
@@ -32,7 +31,7 @@ export default class TodoHeader extends React.Component {
 
   render() {
     return (
-      <header className={styles.todoHeader}>
+      <header className={this._styles.todoHeader}>
         <CheckboxTypeTodoHeader onChange={this._handleCheckboxChange.bind(this)} />
         <InputTypeTodoHeader
           value={this.state.input}
@@ -50,5 +49,7 @@ TodoHeader.propTypes = {
 };
 
 TodoHeader.defaultProps = {
+  styles,
+  model: TodoHeaderModel,
   placeholder: 'What needs to be done?'
 };

@@ -1,14 +1,16 @@
-import React from 'react';
+import Component from 'lib/component';
 import styles from './styles.css';
 
-export default class PageType404 extends React.Component {
+export default class PageType404 extends Component {
   render() {
     return (
       <div>
-        <div className={styles.page}>
-          <h1 className={styles.title}>Not found</h1>
+        <div className={this._styles.page}>
+          <h1 className={this._styles.title}>Not found</h1>
         </div>
       </div>
     );
   }
 }
+
+PageType404.defaultProps = { styles };

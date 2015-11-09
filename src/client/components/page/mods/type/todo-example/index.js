@@ -1,12 +1,12 @@
-import React, { PropTypes } from 'react';
+import Component, { PropTypes } from 'lib/component';
 import Todo from 'client/components/todo';
 import styles from './styles.css';
 
-export default class PageTypeTodoExample extends React.Component {
+export default class PageTypeTodoExample extends Component {
   render() {
     return (
-      <div className={styles.page}>
-        <h1 className={styles.title}>{this.props.title}</h1>
+      <div className={this._styles.page}>
+        <h1 className={this._styles.title}>{this.props.title}</h1>
         <Todo />
       </div>
     );
@@ -18,5 +18,6 @@ PageTypeTodoExample.propTypes = {
 };
 
 PageTypeTodoExample.defaultProps = {
+  styles,
   title: 'todos'
 };

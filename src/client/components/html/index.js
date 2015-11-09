@@ -1,9 +1,9 @@
-import React, { PropTypes } from 'react';
+import Component, { PropTypes } from 'lib/component';
 import HtmlYandexMetrica from './elems/yandex-metrica';
 import HtmlGoogleAnalytics from './elems/google-analytics';
 import styles from './styles.css';
 
-export default class Html extends React.Component {
+export default class Html extends Component {
   render() {
     let props = this.props;
     let bundle = props.bundle;
@@ -19,7 +19,7 @@ export default class Html extends React.Component {
           <link rel="apple-touch-icon" href="apple-touch-icon.png" />
           <link rel="stylesheet" href={`/assets/${bundle.css}`} />
         </head>
-        <body className={styles[props.pageType]}>
+        <body className={this._styles[props.pageType]}>
           <div id="app" dangerouslySetInnerHTML={{ __html: props.body }} />
           <script src={`/assets/${bundle.js}`}></script>
           <HtmlGoogleAnalytics id="UA-XXXXX-X" />
@@ -39,6 +39,7 @@ Html.propTypes = {
 };
 
 Html.defaultProps = {
+  styles,
   lang: 'en',
   title: 'Boilerplate',
   description: 'OMFG. Another one boilerplate.'
