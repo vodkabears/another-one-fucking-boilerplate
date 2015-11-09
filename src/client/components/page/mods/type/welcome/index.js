@@ -3,17 +3,19 @@ import { Link } from 'react-router';
 import styles from './styles.css';
 
 export default class PageTypeWelcome extends Component {
-  constructor(props) {
-    super(props, null, styles);
-  }
-
+  /**
+   * @override
+   */
   render() {
+    let stls = this._styles;
+    let props = this.props;
+
     return (
       <div>
-        <div className={this._styles.page}>
-          <div className={this._styles.image}></div>
-          <h1>{this.props.title}</h1>
-          <p>{this.props.description}</p>
+        <div className={stls.page}>
+          <div className={stls.image}></div>
+          <h1>{props.title}</h1>
+          <p>{props.description}</p>
           <Link to="/examples/todo">Todo-list example</Link>
         </div>
       </div>
@@ -21,11 +23,19 @@ export default class PageTypeWelcome extends Component {
   }
 }
 
+/**
+ * @static
+ * @type {Object}
+ */
 PageTypeWelcome.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string
 };
 
+/**
+ * @static
+ * @type {Object}
+ */
 PageTypeWelcome.defaultProps = {
   styles,
   title: 'Boilerplate',

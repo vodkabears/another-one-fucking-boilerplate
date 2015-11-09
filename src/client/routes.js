@@ -1,4 +1,3 @@
-import React from 'react'; // eslint-disable-line no-unused-vars
 import { Route, IndexRoute } from 'react-router';
 import PageType404 from './components/page/mods/type/404';
 import PageTypeWelcome from './components/page/mods/type/welcome';

@@ -4,6 +4,9 @@ import TodoModel from './model';
 import styles from './styles.css';
 
 export default class Todo extends Component {
+  /**
+   * @override
+   */
   render() {
     return (
       <section className={this._styles.todo}>
@@ -13,10 +16,18 @@ export default class Todo extends Component {
   }
 }
 
+/**
+ * @static
+ * @type {Object}
+ */
 Todo.propTypes = {
   title: PropTypes.string
 };
 
+/**
+ * @static
+ * @type {Object}
+ */
 Todo.defaultProps = {
   styles,
   model: TodoModel,

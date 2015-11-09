@@ -1,6 +1,9 @@
-import React, { PropTypes } from 'react';
+import Component, { PropTypes } from 'lib/component';
 
-export default class HtmlYandexMetrica extends React.Component {
+export default class HtmlYandexMetrica extends Component {
+  /**
+   * @override
+   */
   render() {
     let id = this.props.id;
 
@@ -30,6 +33,10 @@ export default class HtmlYandexMetrica extends React.Component {
   }
 }
 
+/**
+ * @static
+ * @type {Object}
+ */
 HtmlYandexMetrica.propTypes = {
   id: PropTypes.string.isRequired
 };

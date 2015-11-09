@@ -4,6 +4,9 @@ import HtmlGoogleAnalytics from './elems/google-analytics';
 import styles from './styles.css';
 
 export default class Html extends Component {
+  /**
+   * @override
+   */
   render() {
     let props = this.props;
     let bundle = props.bundle;
@@ -30,6 +33,10 @@ export default class Html extends Component {
   }
 }
 
+/**
+ * @static
+ * @type {Object}
+ */
 Html.propTypes = {
   lang: PropTypes.string,
   title: PropTypes.string,
@@ -38,6 +45,10 @@ Html.propTypes = {
   body: PropTypes.string.isRequired
 };
 
+/**
+ * @static
+ * @type {Object}
+ */
 Html.defaultProps = {
   styles,
   lang: 'en',

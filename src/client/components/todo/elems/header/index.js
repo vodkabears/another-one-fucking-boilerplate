@@ -7,20 +7,38 @@ import styles from './styles.css';
 const ENTER_KEY = 13;
 
 export default class TodoHeader extends Component {
+  /**
+   * @override
+   */
   constructor(props) {
     super(props);
 
     this.state = { input: '' };
   }
 
+  /**
+   * Handles checkbox 'change' event
+   * @protected
+   * @param {SyntheticEvent} e
+   */
   _handleCheckboxChange(e) {
     this._model.toggleAll(e.target.checked);
   }
 
+  /**
+   * Handles input 'change' event
+   * @protected
+   * @param {SyntheticEvent} e
+   */
   _handleInputChange(e) {
     this._model.syncInputText(e.target.value);
   }
 
+  /**
+   * Handles checkbox 'keyDown' event
+   * @protected
+   * @param {SyntheticEvent} e
+   */
   _handleInputKeyDown(e) {
     if (e.keyCode !== ENTER_KEY) {
       return;
@@ -29,6 +47,9 @@ export default class TodoHeader extends Component {
     this._model.createTodo(e.target.value);
   }
 
+  /**
+   * @override
+   */
   render() {
     return (
       <header className={this._styles.todoHeader}>
@@ -44,10 +65,18 @@ export default class TodoHeader extends Component {
   }
 }
 
+/**
+ * @static
+ * @type {Object}
+ */
 TodoHeader.propTypes = {
   placeholder: PropTypes.string
 };
 
+/**
+ * @static
+ * @type {Object}
+ */
 TodoHeader.defaultProps = {
   styles,
   model: TodoHeaderModel,

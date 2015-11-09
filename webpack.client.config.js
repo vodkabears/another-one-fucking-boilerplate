@@ -4,9 +4,7 @@ let path = require('path');
 let webpack = require('webpack');
 let cssnext = require('cssnext');
 let optimize = webpack.optimize;
-let DefinePlugin = webpack.DefinePlugin;
 let AssetsPlugin = require('assets-webpack-plugin');
-let ProvidePlugin = webpack.ProvidePlugin;
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const ENV = process.env.NODE_ENV || 'development';
@@ -25,17 +23,17 @@ module.exports = {
   debug: IS_DEBUG,
 
   plugins: [
-    new DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENV) }),
-    new ProvidePlugin({ React: 'react' }),
+    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENV) }),
+    new webpack.ProvidePlugin({ React: 'react' }),
+    new optimize.DedupePlugin(),
+    new optimize.OccurenceOrderPlugin(),
+    new optimize.AggressiveMergingPlugin(),
+    new optimize.UglifyJsPlugin({ comments: false }),
     new AssetsPlugin({
       path: path.resolve(__dirname, 'build'),
       filename: 'assets.json'
     }),
-    new ExtractTextPlugin('bundle_[hash].css'),
-    new optimize.DedupePlugin(),
-    new optimize.OccurenceOrderPlugin(),
-    new optimize.AggressiveMergingPlugin(),
-    new optimize.UglifyJsPlugin({ comments: false })
+    new ExtractTextPlugin('bundle_[hash].css')
   ],
 
   postcss: [

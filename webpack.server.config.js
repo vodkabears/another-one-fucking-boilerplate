@@ -2,9 +2,6 @@
 
 let path = require('path');
 let webpack = require('webpack');
-let optimize = webpack.optimize;
-let DefinePlugin = webpack.DefinePlugin;
-let ProvidePlugin = webpack.ProvidePlugin;
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const ENV = process.env.NODE_ENV || 'development';
@@ -35,10 +32,10 @@ module.exports = {
   debug: IS_DEBUG,
 
   plugins: [
-    new DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENV) }),
-    new ProvidePlugin({ React: 'react' }),
-    new ExtractTextPlugin('.modules.css'),
-    new optimize.OccurenceOrderPlugin()
+    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENV) }),
+    new webpack.ProvidePlugin({ React: 'react' }),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new ExtractTextPlugin('.modules.css')
   ],
 
   devtool: IS_DEBUG ? 'source-map' : '',

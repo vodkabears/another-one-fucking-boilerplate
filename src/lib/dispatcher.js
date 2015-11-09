@@ -5,7 +5,7 @@ let emitter = new EventEmitter();
 
 emitter.setMaxListeners(Infinity);
 
-export class Dispatcher {
+export default class Dispatcher {
   /**
    * Triggers an event
    * @param {String} event

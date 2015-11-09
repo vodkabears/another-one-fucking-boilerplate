@@ -3,4 +3,7 @@ import styles from './styles.css';
 
 export default class InputTypeTodoHeader extends Input {}
 
+/**
+ * @override
+ */
 InputTypeTodoHeader.defaultProps = { styles };

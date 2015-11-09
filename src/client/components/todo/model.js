@@ -1,7 +1,10 @@
 import Model from 'lib/component-model';
-import { Dispatcher, EVENTS } from 'lib/dispatcher';
+import Dispatcher, { EVENTS } from 'lib/dispatcher';
 
 export default class TodoModel extends Model {
+  /**
+   * @override
+   */
   constructor(view) {
     super(view);
 
@@ -10,23 +13,48 @@ export default class TodoModel extends Model {
       .on(EVENTS.TodoToggleAll, this.bindToThis(this._handleTodoToggleAll));
   }
 
+  /**
+   * Handles 'TodoItemCreate' event
+   * @protected
+   * @param {Object} data
+   *  @param {String} data.text
+   */
   _handleTodoItemCreate(data) {
-    this._addTodo(data.text);
+    this.addTodo(data.text);
   }
 
+  /**
+   * Handles 'TodoToggleAll' event
+   * @protected
+   * @param {Object} data
+   *  @param {Boolean} data.makeCompleted
+   */
   _handleTodoToggleAll(data) {
-    this._toggleAll(data.makeCompleted);
+    this.toggleAll(data.makeCompleted);
   }
 
-  _addTodo(text) {
+  /**
+   * Adds a new todo
+   * @param {String} text
+   */
+  addTodo(text) {
     alert('Create: ' + text.trim());
   }
 
-  _toggleAll(makeComplited) {
+  /**
+   * Makes all todos completed/not completed
+   * @param {Boolean} makeComplited
+   */
+  toggleAll(makeComplited) {
     alert('Are completed? – ' + makeComplited);
   }
 
+  /**
+   * @override
+   */
   destroy() {
+    super.destroy();
+
     Dispatcher
       .off(EVENTS.TodoItemCreate, this.bindToThis(this._handleTodoItemCreate))
       .off(EVENTS.TodoToggleAll, this.bindToThis(this._handleTodoToggleAll));

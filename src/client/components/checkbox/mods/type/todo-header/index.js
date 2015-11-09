@@ -3,4 +3,7 @@ import styles from './styles.css';
 
 export default class CheckboxTypeTodoHeader extends Checkbox {}
 
+/**
+ * @override
+ */
 CheckboxTypeTodoHeader.defaultProps = { styles };

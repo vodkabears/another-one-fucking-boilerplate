@@ -2,7 +2,6 @@ import 'babel/polyfill';
 import fs from 'fs';
 import path from 'path';
 import express from 'express';
-import React from 'react';  // eslint-disable-line no-unused-vars
 import ReactDOM from 'react-dom/server';
 import { match, RoutingContext } from 'react-router';
 import Html from 'client/components/html';
@@ -40,6 +39,5 @@ server.use((req, res) => {
 });
 
 server.listen(PORT, () => {
-  /* eslint-disable no-console */
-  console.log('The server is running at port ' + PORT);
+  console.log('The server is running at port ' + PORT); // eslint-disable-line no-console
 });

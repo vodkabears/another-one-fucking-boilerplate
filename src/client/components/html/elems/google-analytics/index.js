@@ -1,6 +1,9 @@
-import React, { PropTypes } from 'react';
+import Component, { PropTypes } from 'lib/component';
 
-export default class HtmlGoogleAnalytics extends React.Component {
+export default class HtmlGoogleAnalytics extends Component {
+  /**
+   * @override
+   */
   render() {
     return (
       <div>
@@ -17,6 +20,10 @@ export default class HtmlGoogleAnalytics extends React.Component {
   }
 }
 
+/**
+ * @static
+ * @type {Object}
+ */
 HtmlGoogleAnalytics.propTypes = {
   id: PropTypes.string.isRequired
 };
