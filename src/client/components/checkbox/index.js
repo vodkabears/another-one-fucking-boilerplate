@@ -5,11 +5,15 @@ export default class Checkbox extends Component {
    * @override
    */
   render() {
+    let props = this.props;
+
     return (
       <input
         type="checkbox"
+        autoComplete="off"
         className={this._styles.checkbox}
-        onChange={this.props.onChange}
+        checked={props.isChecked}
+        onChange={props.onChange}
       />
     );
   }
@@ -19,6 +23,15 @@ export default class Checkbox extends Component {
  * @static
  * @type {Object}
  */
-Checkbox.defaultProps = {
+Checkbox.propTypes = {
+  isChecked: PropTypes.bool,
   onChange: PropTypes.func
+};
+
+/**
+ * @static
+ * @type {Object}
+ */
+Checkbox.defaultProps = {
+  isChecked: false
 };

@@ -6,4 +6,6 @@ export default class CheckboxTypeTodoHeader extends Checkbox {}
 /**
  * @override
  */
-CheckboxTypeTodoHeader.defaultProps = { styles };
+CheckboxTypeTodoHeader.defaultProps = Object.assign({}, Checkbox.defaultProps, {
+  styles
+});

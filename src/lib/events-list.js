@@ -1,7 +1,9 @@
 export default [
   // Todo events
-  'TodoItemCreate',
-  'TodoToggleAll'
+  'TodoCreateItem',
+  'TodoToggleAll',
+  'TodoToggleItem',
+  'TodoToggleLast'
 
   // Other events
 ];

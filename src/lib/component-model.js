@@ -10,6 +10,16 @@ export default class ComponentModel {
     this._view = view;
 
     /**
+     * @type {Object}
+     */
+    this.props = this._view.props;
+
+    /**
+     * @type {Object}
+     */
+    this.state = this._view.state;
+
+    /**
      * @protected
      * @type {Map} Function bindings
      */

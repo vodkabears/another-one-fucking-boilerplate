@@ -13,7 +13,13 @@ export default class TodoHeader extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { input: '' };
+    /**
+     * @type {Object}
+     */
+    this.state = {
+      input: '',
+      isCheckboxChecked: false
+    };
   }
 
   /**
@@ -51,11 +57,16 @@ export default class TodoHeader extends Component {
    * @override
    */
   render() {
+    let state = this.state;
+
     return (
       <header className={this._styles.todoHeader}>
-        <CheckboxTypeTodoHeader onChange={this._handleCheckboxChange.bind(this)} />
+        <CheckboxTypeTodoHeader
+          isChecked={state.isCheckboxChecked}
+          onChange={this._handleCheckboxChange.bind(this)}
+        />
         <InputTypeTodoHeader
-          value={this.state.input}
+          value={state.input}
           placeholder={this.props.placeholder}
           onChange={this._handleInputChange.bind(this)}
           onKeyDown={this._handleInputKeyDown.bind(this)}

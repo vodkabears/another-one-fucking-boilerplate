@@ -1,0 +1,29 @@
+.todoItem {
+  position: relative;
+}
+
+.todoItem:not(:last-child) {
+  border-bottom: 1px solid #ededed;
+}
+
+.label {
+  font-size: 24px;
+  line-height: 29px;
+
+  display: block;
+
+  margin-left: 45px;
+  padding: 15px 60px 15px 15px;
+
+  white-space: pre;
+
+  transition: color 0.4s;
+}
+
+.labelIsCrossedOut {
+  composes: label;
+
+  text-decoration: line-through;
+
+  color: #d9d9d9;
+}
