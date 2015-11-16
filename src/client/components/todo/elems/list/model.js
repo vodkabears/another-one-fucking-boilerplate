@@ -1,5 +1,5 @@
 import Model from 'lib/component-model';
-import Dispatcher, { EVENTS } from 'lib/dispatcher';
+import EVENTS from 'lib/events';
 
 export default class TodoListModel extends Model {
   /**
@@ -20,10 +20,10 @@ export default class TodoListModel extends Model {
      */
     this._completedNumber = 0;
 
-    Dispatcher
-      .on(EVENTS.TodoCreateItem, this.bindToThis(this._handleTodoCreateItem))
-      .on(EVENTS.TodoToggleItem, this.bindToThis(this._handleTodoToggleItem))
-      .on(EVENTS.TodoToggleAll, this.bindToThis(this._handleTodoToggleAll));
+    this
+      .on(EVENTS.TodoCreateItem, this._handleTodoCreateItem)
+      .on(EVENTS.TodoToggleItem, this._handleTodoToggleItem)
+      .on(EVENTS.TodoToggleAll, this._handleTodoToggleAll);
   }
 
   /**
@@ -54,7 +54,7 @@ export default class TodoListModel extends Model {
       isCompleted && ++this._completedNumber === todoItems.length ||
       !isCompleted && this._completedNumber-- === todoItems.length
     ) {
-      Dispatcher.emit(EVENTS.TodoToggleLast, { isCompleted });
+      this.emit(EVENTS.TodoToggleLast, { isCompleted });
     }
 
     this.setState({ todoItems });
@@ -80,24 +80,14 @@ export default class TodoListModel extends Model {
    * @param {String} text
    */
   addTodo(text) {
-    this._todoItems.push({
+    let todoItems = this._todoItems;
+
+    todoItems.push({
       id: this._todoItems.length,
       isCompleted: false,
       text
     });
 
-    this.setState({ todoItems: this._todoItems });
-  }
-
-  /**
-   * @override
-   */
-  destroy() {
-    super.destroy();
-
-    Dispatcher
-      .off(EVENTS.TodoCreateItem, this.bindToThis(this._handleTodoCreateItem))
-      .off(EVENTS.TodoToggleItem, this.bindToThis(this._handleTodoToggleItem))
-      .off(EVENTS.TodoToggleAll, this.bindToThis(this._handleTodoToggleAll));
+    this.setState({ todoItems });
   }
 }

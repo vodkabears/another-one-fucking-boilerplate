@@ -1,5 +1,5 @@
 import Model from 'lib/component-model';
-import Dispatcher, { EVENTS } from 'lib/dispatcher';
+import EVENTS from 'lib/events';
 
 export default class TodoItemModel extends Model {
   /**
@@ -7,7 +7,7 @@ export default class TodoItemModel extends Model {
    * @param {Boolean} makeCompleted
    */
    toggle(makeCompleted) {
-     Dispatcher.emit(EVENTS.TodoToggleItem, {
+     this.emit(EVENTS.TodoToggleItem, {
        id: this.props.id,
        makeCompleted
      });

@@ -1,5 +1,4 @@
 import { EventEmitter } from 'events';
-import EventsList from 'lib/events-list';
 
 let emitter = new EventEmitter();
 
@@ -52,15 +51,3 @@ export default class Dispatcher {
     return Dispatcher;
   }
 }
-
-/**
- * Available events
- * @type {Object}
- */
-export const EVENTS = (() => {
-  return EventsList.reduce((ret, eventName) => {
-    ret[eventName] = eventName;
-
-    return ret;
-  }, {});
-})();

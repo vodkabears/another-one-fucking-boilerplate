@@ -1,5 +1,5 @@
 import Model from 'lib/component-model';
-import Dispatcher, { EVENTS } from 'lib/dispatcher';
+import EVENTS from 'lib/events';
 
 export default class TodoHeaderModel extends Model {
   /**
@@ -8,7 +8,7 @@ export default class TodoHeaderModel extends Model {
   constructor(view) {
     super(view);
 
-    Dispatcher.on(EVENTS.TodoToggleLast, this.bindToThis(this._handleTodoToggleLast));
+    this.on(EVENTS.TodoToggleLast, this._handleTodoToggleLast);
   }
 
   /**
@@ -26,7 +26,7 @@ export default class TodoHeaderModel extends Model {
    * @param {String} text
    */
   createTodo(text) {
-    Dispatcher.emit(EVENTS.TodoCreateItem, { text });
+    this.emit(EVENTS.TodoCreateItem, { text });
     this.setState({
       input: '',
       isCheckboxChecked: false
@@ -45,16 +45,7 @@ export default class TodoHeaderModel extends Model {
    * @param {Boolean} makeCompleted
    */
   toggleAll(makeCompleted) {
-    Dispatcher.emit(EVENTS.TodoToggleAll, { makeCompleted });
+    this.emit(EVENTS.TodoToggleAll, { makeCompleted });
     this.setState({ isCheckboxChecked: makeCompleted });
-  }
-
-  /**
-   * @override
-   */
-  destroy() {
-    super.destroy();
-
-    Dispatcher.off(EVENTS.TodoToggleLast, this.bindToThis(this._handleTodoToggleLast));
   }
 }

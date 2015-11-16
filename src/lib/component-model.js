@@ -1,3 +1,5 @@
+import Dispatcher from 'lib/dispatcher';
+
 export default class ComponentModel {
   /**
    * @param {React.Component} view View part of the component
@@ -10,6 +12,18 @@ export default class ComponentModel {
     this._view = view;
 
     /**
+     * @protected
+     * @type {Map} Function bindings
+     */
+    this._bindings = new Map();
+
+    /**
+     * @protected
+     * @type {Map} Event listeners
+     */
+    this._listeners = new Map();
+
+    /**
      * @type {Object}
      */
     this.props = this._view.props;
@@ -18,12 +32,6 @@ export default class ComponentModel {
      * @type {Object}
      */
     this.state = this._view.state;
-
-    /**
-     * @protected
-     * @type {Map} Function bindings
-     */
-    this._bindings = new Map();
   }
 
   /**
@@ -52,9 +60,75 @@ export default class ComponentModel {
   }
 
   /**
+   * Triggers an event
+   * @param {String} event
+   * @param {Object} data
+   * @returns {ComponentModel}
+   */
+  emit(event, data) {
+    Dispatcher.emit(event, data);
+
+    return this;
+  }
+
+  /**
+   * Adds a binded listener for the event
+   * @param {String} event
+   * @param {Function} listener
+   * @returns {ComponentModel}
+   */
+  on(event, listener) {
+    let listenerBinding = this.bindToThis(listener);
+
+    this._listeners.set(event, listenerBinding);
+    Dispatcher
+      .off(event, listenerBinding)
+      .on(event, listenerBinding);
+
+    return this;
+  }
+
+  /**
+   * Adds a one time binded listener for the event
+   * @param {String} event
+   * @param {Function} listener
+   * @returns {ComponentModel}
+   */
+  once(event, listener) {
+    let listenerBinding = this.bindToThis(listener);
+
+    this._listeners.set(event, listenerBinding);
+    Dispatcher
+      .off(event, listenerBinding)
+      .once(event, listenerBinding);
+
+    return this;
+  }
+
+  /**
+   * Removes a binded listener of the event
+   * @param {String} event
+   * @param {Function} listener
+   * @returns {ComponentModel}
+   */
+  off(event, listener) {
+    this._listeners.delete(event);
+    Dispatcher.off(event, this.bindToThis(listener));
+
+    return this;
+  }
+
+  /**
    * Makes actions before the component is destroyed
    */
   destroy() {
+    let listeners = this._listeners;
+
+    listeners.forEach((listenerBinding, event) => {
+      Dispatcher.off(event, listenerBinding);
+    });
+
+    listeners.clear();
     this._bindings.clear();
   }
 }
