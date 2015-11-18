@@ -3,7 +3,7 @@ import EVENTS from 'lib/events';
 
 export default class TodoItemModel extends Model {
   /**
-   * Adds a new todo
+   * Toggles the todo
    * @param {Boolean} makeCompleted
    */
    toggle(makeCompleted) {
@@ -11,5 +11,12 @@ export default class TodoItemModel extends Model {
        id: this.props.id,
        makeCompleted
      });
+   }
+
+   /**
+    * Deletes the todo
+    */
+   delete() {
+     this.emit(EVENTS.TodoDeleteItem, { id: this.props.id });
    }
 }

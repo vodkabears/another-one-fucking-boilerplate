@@ -27,3 +27,41 @@
 
   color: #d9d9d9;
 }
+
+.deleteButton {
+  font-family: inherit;
+  font-size: 30px;
+  font-weight: inherit;
+
+  position: absolute;
+  top: 0;
+  right: 10px;
+  bottom: 0;
+
+  display: none;
+
+  width: 40px;
+  height: 40px;
+  margin: auto 0 11px;
+  padding: 0;
+
+  vertical-align: baseline;
+
+  color: #cc9a9a;
+  border: none;
+  outline: none;
+  background: transparent;
+  transition: color 0.2s ease-out;
+}
+
+.deleteButton::after {
+  content: '×';
+}
+
+.deleteButton:hover {
+  color: #af5b5e;
+}
+
+.todoItem:hover .deleteButton {
+  display: block;
+}

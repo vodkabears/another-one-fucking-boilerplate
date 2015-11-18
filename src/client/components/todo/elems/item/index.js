@@ -14,6 +14,14 @@ export default class TodoItem extends Component {
   }
 
   /**
+   * Handles delete button 'click' event
+   * @protected
+   */
+  _handleDeleteButtonClick() {
+    this._model.delete();
+  }
+
+  /**
    * @override
    */
   render() {
@@ -29,6 +37,10 @@ export default class TodoItem extends Component {
         <label className={isCompleted ? stls.labelIsCrossedOut : stls.label}>
           {this.props.text}
         </label>
+        <button
+          className={stls.deleteButton}
+          onClick={this._handleDeleteButtonClick.bind(this)}>
+        </button>
       </li>
     );
   }

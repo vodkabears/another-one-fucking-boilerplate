@@ -20,7 +20,10 @@ export default class TodoList extends Component {
    * @override
    */
   render() {
-    let todoItems = this.state.todoItems.map(item => {
+    let items = this.state.todoItems;
+    let todoItems = Object.keys(items).map(id => {
+      let item = items[id];
+
       return (
         <TodoItem
           key={item.id}

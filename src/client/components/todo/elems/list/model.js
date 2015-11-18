@@ -10,9 +10,15 @@ export default class TodoListModel extends Model {
 
     /**
      * @protected
-     * @type {Array}
+     * @type {Number}
      */
-    this._todoItems = [];
+    this._lastID = 0;
+
+    /**
+     * @protected
+     * @type {Object}
+     */
+    this._todoItems = {};
 
     /**
      * @protected
@@ -22,6 +28,7 @@ export default class TodoListModel extends Model {
 
     this
       .on(EVENTS.TodoCreateItem, this._handleTodoCreateItem)
+      .on(EVENTS.TodoDeleteItem, this._handleTodoDeleteItem)
       .on(EVENTS.TodoToggleItem, this._handleTodoToggleItem)
       .on(EVENTS.TodoToggleAll, this._handleTodoToggleAll);
   }
@@ -34,6 +41,16 @@ export default class TodoListModel extends Model {
    */
   _handleTodoCreateItem(data) {
     this.addTodo(data.text);
+  }
+
+  /**
+   * Handles 'TodoDeleteItem' event
+   * @protected
+   * @param {Object} data
+   *  @param {Number} data.id
+   */
+  _handleTodoDeleteItem(data) {
+    this.deleteTodo(data.id);
   }
 
   /**
@@ -84,14 +101,26 @@ export default class TodoListModel extends Model {
       return;
     }
 
+    let lastID = this._lastID++;
     let todoItems = this._todoItems;
 
-    todoItems.push({
-      id: this._todoItems.length,
+    todoItems[lastID] = {
+      id: lastID,
       isCompleted: false,
       text
-    });
+    };
 
+    this.setState({ todoItems });
+  }
+
+  /**
+   * Deletes a todo
+   * @param {Number} id
+   */
+  deleteTodo(id) {
+    let todoItems = this._todoItems;
+
+    delete todoItems[id];
     this.setState({ todoItems });
   }
 }
