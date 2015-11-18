@@ -80,6 +80,10 @@ export default class TodoListModel extends Model {
    * @param {String} text
    */
   addTodo(text) {
+    if (!text) {
+      return;
+    }
+
     let todoItems = this._todoItems;
 
     todoItems.push({
