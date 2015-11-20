@@ -13,7 +13,7 @@ export default class TodoList extends Component {
     /**
      * @type {Object}
      */
-    this.state = { todoItems: [] };
+    this.state = { todoItems: {} };
   }
 
   /**

@@ -32,8 +32,9 @@ export default class TodoHeaderModel extends Model {
       isCheckboxChecked: false
     });
   }
+
   /**
-   * Sync changes in the input
+   * Syncs changes in the input
    * @param {String} text
    */
   syncInputText(text) {

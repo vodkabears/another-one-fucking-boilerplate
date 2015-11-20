@@ -4,7 +4,8 @@ export default [
   'TodoDeleteItem',
   'TodoToggleAll',
   'TodoToggleItem',
-  'TodoToggleLast'
+  'TodoToggleLast',
+  'TodoUpdateItem'
 
   // Other events
 ];

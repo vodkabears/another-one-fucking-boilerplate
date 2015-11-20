@@ -3,6 +3,17 @@ import styles from './styles.css';
 
 export default class Input extends Component {
   /**
+   * Focuses the input
+   */
+  focus() {
+    let input = this.refs.input;
+    let valueLen = input.value.length;
+
+    input.focus();
+    input.setSelectionRange(valueLen, valueLen);
+  }
+
+  /**
    * @override
    */
   render() {
@@ -10,10 +21,12 @@ export default class Input extends Component {
 
     return (
       <input
+        ref="input"
         type="text"
         className={this._styles.input}
         value={props.value}
         placeholder={props.placeholder}
+        onBlur={props.onBlur}
         onChange={props.onChange}
         onKeyDown={props.onKeyDown}
       />
@@ -28,6 +41,7 @@ export default class Input extends Component {
 Input.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,
+  onBlur: PropTypes.func,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func
 };

@@ -22,16 +22,20 @@ export default class ComponentModel {
      * @type {Map} Event listeners
      */
     this._listeners = new Map();
+  }
 
-    /**
-     * @type {Object}
-     */
-    this.props = this._view.props;
+  /**
+   * @returns {Object}
+   */
+  get props() {
+    return this._view.props;
+  }
 
-    /**
-     * @type {Object}
-     */
-    this.state = this._view.state;
+  /**
+   * @returns {Object}
+   */
+  get state() {
+    return this._view.state;
   }
 
   /**

@@ -1,9 +1,32 @@
 .todoItem {
   position: relative;
+
+  border-bottom: 1px solid #ededed;
 }
 
-.todoItem:not(:last-child) {
-  border-bottom: 1px solid #ededed;
+.todoItem:last-child {
+  border-bottom: none;
+}
+
+.todoItemIsCompleted,
+.todoItemIsEditing {
+  composes: todoItem;
+}
+
+.todoItemIsEditing {
+  border-bottom: none;
+}
+
+.todoItemIsEditing .view {
+  display: none;
+}
+
+.edit {
+  display: none;
+}
+
+.todoItemIsEditing .edit {
+  display: block;
 }
 
 .label {
@@ -20,9 +43,7 @@
   transition: color 0.4s;
 }
 
-.labelIsCrossedOut {
-  composes: label;
-
+.todoItemIsCompleted .label {
   text-decoration: line-through;
 
   color: #d9d9d9;

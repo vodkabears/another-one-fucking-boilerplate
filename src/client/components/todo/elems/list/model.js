@@ -16,12 +16,6 @@ export default class TodoListModel extends Model {
 
     /**
      * @protected
-     * @type {Object}
-     */
-    this._todoItems = {};
-
-    /**
-     * @protected
      * @type {Number}
      */
     this._completedNumber = 0;
@@ -29,6 +23,7 @@ export default class TodoListModel extends Model {
     this
       .on(EVENTS.TodoCreateItem, this._handleTodoCreateItem)
       .on(EVENTS.TodoDeleteItem, this._handleTodoDeleteItem)
+      .on(EVENTS.TodoUpdateItem, this._handleTodoUpdateItem)
       .on(EVENTS.TodoToggleItem, this._handleTodoToggleItem)
       .on(EVENTS.TodoToggleAll, this._handleTodoToggleAll);
   }
@@ -54,6 +49,17 @@ export default class TodoListModel extends Model {
   }
 
   /**
+   * Handles 'TodoUpdateItem' event
+   * @protected
+   * @param {Object} data
+   *  @param {Number} data.id
+   *  @param {String} data.text
+   */
+  _handleTodoUpdateItem(data) {
+    this.updateTodo(data.id, data.text);
+  }
+
+  /**
    * Handles 'TodoToggleItem' event
    * @protected
    * @param {Object} data
@@ -61,15 +67,16 @@ export default class TodoListModel extends Model {
    *  @param {Boolean} makeCompleted
    */
   _handleTodoToggleItem(data) {
-    let todoItems = this._todoItems;
-    let id = data.id;
     let isCompleted = data.makeCompleted;
+    let todoItems = this.state.todoItems;
+    let size = Object.keys(todoItems).length;
+    let id = data.id;
 
     todoItems[id].isCompleted = isCompleted;
 
     if (
-      isCompleted && ++this._completedNumber === todoItems.length ||
-      !isCompleted && this._completedNumber-- === todoItems.length
+      isCompleted && ++this._completedNumber === size ||
+      !isCompleted && this._completedNumber-- === size
     ) {
       this.emit(EVENTS.TodoToggleLast, { isCompleted });
     }
@@ -84,11 +91,11 @@ export default class TodoListModel extends Model {
    *  @param {Boolean} makeCompleted
    */
   _handleTodoToggleAll(data) {
-    let todoItems = this._todoItems;
+    let todoItems = this.state.todoItems;
     let isCompleted = data.makeCompleted;
 
-    this._completedNumber = isCompleted ? todoItems.length : 0;
-    todoItems.forEach(item => item.isCompleted = isCompleted);
+    this._completedNumber = isCompleted ? Object.keys(todoItems).length : 0;
+    Object.keys(todoItems).forEach(id => todoItems[id].isCompleted = isCompleted);
     this.setState({ todoItems });
   }
 
@@ -102,14 +109,26 @@ export default class TodoListModel extends Model {
     }
 
     let lastID = this._lastID++;
-    let todoItems = this._todoItems;
+    let todoItems = this.state.todoItems;
 
     todoItems[lastID] = {
       id: lastID,
       isCompleted: false,
-      text
+      text: text.trim()
     };
 
+    this.setState({ todoItems });
+  }
+
+  /**
+   * Updates a todo
+   * @param {Number} id
+   * @param {String} text
+   */
+  updateTodo(id, text) {
+    let todoItems = this.state.todoItems;
+
+    todoItems[id].text = text.trim();
     this.setState({ todoItems });
   }
 
@@ -118,7 +137,7 @@ export default class TodoListModel extends Model {
    * @param {Number} id
    */
   deleteTodo(id) {
-    let todoItems = this._todoItems;
+    let todoItems = this.state.todoItems;
 
     delete todoItems[id];
     this.setState({ todoItems });

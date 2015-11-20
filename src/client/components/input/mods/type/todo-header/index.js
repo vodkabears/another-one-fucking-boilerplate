@@ -6,4 +6,6 @@ export default class InputTypeTodoHeader extends Input {}
 /**
  * @override
  */
-InputTypeTodoHeader.defaultProps = { styles };
+InputTypeTodoHeader.defaultProps = Object.assign({}, Input.defaultProps, {
+  styles
+});
