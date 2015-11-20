@@ -1,7 +1,7 @@
 import Component, { PropTypes } from 'lib/component';
 import CheckboxTypeTodoItem from 'client/components/checkbox/mods/type/todo-item';
 import InputTypeTodoItem from 'client/components/input/mods/type/todo-item';
-import TodoItemModel from './model.js';
+import TodoItemModel from './model';
 import styles from './styles.css';
 
 const ENTER_KEY = 13;
@@ -34,7 +34,7 @@ export default class TodoItem extends Component {
    * @protected
    */
   _handleDeleteButtonClick() {
-    this._model.delete();
+    this._model.remove();
   }
 
   /**

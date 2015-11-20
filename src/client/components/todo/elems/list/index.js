@@ -19,6 +19,20 @@ export default class TodoList extends Component {
   /**
    * @override
    */
+  componentDidMount() {
+    this._model.inform();
+  }
+
+  /**
+   * @override
+   */
+  componentDidUpdate() {
+    this._model.inform();
+  }
+
+  /**
+   * @override
+   */
   render() {
     let items = this.state.todoItems;
     let todoItems = Object.keys(items).map(id => {

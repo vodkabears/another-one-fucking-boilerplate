@@ -8,17 +8,22 @@ export default class TodoHeaderModel extends Model {
   constructor(view) {
     super(view);
 
-    this.on(EVENTS.TodoToggleLast, this._handleTodoToggleLast);
+    this.on(EVENTS.TodoUpdatedList, this._handleTodoUpdatedList);
   }
 
   /**
-   * Handles 'TodoToggleLast' event
+   * Handles 'TodoUpdatedList' event
    * @protected
    * @param {Object} data
-   *  @param {Boolean} isCompleted
+   *  @param {Number} data.completed
+   *  @param {Number} data.size
    */
-  _handleTodoToggleLast(data) {
-    this.setState({ isCheckboxChecked: data.isCompleted });
+  _handleTodoUpdatedList(data) {
+    let size = data.size;
+
+    this.setState({
+      isCheckboxChecked: size > 0 && data.completed === size
+    });
   }
 
   /**
@@ -27,6 +32,7 @@ export default class TodoHeaderModel extends Model {
    */
   createTodo(text) {
     this.emit(EVENTS.TodoCreateItem, { text });
+
     this.setState({
       input: '',
       isCheckboxChecked: false
@@ -47,6 +53,7 @@ export default class TodoHeaderModel extends Model {
    */
   toggleAll(makeCompleted) {
     this.emit(EVENTS.TodoToggleAll, { makeCompleted });
+
     this.setState({ isCheckboxChecked: makeCompleted });
   }
 }

@@ -12,6 +12,12 @@ export default class TodoListModel extends Model {
      * @protected
      * @type {Number}
      */
+    this._size = 0;
+
+    /**
+     * @protected
+     * @type {Number}
+     */
     this._lastID = 0;
 
     /**
@@ -25,7 +31,8 @@ export default class TodoListModel extends Model {
       .on(EVENTS.TodoDeleteItem, this._handleTodoDeleteItem)
       .on(EVENTS.TodoUpdateItem, this._handleTodoUpdateItem)
       .on(EVENTS.TodoToggleItem, this._handleTodoToggleItem)
-      .on(EVENTS.TodoToggleAll, this._handleTodoToggleAll);
+      .on(EVENTS.TodoToggleAll, this._handleTodoToggleAll)
+      .on(EVENTS.TodoClearCompleted, this._handleTodoClearCompleted);
   }
 
   /**
@@ -43,9 +50,10 @@ export default class TodoListModel extends Model {
    * @protected
    * @param {Object} data
    *  @param {Number} data.id
+   *  @param {Boolean} data.isCompleted
    */
   _handleTodoDeleteItem(data) {
-    this.deleteTodo(data.id);
+    this.deleteTodo(data.id, data.isCompleted);
   }
 
   /**
@@ -67,21 +75,7 @@ export default class TodoListModel extends Model {
    *  @param {Boolean} makeCompleted
    */
   _handleTodoToggleItem(data) {
-    let isCompleted = data.makeCompleted;
-    let todoItems = this.state.todoItems;
-    let size = Object.keys(todoItems).length;
-    let id = data.id;
-
-    todoItems[id].isCompleted = isCompleted;
-
-    if (
-      isCompleted && ++this._completedNumber === size ||
-      !isCompleted && this._completedNumber-- === size
-    ) {
-      this.emit(EVENTS.TodoToggleLast, { isCompleted });
-    }
-
-    this.setState({ todoItems });
+    this.toggleItem(data.id, data.makeCompleted);
   }
 
   /**
@@ -91,12 +85,25 @@ export default class TodoListModel extends Model {
    *  @param {Boolean} makeCompleted
    */
   _handleTodoToggleAll(data) {
-    let todoItems = this.state.todoItems;
-    let isCompleted = data.makeCompleted;
+    this.toggleAll(data.makeCompleted);
+  }
 
-    this._completedNumber = isCompleted ? Object.keys(todoItems).length : 0;
-    Object.keys(todoItems).forEach(id => todoItems[id].isCompleted = isCompleted);
-    this.setState({ todoItems });
+  /**
+   * Handles 'TodoClearCompleted' event
+   * @protected
+   */
+  _handleTodoClearCompleted() {
+    this.deleteCompleted();
+  }
+
+  /**
+   * Informs about an update
+   */
+  inform() {
+    this.emit(EVENTS.TodoUpdatedList, {
+      completed: this._completedNumber,
+      size: this._size
+    });
   }
 
   /**
@@ -111,6 +118,7 @@ export default class TodoListModel extends Model {
     let lastID = this._lastID++;
     let todoItems = this.state.todoItems;
 
+    this._size++;
     todoItems[lastID] = {
       id: lastID,
       isCompleted: false,
@@ -129,17 +137,66 @@ export default class TodoListModel extends Model {
     let todoItems = this.state.todoItems;
 
     todoItems[id].text = text.trim();
+
     this.setState({ todoItems });
   }
 
   /**
    * Deletes a todo
    * @param {Number} id
+   * @param {Boolean} isCompleted
    */
-  deleteTodo(id) {
+  deleteTodo(id, isCompleted) {
     let todoItems = this.state.todoItems;
 
     delete todoItems[id];
+    isCompleted && this._completedNumber--;
+    this._size--;
+
+    this.setState({ todoItems });
+  }
+
+  /**
+   * Deletes completed todos
+   */
+  deleteCompleted() {
+    let todoItems = this.state.todoItems;
+
+    Object.keys(todoItems).forEach(id => {
+      if (todoItems[id].isCompleted) {
+        delete todoItems[id];
+        this._size--;
+        this._completedNumber--;
+      }
+    });
+
+    this.setState({ todoItems });
+  }
+
+  /**
+   * Toggles a todo
+   * @param {Number} id
+   * @param {Boolean} isCompleted
+   */
+  toggleItem(id, isCompleted) {
+    let todoItems = this.state.todoItems;
+
+    todoItems[id].isCompleted = isCompleted;
+    isCompleted ? this._completedNumber++ : this._completedNumber--;
+
+    this.setState({ todoItems });
+  }
+
+  /**
+   * Toggles all todos
+   * @param {Boolean} isCompleted
+   */
+  toggleAll(isCompleted) {
+    let todoItems = this.state.todoItems;
+
+    this._completedNumber = isCompleted ? this._size : 0;
+    Object.keys(todoItems).forEach(id => todoItems[id].isCompleted = isCompleted);
+
     this.setState({ todoItems });
   }
 }

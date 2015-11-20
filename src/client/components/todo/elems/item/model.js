@@ -16,8 +16,11 @@ export default class TodoItemModel extends Model {
    /**
     * Deletes the todo
     */
-   delete() {
-     this.emit(EVENTS.TodoDeleteItem, { id: this.props.id });
+   remove() {
+     this.emit(EVENTS.TodoDeleteItem, {
+       id: this.props.id,
+       isCompleted: this.props.isCompleted
+     });
    }
 
    /**

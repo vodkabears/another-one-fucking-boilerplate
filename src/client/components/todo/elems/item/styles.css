@@ -4,10 +4,6 @@
   border-bottom: 1px solid #ededed;
 }
 
-.todoItem:last-child {
-  border-bottom: none;
-}
-
 .todoItemIsCompleted,
 .todoItemIsEditing {
   composes: todoItem;
