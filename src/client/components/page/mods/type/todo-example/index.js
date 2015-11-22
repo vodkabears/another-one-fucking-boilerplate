@@ -1,8 +1,10 @@
-import Component, { PropTypes } from 'lib/component';
+import { PropTypes } from 'lib/component';
+import Page from 'client/components/page';
 import Todo from 'client/components/todo';
+import activeParams from 'lib/params/todo-filters';
 import styles from './styles.css';
 
-export default class PageTypeTodoExample extends Component {
+export default class PageTypeTodoExample extends Page {
   /**
    * @override
    */
@@ -12,7 +14,7 @@ export default class PageTypeTodoExample extends Component {
     return (
       <div className={stls.page}>
         <h1 className={stls.title}>{this.props.title}</h1>
-        <Todo />
+        <Todo query={this.props.params} />
       </div>
     );
   }
@@ -22,15 +24,16 @@ export default class PageTypeTodoExample extends Component {
  * @static
  * @type {Object}
  */
-PageTypeTodoExample.propTypes = {
+PageTypeTodoExample.propTypes = Object.assign({}, Page.propTypes, {
   title: PropTypes.string
-};
+});
 
 /**
  * @static
  * @type {Object}
  */
-PageTypeTodoExample.defaultProps = {
+PageTypeTodoExample.defaultProps = Object.assign({}, Page.defaultProps, {
   styles,
+  activeParams,
   title: 'todos'
-};
+});

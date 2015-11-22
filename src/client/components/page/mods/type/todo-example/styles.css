@@ -1,3 +1,13 @@
+.body {
+  font-size: 14px;
+  font-weight: 300;
+
+  margin-bottom: 100px;
+
+  color: #4d4d4d;
+  background: #f5f5f5;
+}
+
 .page {
   width: 550px;
   margin: auto;

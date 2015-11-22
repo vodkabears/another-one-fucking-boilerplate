@@ -102,6 +102,7 @@ export default class TodoListModel extends Model {
   inform() {
     this.emit(EVENTS.TodoUpdatedList, {
       completed: this._completedNumber,
+      state: this.props.query.state,
       size: this._size
     });
   }

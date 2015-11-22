@@ -1,8 +1,9 @@
-import Component, { PropTypes } from 'lib/component';
 import { Link } from 'react-router';
+import { PropTypes } from 'lib/component';
+import Page from 'client/components/page';
 import styles from './styles.css';
 
-export default class PageTypeWelcome extends Component {
+export default class PageTypeWelcome extends Page {
   /**
    * @override
    */
@@ -27,17 +28,17 @@ export default class PageTypeWelcome extends Component {
  * @static
  * @type {Object}
  */
-PageTypeWelcome.propTypes = {
+PageTypeWelcome.propTypes = Object.assign({}, Page.propTypes, {
   title: PropTypes.string,
   description: PropTypes.string
-};
+});
 
 /**
  * @static
  * @type {Object}
  */
-PageTypeWelcome.defaultProps = {
+PageTypeWelcome.defaultProps = Object.assign({}, Page.defaultProps, {
   styles,
   title: 'Boilerplate',
   description: 'Another one'
-};
+});

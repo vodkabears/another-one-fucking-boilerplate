@@ -35,15 +35,21 @@ export default class TodoList extends Component {
    */
   render() {
     let items = this.state.todoItems;
+    let state = this.props.query.state;
     let todoItems = Object.keys(items).map(id => {
       let item = items[id];
+      let isCompleted = item.isCompleted;
+      let isVisible = !state ||
+        state === 'active' && !isCompleted ||
+        state === 'completed' && isCompleted;
 
       return (
         <TodoItem
           key={item.id}
           id={item.id}
           text={item.text}
-          isCompleted={item.isCompleted}
+          isCompleted={isCompleted}
+          isVisible={isVisible}
         />
       );
     });
@@ -61,6 +67,7 @@ export default class TodoList extends Component {
  * @type {Object}
  */
 TodoList.propTypes = {
+  query: PropTypes.object.isRequired,
   title: PropTypes.string
 };
 

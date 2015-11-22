@@ -1,7 +1,6 @@
 import Component, { PropTypes } from 'lib/component';
 import HtmlYandexMetrica from './elems/yandex-metrica';
 import HtmlGoogleAnalytics from './elems/google-analytics';
-import styles from './styles.css';
 
 export default class Html extends Component {
   /**
@@ -22,7 +21,7 @@ export default class Html extends Component {
           <link rel="apple-touch-icon" href="apple-touch-icon.png" />
           <link rel="stylesheet" href={`/assets/${bundle.css}`} />
         </head>
-        <body className={this._styles[props.pageType]}>
+        <body>
           <div id="app" dangerouslySetInnerHTML={{ __html: props.body }} />
           <script src={`/assets/${bundle.js}`}></script>
           <HtmlGoogleAnalytics id="UA-XXXXX-X" />
@@ -41,7 +40,6 @@ Html.propTypes = {
   lang: PropTypes.string,
   title: PropTypes.string,
   description: PropTypes.string,
-  pageType: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired
 };
 
@@ -50,7 +48,6 @@ Html.propTypes = {
  * @type {Object}
  */
 Html.defaultProps = {
-  styles,
   lang: 'en',
   title: 'Boilerplate',
   description: 'OMFG. Another one boilerplate.'

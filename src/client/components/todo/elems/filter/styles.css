@@ -1,0 +1,22 @@
+.filter {
+  padding: 3px 7px;
+
+  text-decoration: none;
+
+  color: inherit;
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+
+.filter:hover {
+  border-color: rgba(175, 47, 47, 0.1);
+}
+
+.filterIsActive {
+  composes: filter;
+}
+
+.filterIsActive,
+.filterIsActive:hover {
+  border-color: rgba(175, 47, 47, 0.2);
+}

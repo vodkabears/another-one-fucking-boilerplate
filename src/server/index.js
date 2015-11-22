@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom/server';
 import { match, RoutingContext } from 'react-router';
 import Html from 'client/components/html';
 import routes from 'client/routes';
-import getPageType from 'lib/getPageType';
 
 const ENV = process.env.NODE_ENV || 'development';
 const PORT = 3000;
@@ -30,7 +29,6 @@ server.use((req, res) => {
         .status(200).send(
           '<!doctype html>' +
           ReactDOM.renderToStaticMarkup(<Html
-            pageType={getPageType(req.url)}
             bundle={ASSETS.main}
             body={ReactDOM.renderToString(<RoutingContext {...renderProps} />)}
           />));

@@ -1,4 +1,5 @@
 import Component from 'lib/component';
+import TodoFilters from '../filters';
 import TodoFooterModel from './model';
 import styles from './styles.css';
 
@@ -48,6 +49,7 @@ export default class TodoFooter extends Component {
       <footer
         className={todoFooterStyles}>
         <span className={stls.counter}>{uncompleted} items left</span>
+        <TodoFilters />
         <button
           className={stls.clearButton}
           onClick={this._handleClearButtonClick.bind(this)}>
@@ -58,6 +60,10 @@ export default class TodoFooter extends Component {
   }
 }
 
+/**
+ * @static
+ * @type {Object}
+ */
 TodoFooter.defaultProps = {
   styles,
   model: TodoFooterModel

@@ -91,11 +91,14 @@ export default class TodoItem extends Component {
    * @override
    */
   render() {
-    let isCompleted = this.props.isCompleted;
+    let props = this.props;
+    let isCompleted = props.isCompleted;
     let stls = this._styles;
     let todoItemStyles;
 
-    if (this.state.isEditing) {
+    if (!props.isVisible) {
+      todoItemStyles = stls.todoItemIsHidden;
+    } else if (this.state.isEditing) {
       todoItemStyles = stls.todoItemIsEditing;
     } else if (isCompleted) {
       todoItemStyles = stls.todoItemIsCompleted;
@@ -140,7 +143,8 @@ export default class TodoItem extends Component {
  */
 TodoItem.propTypes = {
   id: PropTypes.number.isRequired,
-  text: PropTypes.string,
+  text: PropTypes.string.isRequired,
+  isVisible: PropTypes.bool,
   isCompleted: PropTypes.bool
 };
 
@@ -151,5 +155,6 @@ TodoItem.propTypes = {
 TodoItem.defaultProps = {
   styles,
   model: TodoItemModel,
+  isVisible: true,
   isCompleted: false
 };
