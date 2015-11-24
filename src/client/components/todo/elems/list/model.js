@@ -1,6 +1,8 @@
 import Model from 'lib/component-model';
 import EVENTS from 'lib/events';
 
+const STORAGE_NAME = 'TodoList';
+
 export default class TodoListModel extends Model {
   /**
    * @override
@@ -98,13 +100,48 @@ export default class TodoListModel extends Model {
 
   /**
    * Informs about an update
+   * @protected
    */
-  inform() {
+  _inform() {
     this.emit(EVENTS.TodoUpdatedList, {
       completed: this._completedNumber,
       state: this.props.query.state,
       size: this._size
     });
+  }
+
+  /**
+   * Saves data to the store
+   */
+  save() {
+    localStorage && localStorage.setItem(STORAGE_NAME, JSON.stringify(this.state.todoItems));
+    this._inform();
+  }
+
+  /**
+   * Loades data from the store
+   */
+  load() {
+    if (!localStorage) {
+      return;
+    }
+
+    let todoItems = JSON.parse(localStorage.getItem(STORAGE_NAME));
+
+    if (todoItems) {
+      let todoItemsKeys = Object.keys(todoItems);
+
+      this._size = todoItemsKeys.length;
+      this._completedNumber = todoItemsKeys.filter(key => {
+        this._lastID = key + 1;
+
+        return todoItems[key].isCompleted;
+      }).length;
+
+      this.setState({ todoItems });
+    }
+
+    this._inform();
   }
 
   /**

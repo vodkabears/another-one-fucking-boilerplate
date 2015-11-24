@@ -20,14 +20,14 @@ export default class TodoList extends Component {
    * @override
    */
   componentDidMount() {
-    this._model.inform();
+    this._model.load();
   }
 
   /**
    * @override
    */
   componentDidUpdate() {
-    this._model.inform();
+    this._model.save();
   }
 
   /**
