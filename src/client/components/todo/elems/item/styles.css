@@ -35,11 +35,13 @@
   line-height: 29px;
 
   display: block;
+  overflow: hidden;
 
-  margin-left: 45px;
-  padding: 15px 60px 15px 15px;
+  margin: 0 60px 0 45px;
+  padding: 15px 0 15px 15px;
 
   white-space: pre;
+  text-overflow: ellipsis;
 
   transition: color 0.4s;
 }
