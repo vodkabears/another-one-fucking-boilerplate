@@ -21,7 +21,6 @@ export default class TodoItem extends Component {
   }
 
   /**
-   * Handles checkbox 'change' event
    * @protected
    * @param {SyntheticEvent} e
    */
@@ -30,7 +29,6 @@ export default class TodoItem extends Component {
   }
 
   /**
-   * Handles delete button 'click' event
    * @protected
    */
   _handleDeleteButtonClick() {
@@ -38,7 +36,6 @@ export default class TodoItem extends Component {
   }
 
   /**
-   * Handles delete button 'double click' event
    * @protected
    */
   _handleLabelDoubleClick() {
@@ -46,7 +43,6 @@ export default class TodoItem extends Component {
   }
 
   /**
-   * Handles input 'blur' event
    * @protected
    * @param {SyntheticEvent} e
    */
@@ -55,7 +51,6 @@ export default class TodoItem extends Component {
   }
 
   /**
-   * Handles input 'change' event
    * @protected
    * @param {SyntheticEvent} e
    */
@@ -64,7 +59,6 @@ export default class TodoItem extends Component {
   }
 
   /**
-   * Handles input 'keydown' event
    * @protected
    * @param {SyntheticEvent} e
    */

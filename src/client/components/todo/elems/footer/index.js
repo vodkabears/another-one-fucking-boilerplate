@@ -21,7 +21,6 @@ export default class TodoFooter extends Component {
   }
 
   /**
-   * Handles clear button 'click' event
    * @protected
    */
   _handleClearButtonClick() {

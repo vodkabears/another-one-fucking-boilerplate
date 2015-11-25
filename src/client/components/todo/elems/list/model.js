@@ -38,7 +38,6 @@ export default class TodoListModel extends Model {
   }
 
   /**
-   * Handles 'TodoCreateItem' event
    * @protected
    * @param {Object} data
    *  @param {String} data.text
@@ -48,7 +47,6 @@ export default class TodoListModel extends Model {
   }
 
   /**
-   * Handles 'TodoDeleteItem' event
    * @protected
    * @param {Object} data
    *  @param {Number} data.id
@@ -59,7 +57,6 @@ export default class TodoListModel extends Model {
   }
 
   /**
-   * Handles 'TodoUpdateItem' event
    * @protected
    * @param {Object} data
    *  @param {Number} data.id
@@ -70,7 +67,6 @@ export default class TodoListModel extends Model {
   }
 
   /**
-   * Handles 'TodoToggleItem' event
    * @protected
    * @param {Object} data
    *  @param {Number} id
@@ -81,7 +77,6 @@ export default class TodoListModel extends Model {
   }
 
   /**
-   * Handles 'TodoToggleAll' event
    * @protected
    * @param {Object} data
    *  @param {Boolean} makeCompleted
@@ -91,7 +86,6 @@ export default class TodoListModel extends Model {
   }
 
   /**
-   * Handles 'TodoClearCompleted' event
    * @protected
    */
   _handleTodoClearCompleted() {

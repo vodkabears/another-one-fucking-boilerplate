@@ -23,7 +23,6 @@ export default class TodoHeader extends Component {
   }
 
   /**
-   * Handles checkbox 'change' event
    * @protected
    * @param {SyntheticEvent} e
    */
@@ -32,7 +31,6 @@ export default class TodoHeader extends Component {
   }
 
   /**
-   * Handles input 'change' event
    * @protected
    * @param {SyntheticEvent} e
    */
@@ -41,7 +39,6 @@ export default class TodoHeader extends Component {
   }
 
   /**
-   * Handles checkbox 'keyDown' event
    * @protected
    * @param {SyntheticEvent} e
    */
