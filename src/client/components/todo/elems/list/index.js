@@ -20,14 +20,14 @@ export default class TodoList extends Component {
    * @override
    */
   componentDidMount() {
-    this._model.load();
+    this.model.load();
   }
 
   /**
    * @override
    */
   componentDidUpdate() {
-    this._model.save();
+    this.model.save();
   }
 
   /**
@@ -55,7 +55,7 @@ export default class TodoList extends Component {
     });
 
     return (
-      <ul className={this._styles.todoList}>
+      <ul className={this.styles.todoList}>
         {todoItems}
       </ul>
     );

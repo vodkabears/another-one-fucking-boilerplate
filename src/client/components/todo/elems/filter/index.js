@@ -7,7 +7,7 @@ export default class TodoFilter extends Component {
    * @override
    */
   render() {
-    let stls = this._styles;
+    let stls = this.styles;
     let props = this.props;
     let value = props.value;
     let url = '/examples/todo' + (value ? '/' + value : value);

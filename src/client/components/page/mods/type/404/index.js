@@ -6,7 +6,7 @@ export default class PageType404 extends Page {
    * @override
    */
   render() {
-    let stls = this._styles;
+    let stls = this.styles;
 
     return (
       <div className={stls.page}>

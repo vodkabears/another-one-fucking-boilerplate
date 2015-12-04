@@ -8,7 +8,7 @@ export default class PageTypeWelcome extends Page {
    * @override
    */
   render() {
-    let stls = this._styles;
+    let stls = this.styles;
     let props = this.props;
 
     return (

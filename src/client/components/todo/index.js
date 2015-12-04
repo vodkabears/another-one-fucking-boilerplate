@@ -10,7 +10,7 @@ export default class Todo extends Component {
    */
   render() {
     return (
-      <section className={this._styles.todo}>
+      <section className={this.styles.todo}>
         <TodoHeader />
         <TodoList query={this.props.query} />
         <TodoFooter />

@@ -24,14 +24,14 @@ export default class TodoFooter extends Component {
    * @protected
    */
   _handleClearButtonClick() {
-    this._model.clearCompleted();
+    this.model.clearCompleted();
   }
 
   /**
    * @override
    */
   render() {
-    let stls = this._styles;
+    let stls = this.styles;
     let state = this.state;
     let uncompleted = state.uncompleted;
     let todoFooterStyles;

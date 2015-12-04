@@ -27,7 +27,7 @@ export default class TodoHeader extends Component {
    * @param {SyntheticEvent} e
    */
   _handleCheckboxChange(e) {
-    this._model.toggleAll(e.target.checked);
+    this.model.toggleAll(e.target.checked);
   }
 
   /**
@@ -35,7 +35,7 @@ export default class TodoHeader extends Component {
    * @param {SyntheticEvent} e
    */
   _handleInputChange(e) {
-    this._model.syncInputText(e.target.value);
+    this.model.syncInputText(e.target.value);
   }
 
   /**
@@ -47,7 +47,7 @@ export default class TodoHeader extends Component {
       return;
     }
 
-    this._model.createTodo(e.target.value);
+    this.model.createTodo(e.target.value);
   }
 
   /**
@@ -57,7 +57,7 @@ export default class TodoHeader extends Component {
     let state = this.state;
 
     return (
-      <header className={this._styles.todoHeader}>
+      <header className={this.styles.todoHeader}>
         <CheckboxTypeTodoHeader
           isChecked={state.isCheckboxChecked}
           onChange={this._handleCheckboxChange.bind(this)}

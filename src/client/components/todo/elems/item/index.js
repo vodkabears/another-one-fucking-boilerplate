@@ -25,21 +25,21 @@ export default class TodoItem extends Component {
    * @param {SyntheticEvent} e
    */
   _handleCheckboxChange(e) {
-    this._model.toggle(e.target.checked);
+    this.model.toggle(e.target.checked);
   }
 
   /**
    * @protected
    */
   _handleDeleteButtonClick() {
-    this._model.remove();
+    this.model.remove();
   }
 
   /**
    * @protected
    */
   _handleLabelDoubleClick() {
-    this._model.startEditing();
+    this.model.startEditing();
   }
 
   /**
@@ -47,7 +47,7 @@ export default class TodoItem extends Component {
    * @param {SyntheticEvent} e
    */
   _handleInputBlur() {
-    this._model.saveChanges();
+    this.model.saveChanges();
   }
 
   /**
@@ -55,7 +55,7 @@ export default class TodoItem extends Component {
    * @param {SyntheticEvent} e
    */
   _handleInputChange(e) {
-    this._model.syncInputText(e.target.value);
+    this.model.syncInputText(e.target.value);
   }
 
   /**
@@ -66,9 +66,9 @@ export default class TodoItem extends Component {
     let key = e.which;
 
     if (key === ESCAPE_KEY) {
-      this._model.cancelEditing();
+      this.model.cancelEditing();
     } else if (key === ENTER_KEY) {
-      this._model.saveChanges();
+      this.model.saveChanges();
     }
   }
 
@@ -87,7 +87,7 @@ export default class TodoItem extends Component {
   render() {
     let props = this.props;
     let isCompleted = props.isCompleted;
-    let stls = this._styles;
+    let stls = this.styles;
     let todoItemStyles;
 
     if (!props.isVisible) {

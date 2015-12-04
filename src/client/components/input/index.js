@@ -23,7 +23,7 @@ export default class Input extends Component {
       <input
         ref="input"
         type="text"
-        className={this._styles.input}
+        className={this.styles.input}
         value={props.value}
         placeholder={props.placeholder}
         onBlur={props.onBlur}

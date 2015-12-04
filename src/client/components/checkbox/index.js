@@ -11,7 +11,7 @@ export default class Checkbox extends Component {
       <input
         type="checkbox"
         autoComplete="off"
-        className={this._styles.checkbox}
+        className={this.styles.checkbox}
         checked={props.isChecked}
         onChange={props.onChange}
       />
