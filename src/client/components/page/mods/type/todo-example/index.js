@@ -33,7 +33,8 @@ PageTypeTodoExample.propTypes = Object.assign({}, Page.propTypes, {
  * @type {Object}
  */
 PageTypeTodoExample.defaultProps = Object.assign({}, Page.defaultProps, {
-  styles,
   activeParams,
   title: 'todos'
 });
+
+PageTypeTodoExample.styles = styles;

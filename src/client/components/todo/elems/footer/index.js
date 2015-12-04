@@ -1,6 +1,6 @@
 import Component from 'lib/component';
 import TodoFilters from '../filters';
-import TodoFooterModel from './model';
+import Model from './model';
 import styles from './styles.css';
 
 export default class TodoFooter extends Component {
@@ -59,11 +59,5 @@ export default class TodoFooter extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
-TodoFooter.defaultProps = {
-  styles,
-  model: TodoFooterModel
-};
+TodoFooter.styles = styles;
+TodoFooter.Model = Model;

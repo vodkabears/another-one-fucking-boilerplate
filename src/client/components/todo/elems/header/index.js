@@ -1,7 +1,7 @@
 import Component, { PropTypes } from 'lib/component';
 import InputTypeTodoHeader from 'client/components/input/mods/type/todo-header';
 import CheckboxTypeTodoHeader from 'client/components/checkbox/mods/type/todo-header';
-import TodoHeaderModel from './model';
+import Model from './model';
 import styles from './styles.css';
 
 const ENTER_KEY = 13;
@@ -86,7 +86,8 @@ TodoHeader.propTypes = {
  * @type {Object}
  */
 TodoHeader.defaultProps = {
-  styles,
-  model: TodoHeaderModel,
   placeholder: 'What needs to be done?'
 };
+
+TodoHeader.styles = styles;
+TodoHeader.Model = Model;

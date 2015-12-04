@@ -7,8 +7,9 @@ export default class Component extends React.Component {
   constructor(props) {
     super(props);
 
-    let Model = props.model;
-    let styles = props.styles;
+    let constructor = this.constructor;
+    let styles = constructor.styles;
+    let Model = constructor.Model;
 
     /**
      * Model of the component

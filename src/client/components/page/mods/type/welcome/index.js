@@ -38,7 +38,8 @@ PageTypeWelcome.propTypes = Object.assign({}, Page.propTypes, {
  * @type {Object}
  */
 PageTypeWelcome.defaultProps = Object.assign({}, Page.defaultProps, {
-  styles,
   title: 'Boilerplate',
   description: 'Another one'
 });
+
+PageTypeWelcome.styles = styles;

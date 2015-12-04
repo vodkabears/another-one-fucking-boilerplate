@@ -16,10 +16,4 @@ export default class PageType404 extends Page {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
-PageType404.defaultProps = Object.assign({}, Page.defaultProps, {
-  styles
-});
+PageType404.styles = styles;

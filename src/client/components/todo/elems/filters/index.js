@@ -17,10 +17,4 @@ export default class TodoFilters extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
-TodoFilters.defaultProps = {
-  styles
-};
+TodoFilters.styles = styles;

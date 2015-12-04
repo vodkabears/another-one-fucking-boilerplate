@@ -33,6 +33,7 @@ Todo.propTypes = {
  * @type {Object}
  */
 Todo.defaultProps = {
-  styles,
   title: 'todos'
 };
+
+Todo.styles = styles;

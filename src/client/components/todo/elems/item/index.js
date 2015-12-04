@@ -1,7 +1,7 @@
 import Component, { PropTypes } from 'lib/component';
 import CheckboxTypeTodoItem from 'client/components/checkbox/mods/type/todo-item';
 import InputTypeTodoItem from 'client/components/input/mods/type/todo-item';
-import TodoItemModel from './model';
+import Model from './model';
 import styles from './styles.css';
 
 const ENTER_KEY = 13;
@@ -147,8 +147,9 @@ TodoItem.propTypes = {
  * @type {Object}
  */
 TodoItem.defaultProps = {
-  styles,
-  model: TodoItemModel,
   isVisible: true,
   isCompleted: false
 };
+
+TodoItem.styles = styles;
+TodoItem.Model = Model;

@@ -3,9 +3,4 @@ import styles from './styles.css';
 
 export default class InputTypeTodoItem extends Input {}
 
-/**
- * @override
- */
-InputTypeTodoItem.defaultProps = Object.assign({}, Input.defaultProps, {
-  styles
-});
+InputTypeTodoItem.styles = styles;

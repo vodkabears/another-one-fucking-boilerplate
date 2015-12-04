@@ -32,10 +32,4 @@ TodoFilter.propTypes = {
   value: PropTypes.string.isRequired
 };
 
-/**
- * @static
- * @type {Object}
- */
-TodoFilter.defaultProps = {
-  styles
-};
+TodoFilter.styles = styles;

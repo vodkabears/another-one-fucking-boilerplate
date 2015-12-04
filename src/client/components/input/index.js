@@ -46,8 +46,4 @@ Input.propTypes = {
   onKeyDown: PropTypes.func
 };
 
-/**
- * @static
- * @type {Object}
- */
-Input.defaultProps = { styles };
+Input.styles = styles;

@@ -1,6 +1,6 @@
 import Component, { PropTypes } from 'lib/component';
 import TodoItem from '../item';
-import TodoListModel from './model';
+import Model from './model';
 import styles from './styles.css';
 
 export default class TodoList extends Component {
@@ -76,7 +76,8 @@ TodoList.propTypes = {
  * @type {Object}
  */
 TodoList.defaultProps = {
-  styles,
-  model: TodoListModel,
   title: 'todos'
 };
+
+TodoList.styles = styles;
+TodoList.Model = Model;
