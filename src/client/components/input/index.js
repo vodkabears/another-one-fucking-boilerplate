@@ -34,10 +34,6 @@ export default class Input extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 Input.propTypes = {
   value: PropTypes.string,
   placeholder: PropTypes.string,

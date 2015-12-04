@@ -24,19 +24,11 @@ export default class PageTypeWelcome extends Page {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 PageTypeWelcome.propTypes = Object.assign({}, Page.propTypes, {
   title: PropTypes.string,
   description: PropTypes.string
 });
 
-/**
- * @static
- * @type {Object}
- */
 PageTypeWelcome.defaultProps = Object.assign({}, Page.defaultProps, {
   title: 'Boilerplate',
   description: 'Another one'

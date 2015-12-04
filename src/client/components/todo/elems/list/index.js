@@ -62,19 +62,11 @@ export default class TodoList extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 TodoList.propTypes = {
   query: PropTypes.object.isRequired,
   title: PropTypes.string
 };
 
-/**
- * @static
- * @type {Object}
- */
 TodoList.defaultProps = {
   title: 'todos'
 };

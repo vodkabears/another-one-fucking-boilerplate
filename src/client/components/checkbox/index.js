@@ -19,19 +19,11 @@ export default class Checkbox extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 Checkbox.propTypes = {
   isChecked: PropTypes.bool,
   onChange: PropTypes.func
 };
 
-/**
- * @static
- * @type {Object}
- */
 Checkbox.defaultProps = {
   isChecked: false
 };

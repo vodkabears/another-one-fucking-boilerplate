@@ -20,18 +20,10 @@ export default class PageTypeTodoExample extends Page {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 PageTypeTodoExample.propTypes = Object.assign({}, Page.propTypes, {
   title: PropTypes.string
 });
 
-/**
- * @static
- * @type {Object}
- */
 PageTypeTodoExample.defaultProps = Object.assign({}, Page.defaultProps, {
   activeParams,
   title: 'todos'

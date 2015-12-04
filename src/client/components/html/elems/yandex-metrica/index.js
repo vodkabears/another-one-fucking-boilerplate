@@ -33,10 +33,6 @@ export default class HtmlYandexMetrica extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 HtmlYandexMetrica.propTypes = {
   id: PropTypes.string.isRequired
 };

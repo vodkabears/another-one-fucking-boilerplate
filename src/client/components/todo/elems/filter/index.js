@@ -23,10 +23,6 @@ export default class TodoFilter extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 TodoFilter.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired

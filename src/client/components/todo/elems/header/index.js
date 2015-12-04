@@ -73,18 +73,10 @@ export default class TodoHeader extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 TodoHeader.propTypes = {
   placeholder: PropTypes.string
 };
 
-/**
- * @static
- * @type {Object}
- */
 TodoHeader.defaultProps = {
   placeholder: 'What needs to be done?'
 };

@@ -27,10 +27,6 @@ export default class Page extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 Page.propTypes = {
   activeParams: PropTypes.array
 };

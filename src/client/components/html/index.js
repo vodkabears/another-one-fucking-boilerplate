@@ -32,10 +32,6 @@ export default class Html extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 Html.propTypes = {
   lang: PropTypes.string,
   title: PropTypes.string,
@@ -43,10 +39,6 @@ Html.propTypes = {
   body: PropTypes.string.isRequired
 };
 
-/**
- * @static
- * @type {Object}
- */
 Html.defaultProps = {
   lang: 'en',
   title: 'Boilerplate',

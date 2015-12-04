@@ -19,19 +19,11 @@ export default class Todo extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 Todo.propTypes = {
   query: PropTypes.object.isRequired,
   title: PropTypes.string
 };
 
-/**
- * @static
- * @type {Object}
- */
 Todo.defaultProps = {
   title: 'todos'
 };
