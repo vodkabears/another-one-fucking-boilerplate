@@ -23,14 +23,10 @@ export default class Page extends Component {
    * @override
    */
   componentDidMount() {
-    document.body.className = this._styles.body || '';
+    document.body.className = this.styles.body || '';
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 Page.propTypes = {
   activeParams: PropTypes.array
 };

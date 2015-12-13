@@ -1,6 +1,6 @@
 import Component, { PropTypes } from 'lib/component';
 import TodoItem from '../item';
-import TodoListModel from './model';
+import Model from './model';
 import styles from './styles.css';
 
 export default class TodoList extends Component {
@@ -20,14 +20,14 @@ export default class TodoList extends Component {
    * @override
    */
   componentDidMount() {
-    this._model.load();
+    this.model.load();
   }
 
   /**
    * @override
    */
   componentDidUpdate() {
-    this._model.save();
+    this.model.save();
   }
 
   /**
@@ -55,28 +55,21 @@ export default class TodoList extends Component {
     });
 
     return (
-      <ul className={this._styles.todoList}>
+      <ul className={this.styles.todoList}>
         {todoItems}
       </ul>
     );
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 TodoList.propTypes = {
   query: PropTypes.object.isRequired,
   title: PropTypes.string
 };
 
-/**
- * @static
- * @type {Object}
- */
 TodoList.defaultProps = {
-  styles,
-  model: TodoListModel,
   title: 'todos'
 };
+
+TodoList.styles = styles;
+TodoList.Model = Model;

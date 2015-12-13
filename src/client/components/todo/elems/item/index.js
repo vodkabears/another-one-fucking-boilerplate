@@ -1,7 +1,7 @@
 import Component, { PropTypes } from 'lib/component';
-import CheckboxTypeTodoItem from 'client/components/checkbox/mods/type/todo-item';
-import InputTypeTodoItem from 'client/components/input/mods/type/todo-item';
-import TodoItemModel from './model';
+import Checkbox from 'client/components/checkbox';
+import Input from 'client/components/input';
+import Model from './model';
 import styles from './styles.css';
 
 const ENTER_KEY = 13;
@@ -21,50 +21,44 @@ export default class TodoItem extends Component {
   }
 
   /**
-   * Handles checkbox 'change' event
    * @protected
    * @param {SyntheticEvent} e
    */
   _handleCheckboxChange(e) {
-    this._model.toggle(e.target.checked);
+    this.model.toggle(e.target.checked);
   }
 
   /**
-   * Handles delete button 'click' event
    * @protected
    */
   _handleDeleteButtonClick() {
-    this._model.remove();
+    this.model.remove();
   }
 
   /**
-   * Handles delete button 'double click' event
    * @protected
    */
   _handleLabelDoubleClick() {
-    this._model.startEditing();
+    this.model.startEditing();
   }
 
   /**
-   * Handles input 'blur' event
    * @protected
    * @param {SyntheticEvent} e
    */
   _handleInputBlur() {
-    this._model.saveChanges();
+    this.model.saveChanges();
   }
 
   /**
-   * Handles input 'change' event
    * @protected
    * @param {SyntheticEvent} e
    */
   _handleInputChange(e) {
-    this._model.syncInputText(e.target.value);
+    this.model.syncInputText(e.target.value);
   }
 
   /**
-   * Handles input 'keydown' event
    * @protected
    * @param {SyntheticEvent} e
    */
@@ -72,9 +66,9 @@ export default class TodoItem extends Component {
     let key = e.which;
 
     if (key === ESCAPE_KEY) {
-      this._model.cancelEditing();
+      this.model.cancelEditing();
     } else if (key === ENTER_KEY) {
-      this._model.saveChanges();
+      this.model.saveChanges();
     }
   }
 
@@ -93,7 +87,7 @@ export default class TodoItem extends Component {
   render() {
     let props = this.props;
     let isCompleted = props.isCompleted;
-    let stls = this._styles;
+    let stls = this.styles;
     let todoItemStyles;
 
     if (!props.isVisible) {
@@ -109,7 +103,8 @@ export default class TodoItem extends Component {
     return (
       <li className={todoItemStyles}>
         <div className={stls.view}>
-          <CheckboxTypeTodoItem
+          <Checkbox
+            className={stls.checkbox}
             isChecked={isCompleted}
             onChange={this._handleCheckboxChange.bind(this)}
           />
@@ -124,9 +119,10 @@ export default class TodoItem extends Component {
           </button>
         </div>
         <div className={stls.edit}>
-          <InputTypeTodoItem
+          <Input
             ref="input"
             value={this.state.input}
+            className={stls.input}
             onBlur={this._handleInputBlur.bind(this)}
             onChange={this._handleInputChange.bind(this)}
             onKeyDown={this._handleInputKeyDown.bind(this)}
@@ -137,10 +133,6 @@ export default class TodoItem extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 TodoItem.propTypes = {
   id: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
@@ -148,13 +140,10 @@ TodoItem.propTypes = {
   isCompleted: PropTypes.bool
 };
 
-/**
- * @static
- * @type {Object}
- */
 TodoItem.defaultProps = {
-  styles,
-  model: TodoItemModel,
   isVisible: true,
   isCompleted: false
 };
+
+TodoItem.styles = styles;
+TodoItem.Model = Model;

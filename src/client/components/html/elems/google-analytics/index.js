@@ -20,10 +20,6 @@ export default class HtmlGoogleAnalytics extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 HtmlGoogleAnalytics.propTypes = {
   id: PropTypes.string.isRequired
 };

@@ -1,7 +1,7 @@
 import Component, { PropTypes } from 'lib/component';
-import InputTypeTodoHeader from 'client/components/input/mods/type/todo-header';
-import CheckboxTypeTodoHeader from 'client/components/checkbox/mods/type/todo-header';
-import TodoHeaderModel from './model';
+import Checkbox from 'client/components/checkbox';
+import Input from 'client/components/input';
+import Model from './model';
 import styles from './styles.css';
 
 const ENTER_KEY = 13;
@@ -23,25 +23,22 @@ export default class TodoHeader extends Component {
   }
 
   /**
-   * Handles checkbox 'change' event
    * @protected
    * @param {SyntheticEvent} e
    */
   _handleCheckboxChange(e) {
-    this._model.toggleAll(e.target.checked);
+    this.model.toggleAll(e.target.checked);
   }
 
   /**
-   * Handles input 'change' event
    * @protected
    * @param {SyntheticEvent} e
    */
   _handleInputChange(e) {
-    this._model.syncInputText(e.target.value);
+    this.model.syncInputText(e.target.value);
   }
 
   /**
-   * Handles checkbox 'keyDown' event
    * @protected
    * @param {SyntheticEvent} e
    */
@@ -50,23 +47,26 @@ export default class TodoHeader extends Component {
       return;
     }
 
-    this._model.createTodo(e.target.value);
+    this.model.createTodo(e.target.value);
   }
 
   /**
    * @override
    */
   render() {
+    let stls = this.styles;
     let state = this.state;
 
     return (
-      <header className={this._styles.todoHeader}>
-        <CheckboxTypeTodoHeader
+      <header className={stls.todoHeader}>
+        <Checkbox
+          className={stls.checkbox}
           isChecked={state.isCheckboxChecked}
           onChange={this._handleCheckboxChange.bind(this)}
         />
-        <InputTypeTodoHeader
+        <Input
           value={state.input}
+          className={stls.input}
           placeholder={this.props.placeholder}
           onChange={this._handleInputChange.bind(this)}
           onKeyDown={this._handleInputKeyDown.bind(this)}
@@ -76,20 +76,13 @@ export default class TodoHeader extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 TodoHeader.propTypes = {
   placeholder: PropTypes.string
 };
 
-/**
- * @static
- * @type {Object}
- */
 TodoHeader.defaultProps = {
-  styles,
-  model: TodoHeaderModel,
   placeholder: 'What needs to be done?'
 };
+
+TodoHeader.styles = styles;
+TodoHeader.Model = Model;

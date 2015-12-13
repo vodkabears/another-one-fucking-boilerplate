@@ -8,7 +8,7 @@ export default class PageTypeWelcome extends Page {
    * @override
    */
   render() {
-    let stls = this._styles;
+    let stls = this.styles;
     let props = this.props;
 
     return (
@@ -24,21 +24,14 @@ export default class PageTypeWelcome extends Page {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 PageTypeWelcome.propTypes = Object.assign({}, Page.propTypes, {
   title: PropTypes.string,
   description: PropTypes.string
 });
 
-/**
- * @static
- * @type {Object}
- */
 PageTypeWelcome.defaultProps = Object.assign({}, Page.defaultProps, {
-  styles,
   title: 'Boilerplate',
   description: 'Another one'
 });
+
+PageTypeWelcome.styles = styles;

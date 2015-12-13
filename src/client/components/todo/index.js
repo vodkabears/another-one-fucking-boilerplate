@@ -10,7 +10,7 @@ export default class Todo extends Component {
    */
   render() {
     return (
-      <section className={this._styles.todo}>
+      <section className={this.styles.todo}>
         <TodoHeader />
         <TodoList query={this.props.query} />
         <TodoFooter />
@@ -19,20 +19,13 @@ export default class Todo extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 Todo.propTypes = {
   query: PropTypes.object.isRequired,
   title: PropTypes.string
 };
 
-/**
- * @static
- * @type {Object}
- */
 Todo.defaultProps = {
-  styles,
   title: 'todos'
 };
+
+Todo.styles = styles;

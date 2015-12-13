@@ -12,7 +12,6 @@ export default class TodoHeaderModel extends Model {
   }
 
   /**
-   * Handles 'TodoUpdatedList' event
    * @protected
    * @param {Object} data
    *  @param {Number} data.completed

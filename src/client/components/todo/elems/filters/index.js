@@ -8,7 +8,7 @@ export default class TodoFilters extends Component {
    */
   render() {
     return (
-      <ul className={this._styles.filters}>
+      <ul className={this.styles.filters}>
         <li><TodoFilter label="All" value="" /></li>
         <li><TodoFilter label="Active" value="active" /></li>
         <li><TodoFilter label="Completed" value="completed" /></li>
@@ -17,10 +17,4 @@ export default class TodoFilters extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
-TodoFilters.defaultProps = {
-  styles
-};
+TodoFilters.styles = styles;

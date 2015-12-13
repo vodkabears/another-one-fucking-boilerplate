@@ -9,7 +9,7 @@ export default class PageTypeTodoExample extends Page {
    * @override
    */
   render() {
-    let stls = this._styles;
+    let stls = this.styles;
 
     return (
       <div className={stls.page}>
@@ -20,20 +20,13 @@ export default class PageTypeTodoExample extends Page {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 PageTypeTodoExample.propTypes = Object.assign({}, Page.propTypes, {
   title: PropTypes.string
 });
 
-/**
- * @static
- * @type {Object}
- */
 PageTypeTodoExample.defaultProps = Object.assign({}, Page.defaultProps, {
-  styles,
   activeParams,
   title: 'todos'
 });
+
+PageTypeTodoExample.styles = styles;

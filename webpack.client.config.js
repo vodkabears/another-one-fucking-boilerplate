@@ -9,6 +9,18 @@ let ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const ENV = process.env.NODE_ENV || 'development';
 const IS_DEBUG = ENV === 'development';
+const PLUGINS = [
+  new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENV) }),
+  new webpack.ProvidePlugin({ React: 'react' }),
+  new optimize.DedupePlugin(),
+  new optimize.OccurenceOrderPlugin(),
+  new optimize.AggressiveMergingPlugin(),
+  new AssetsPlugin({
+    path: path.resolve(__dirname, 'build'),
+    filename: 'assets.json'
+  }),
+  new ExtractTextPlugin('bundle_[hash].css')
+];
 
 module.exports = {
   entry: path.resolve(__dirname, 'src', 'client'),
@@ -22,19 +34,8 @@ module.exports = {
 
   debug: IS_DEBUG,
 
-  plugins: [
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENV) }),
-    new webpack.ProvidePlugin({ React: 'react' }),
-    new optimize.DedupePlugin(),
-    new optimize.OccurenceOrderPlugin(),
-    new optimize.AggressiveMergingPlugin(),
-    new optimize.UglifyJsPlugin({ comments: false }),
-    new AssetsPlugin({
-      path: path.resolve(__dirname, 'build'),
-      filename: 'assets.json'
-    }),
-    new ExtractTextPlugin('bundle_[hash].css')
-  ],
+  plugins: IS_DEBUG ?
+    PLUGINS : PLUGINS.concat(new optimize.UglifyJsPlugin({ comments: false })),
 
   postcss: [
     cssnext({
@@ -59,7 +60,9 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&minimize!postcss-loader')
+        loader: ExtractTextPlugin.extract('style', IS_DEBUG ?
+          'css?modules&importLoaders=1!postcss-loader' :
+          'css?modules&importLoaders=1&minimize!postcss-loader')
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,

@@ -1,6 +1,6 @@
 import Component from 'lib/component';
 import TodoFilters from '../filters';
-import TodoFooterModel from './model';
+import Model from './model';
 import styles from './styles.css';
 
 export default class TodoFooter extends Component {
@@ -21,18 +21,17 @@ export default class TodoFooter extends Component {
   }
 
   /**
-   * Handles clear button 'click' event
    * @protected
    */
   _handleClearButtonClick() {
-    this._model.clearCompleted();
+    this.model.clearCompleted();
   }
 
   /**
    * @override
    */
   render() {
-    let stls = this._styles;
+    let stls = this.styles;
     let state = this.state;
     let uncompleted = state.uncompleted;
     let todoFooterStyles;
@@ -60,11 +59,5 @@ export default class TodoFooter extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
-TodoFooter.defaultProps = {
-  styles,
-  model: TodoFooterModel
-};
+TodoFooter.styles = styles;
+TodoFooter.Model = Model;

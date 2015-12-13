@@ -7,7 +7,7 @@ export default class TodoFilter extends Component {
    * @override
    */
   render() {
-    let stls = this._styles;
+    let stls = this.styles;
     let props = this.props;
     let value = props.value;
     let url = '/examples/todo' + (value ? '/' + value : value);
@@ -23,19 +23,9 @@ export default class TodoFilter extends Component {
   }
 }
 
-/**
- * @static
- * @type {Object}
- */
 TodoFilter.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired
 };
 
-/**
- * @static
- * @type {Object}
- */
-TodoFilter.defaultProps = {
-  styles
-};
+TodoFilter.styles = styles;
