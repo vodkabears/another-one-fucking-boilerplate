@@ -1,6 +1,6 @@
 import Component, { PropTypes } from 'lib/component';
-import CheckboxTypeTodoItem from 'client/components/checkbox/mods/type/todo-item';
-import InputTypeTodoItem from 'client/components/input/mods/type/todo-item';
+import Checkbox from 'client/components/checkbox';
+import Input from 'client/components/input';
 import Model from './model';
 import styles from './styles.css';
 
@@ -103,7 +103,8 @@ export default class TodoItem extends Component {
     return (
       <li className={todoItemStyles}>
         <div className={stls.view}>
-          <CheckboxTypeTodoItem
+          <Checkbox
+            className={stls.checkbox}
             isChecked={isCompleted}
             onChange={this._handleCheckboxChange.bind(this)}
           />
@@ -118,9 +119,10 @@ export default class TodoItem extends Component {
           </button>
         </div>
         <div className={stls.edit}>
-          <InputTypeTodoItem
+          <Input
             ref="input"
             value={this.state.input}
+            className={stls.input}
             onBlur={this._handleInputBlur.bind(this)}
             onChange={this._handleInputChange.bind(this)}
             onKeyDown={this._handleInputKeyDown.bind(this)}

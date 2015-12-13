@@ -1,7 +1,0 @@
-.checkbox {
-  composes: checkbox from 'client/components/checkbox/mods/size/large/styles.css';
-
-  position: absolute;
-  top: 12px;
-  left: 1px;
-}

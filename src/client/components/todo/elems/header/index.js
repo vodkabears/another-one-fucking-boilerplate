@@ -1,6 +1,6 @@
 import Component, { PropTypes } from 'lib/component';
-import InputTypeTodoHeader from 'client/components/input/mods/type/todo-header';
-import CheckboxTypeTodoHeader from 'client/components/checkbox/mods/type/todo-header';
+import Checkbox from 'client/components/checkbox';
+import Input from 'client/components/input';
 import Model from './model';
 import styles from './styles.css';
 
@@ -54,16 +54,19 @@ export default class TodoHeader extends Component {
    * @override
    */
   render() {
+    let stls = this.styles;
     let state = this.state;
 
     return (
-      <header className={this.styles.todoHeader}>
-        <CheckboxTypeTodoHeader
+      <header className={stls.todoHeader}>
+        <Checkbox
+          className={stls.checkbox}
           isChecked={state.isCheckboxChecked}
           onChange={this._handleCheckboxChange.bind(this)}
         />
-        <InputTypeTodoHeader
+        <Input
           value={state.input}
+          className={stls.input}
           placeholder={this.props.placeholder}
           onChange={this._handleInputChange.bind(this)}
           onKeyDown={this._handleInputKeyDown.bind(this)}

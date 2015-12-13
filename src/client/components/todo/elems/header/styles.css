@@ -1,3 +1,21 @@
 .todoHeader {
   position: relative;
 }
+
+.input {
+  composes: input from 'client/components/input/mods/theme/todo/styles.css';
+  composes: input from 'client/components/input/mods/size/large/styles.css';
+
+  width: 100%;
+  padding-left: 60px;
+
+  border: none;
+}
+
+.checkbox {
+  composes: checkbox from 'client/components/checkbox/mods/size/large/styles.css';
+
+  position: absolute;
+  top: 12px;
+  left: 1px;
+}

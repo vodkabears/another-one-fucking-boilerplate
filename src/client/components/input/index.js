@@ -23,8 +23,8 @@ export default class Input extends Component {
       <input
         ref="input"
         type="text"
-        className={this.styles.input}
         value={props.value}
+        className={props.className}
         placeholder={props.placeholder}
         onBlur={props.onBlur}
         onChange={props.onChange}
@@ -36,10 +36,15 @@ export default class Input extends Component {
 
 Input.propTypes = {
   value: PropTypes.string,
+  className: PropTypes.string,
   placeholder: PropTypes.string,
   onBlur: PropTypes.func,
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func
+};
+
+Input.defaultProps = {
+  className: styles.input
 };
 
 Input.styles = styles;
