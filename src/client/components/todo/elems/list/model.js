@@ -1,3 +1,4 @@
+import uuid from 'node-uuid';
 import Model from 'lib/component-model';
 import EVENTS from 'lib/events';
 
@@ -15,12 +16,6 @@ export default class TodoListModel extends Model {
      * @type {Number}
      */
     this._size = 0;
-
-    /**
-     * @protected
-     * @type {Number}
-     */
-    this._lastID = 0;
 
     /**
      * @protected
@@ -126,11 +121,7 @@ export default class TodoListModel extends Model {
       let todoItemsKeys = Object.keys(todoItems);
 
       this._size = todoItemsKeys.length;
-      this._completedNumber = todoItemsKeys.filter(key => {
-        this._lastID = key + 1;
-
-        return todoItems[key].isCompleted;
-      }).length;
+      this._completedNumber = todoItemsKeys.filter(key => todoItems[key].isCompleted).length;
 
       this.setState({ todoItems });
     }
@@ -147,12 +138,12 @@ export default class TodoListModel extends Model {
       return;
     }
 
-    let lastID = this._lastID++;
+    let id = uuid.v1();
     let todoItems = this.state.todoItems;
 
     this._size++;
-    todoItems[lastID] = {
-      id: lastID,
+    todoItems[id] = {
+      id,
       isCompleted: false,
       text: text.trim()
     };

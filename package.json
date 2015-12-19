@@ -34,6 +34,7 @@
     "history": "^1.13.0",
     "image-webpack-loader": "^1.6.2",
     "json-loader": "^0.5.3",
+    "node-uuid": "^1.4.7",
     "nodemon": "^1.8.0",
     "npm-run-all": "^1.2.12",
     "null-loader": "^0.1.1",
