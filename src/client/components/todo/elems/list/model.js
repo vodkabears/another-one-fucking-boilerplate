@@ -1,8 +1,6 @@
-import uuid from 'node-uuid';
 import Model from 'lib/component-model';
 import EVENTS from 'lib/events';
-
-const STORAGE_NAME = 'TodoList';
+import BrowserStorage from 'lib/storage/browser-storage';
 
 export default class TodoListModel extends Model {
   /**
@@ -13,15 +11,9 @@ export default class TodoListModel extends Model {
 
     /**
      * @protected
-     * @type {Number}
+     * @type {BrowserStorage}
      */
-    this._size = 0;
-
-    /**
-     * @protected
-     * @type {Number}
-     */
-    this._completedNumber = 0;
+    this._todosStorage = new BrowserStorage('todos');
 
     this
       .on(EVENTS.TodoCreateItem, this._handleTodoCreateItem)
@@ -45,10 +37,9 @@ export default class TodoListModel extends Model {
    * @protected
    * @param {Object} data
    *  @param {Number} data.id
-   *  @param {Boolean} data.isCompleted
    */
   _handleTodoDeleteItem(data) {
-    this.deleteTodo(data.id, data.isCompleted);
+    this.deleteTodo(data.id);
   }
 
   /**
@@ -91,42 +82,24 @@ export default class TodoListModel extends Model {
    * Informs about an update
    * @protected
    */
-  _inform() {
-    this.emit(EVENTS.TodoUpdatedList, {
-      completed: this._completedNumber,
-      state: this.props.query.state,
-      size: this._size
-    });
-  }
+  inform() {
+    let todoItems = this.state.todoItems;
 
-  /**
-   * Saves data to the store
-   */
-  save() {
-    localStorage && localStorage.setItem(STORAGE_NAME, JSON.stringify(this.state.todoItems));
-    this._inform();
+    this.emit(EVENTS.TodoUpdatedList, {
+      completed: todoItems.filter(item => item.isCompleted).length,
+      state: this.props.query.state,
+      size: todoItems.length
+    });
   }
 
   /**
    * Loades data from the store
    */
   load() {
-    if (!localStorage) {
-      return;
-    }
-
-    let todoItems = JSON.parse(localStorage.getItem(STORAGE_NAME));
-
-    if (todoItems) {
-      let todoItemsKeys = Object.keys(todoItems);
-
-      this._size = todoItemsKeys.length;
-      this._completedNumber = todoItemsKeys.filter(key => todoItems[key].isCompleted).length;
-
-      this.setState({ todoItems });
-    }
-
-    this._inform();
+    this._todosStorage.sync().then(data => {
+      this.setState({ todoItems: data.items });
+      this.inform();
+    });
   }
 
   /**
@@ -138,17 +111,12 @@ export default class TodoListModel extends Model {
       return;
     }
 
-    let id = uuid.v1();
-    let todoItems = this.state.todoItems;
-
-    this._size++;
-    todoItems[id] = {
-      id,
+    this._todosStorage.add({
       isCompleted: false,
       text: text.trim()
-    };
-
-    this.setState({ todoItems });
+    }).then(data => {
+      this.setState({ todoItems: data.items });
+    });
   }
 
   /**
@@ -157,43 +125,28 @@ export default class TodoListModel extends Model {
    * @param {String} text
    */
   updateTodo(id, text) {
-    let todoItems = this.state.todoItems;
-
-    todoItems[id].text = text.trim();
-
-    this.setState({ todoItems });
+    this._todosStorage.update({ text: text.trim() }, { id }).then(data => {
+      this.setState({ todoItems: data.items });
+    });
   }
 
   /**
    * Deletes a todo
    * @param {Number} id
-   * @param {Boolean} isCompleted
    */
-  deleteTodo(id, isCompleted) {
-    let todoItems = this.state.todoItems;
-
-    delete todoItems[id];
-    isCompleted && this._completedNumber--;
-    this._size--;
-
-    this.setState({ todoItems });
+  deleteTodo(id) {
+    this._todosStorage.remove({ id }).then(data => {
+      this.setState({ todoItems: data.items });
+    });
   }
 
   /**
    * Deletes completed todos
    */
   deleteCompleted() {
-    let todoItems = this.state.todoItems;
-
-    Object.keys(todoItems).forEach(id => {
-      if (todoItems[id].isCompleted) {
-        delete todoItems[id];
-        this._size--;
-        this._completedNumber--;
-      }
+    this._todosStorage.remove({ isCompleted: true }).then(data => {
+      this.setState({ todoItems: data.items });
     });
-
-    this.setState({ todoItems });
   }
 
   /**
@@ -202,12 +155,9 @@ export default class TodoListModel extends Model {
    * @param {Boolean} isCompleted
    */
   toggleItem(id, isCompleted) {
-    let todoItems = this.state.todoItems;
-
-    todoItems[id].isCompleted = isCompleted;
-    isCompleted ? this._completedNumber++ : this._completedNumber--;
-
-    this.setState({ todoItems });
+    this._todosStorage.update({ isCompleted }, { id }).then(data => {
+      this.setState({ todoItems: data.items });
+    });
   }
 
   /**
@@ -215,11 +165,8 @@ export default class TodoListModel extends Model {
    * @param {Boolean} isCompleted
    */
   toggleAll(isCompleted) {
-    let todoItems = this.state.todoItems;
-
-    this._completedNumber = isCompleted ? this._size : 0;
-    Object.keys(todoItems).forEach(id => todoItems[id].isCompleted = isCompleted);
-
-    this.setState({ todoItems });
+    this._todosStorage.update({ isCompleted }).then(data => {
+      this.setState({ todoItems: data.items });
+    });
   }
 }

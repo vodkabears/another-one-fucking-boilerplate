@@ -27,7 +27,7 @@ export default class TodoList extends Component {
    * @override
    */
   componentDidUpdate() {
-    this.model.save();
+    this.model.inform();
   }
 
   /**
