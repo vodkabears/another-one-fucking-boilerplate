@@ -6,6 +6,8 @@ import ReactDOM from 'react-dom/server';
 import { match, RoutingContext } from 'react-router';
 import Html from 'client/components/html';
 import routes from 'client/routes';
+import API from './api';
+import providers from './providers';
 
 const ENV = process.env.NODE_ENV || 'development';
 const PORT = 3000;
@@ -18,6 +20,8 @@ if (IS_DEBUG) {
   server.use(express.static(path.join(__dirname, 'public')));
 }
 
+server.use('/api', API);
+
 server.use((req, res) => {
   match({ routes, location: req.url }, (error, redirectLocation, renderProps) => {
     if (error) {
@@ -25,13 +29,32 @@ server.use((req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
-      res
-        .status(200).send(
-          '<!doctype html>' +
-          ReactDOM.renderToStaticMarkup(<Html
-            bundle={ASSETS.main}
-            body={ReactDOM.renderToString(<RoutingContext {...renderProps} />)}
-          />));
+      let page = renderProps.components[1];
+      let pageName = page.name;
+      let provider = providers[pageName];
+      let loadPage = function(data = {}) {
+        res
+          .status(200).send(
+            '<!doctype html>' +
+            ReactDOM.renderToStaticMarkup(<Html
+              data={data}
+              bundle={ASSETS.main}
+              body={ReactDOM.renderToString(<RoutingContext {...renderProps} />)}
+            />));
+      };
+
+      req.query = renderProps.location.query;
+      req.params = renderProps.params;
+
+      provider ?
+        provider(req).then(data => {
+          let pageData = data[pageName];
+          let initialDefaultProps = page.defaultProps;
+
+          page.defaultProps = Object.assign({}, initialDefaultProps, pageData);
+          loadPage(pageData);
+          page.defaultProps = initialDefaultProps;
+        }) : loadPage();
     }
   });
 });

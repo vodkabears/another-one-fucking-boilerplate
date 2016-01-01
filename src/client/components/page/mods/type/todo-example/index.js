@@ -1,10 +1,31 @@
 import { PropTypes } from 'lib/component';
 import Page from 'client/components/page';
 import Todo from 'client/components/todo';
-import activeParams from 'lib/params/todo-filters';
+import Model from './model';
 import styles from './styles.css';
 
 export default class PageTypeTodoExample extends Page {
+  /**
+   * @override
+   */
+  constructor(props) {
+    super(props);
+
+    /**
+     * @type {Object}
+     */
+    this.state = { SEO: props.SEO };
+  }
+
+  /**
+   * @override
+   */
+  componentDidMount() {
+    super.componentDidMount();
+
+    INITIAL_DATA || this.model.load();
+  }
+
   /**
    * @override
    */
@@ -25,8 +46,8 @@ PageTypeTodoExample.propTypes = Object.assign({}, Page.propTypes, {
 });
 
 PageTypeTodoExample.defaultProps = Object.assign({}, Page.defaultProps, {
-  activeParams,
   title: 'todos'
 });
 
 PageTypeTodoExample.styles = styles;
+PageTypeTodoExample.Model = Model;

@@ -6,6 +6,10 @@
     "es6": true
   },
 
+  "globals": {
+    "INITIAL_DATA": true
+  },
+
   "plugins": ["react"],
 
   "ecmaFeatures": {
