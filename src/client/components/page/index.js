@@ -22,6 +22,5 @@ export default class Page extends Component {
 
 Page.propTypes = {
   SEO: PropTypes.object,
-  location: PropTypes.object,
-  activeParams: PropTypes.array
+  location: PropTypes.object
 };

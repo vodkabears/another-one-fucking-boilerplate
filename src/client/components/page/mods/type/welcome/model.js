@@ -5,6 +5,6 @@ export default class PageTypeWelcomeModel extends Model {
   load() {
     API
      .get('/api/components/PageTypeWelcome')
-     .then(data => this.setState(data.PageTypeWelcome));
+     .then(data => this.setState(data));
   }
 }

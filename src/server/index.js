@@ -2,7 +2,10 @@ import 'babel/polyfill';
 import fs from 'fs';
 import path from 'path';
 import express from 'express';
+import session from 'express-session';
 import ReactDOM from 'react-dom/server';
+import bodyParser from 'body-parser';
+import createRedisStore from 'connect-redis';
 import { match, RoutingContext } from 'react-router';
 import Html from 'client/components/html';
 import routes from 'client/routes';
@@ -11,14 +14,36 @@ import providers from './providers';
 
 const ENV = process.env.NODE_ENV || 'development';
 const PORT = 3000;
+const YEAR = 1000 * 60 * 60 * 24 * 365;
 const ASSETS = JSON.parse(fs.readFileSync(path.join(__dirname, 'assets.json'), 'utf8'));
 const IS_DEBUG = ENV === 'development';
+const REDIS_SETTINGS = {
+  host: 'localhost',
+  port: 6379
+};
+const SESSION_SETTINGS = {
+  name: 'sid',
+  store: new (createRedisStore(session))(REDIS_SETTINGS),
+  proxy: true,
+  resave: false,
+  secret: 'Boilerplate',
+  cookie: { maxAge: YEAR },
+  saveUninitialized: true
+};
 
 let server = express();
 
 if (IS_DEBUG) {
   server.use(express.static(path.join(__dirname, 'public')));
+  server.use(session(SESSION_SETTINGS));
+} else {
+  server.use(session(Object.assign({}, SESSION_SETTINGS, {
+    cookie: { secure: true, maxAge: YEAR }
+  })));
 }
+
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
 
 server.use('/api', API);
 
@@ -45,6 +70,7 @@ server.use((req, res) => {
 
       req.query = renderProps.location.query;
       req.params = renderProps.params;
+      req.pageName = pageName;
 
       provider ?
         provider(req).then(data => {

@@ -1,3 +1,4 @@
+import escapeJSON from 'lib/escape-json';
 import Component, { PropTypes } from 'lib/component';
 import HtmlYandexMetrica from './elems/yandex-metrica';
 import HtmlGoogleAnalytics from './elems/google-analytics';
@@ -32,7 +33,7 @@ export default class Html extends Component {
         </head>
         <body>
           <div id="app" dangerouslySetInnerHTML={{ __html: props.body }} />
-          <script dangerouslySetInnerHTML={{ __html: `var INITIAL_DATA = ${JSON.stringify(data)}` }}></script>
+          <script dangerouslySetInnerHTML={{ __html: `var INITIAL_DATA = ${escapeJSON(JSON.stringify(data))}` }}></script>
           <script src={`/assets/${bundle.js}`}></script>
           <HtmlGoogleAnalytics id="UA-XXXXX-X" />
           <HtmlYandexMetrica id="XXXXXXXX" />

@@ -1,6 +1,8 @@
+import API from 'lib/api';
 import Model from 'lib/component-model';
 import EVENTS from 'lib/events';
-import BrowserStorage from 'lib/storage/browser-storage';
+
+const GATE = '/api/components/Todo';
 
 export default class TodoListModel extends Model {
   /**
@@ -8,12 +10,6 @@ export default class TodoListModel extends Model {
    */
   constructor(view) {
     super(view);
-
-    /**
-     * @protected
-     * @type {BrowserStorage}
-     */
-    this._todosStorage = new BrowserStorage('todos');
 
     this
       .on(EVENTS.TodoCreateItem, this._handleTodoCreateItem)
@@ -85,20 +81,13 @@ export default class TodoListModel extends Model {
   inform() {
     let todoItems = this.state.todoItems;
 
+    if (!todoItems) {
+      return;
+    }
+
     this.emit(EVENTS.TodoUpdatedList, {
       completed: todoItems.filter(item => item.isCompleted).length,
-      state: this.props.query.state,
       size: todoItems.length
-    });
-  }
-
-  /**
-   * Loades data from the store
-   */
-  load() {
-    this._todosStorage.sync().then(data => {
-      this.setState({ todoItems: data.items });
-      this.inform();
     });
   }
 
@@ -111,12 +100,10 @@ export default class TodoListModel extends Model {
       return;
     }
 
-    this._todosStorage.add({
-      isCompleted: false,
-      text: text.trim()
-    }).then(data => {
-      this.setState({ todoItems: data.items });
-    });
+    API.add(GATE, {
+      text,
+      isCompleted: false
+    }).then(data => this.setState({ todoItems: data.items }));
   }
 
   /**
@@ -125,9 +112,12 @@ export default class TodoListModel extends Model {
    * @param {String} text
    */
   updateTodo(id, text) {
-    this._todosStorage.update({ text: text.trim() }, { id }).then(data => {
-      this.setState({ todoItems: data.items });
-    });
+    if (!text) {
+      return;
+    }
+
+    API.update(GATE, { text }, { id })
+      .then(data => this.setState({ todoItems: data.items }));
   }
 
   /**
@@ -135,18 +125,23 @@ export default class TodoListModel extends Model {
    * @param {Number} id
    */
   deleteTodo(id) {
-    this._todosStorage.remove({ id }).then(data => {
-      this.setState({ todoItems: data.items });
-    });
+    API.remove(GATE, { id })
+      .then(data => this.setState({ todoItems: data.items }));
   }
 
   /**
    * Deletes completed todos
    */
   deleteCompleted() {
-    this._todosStorage.remove({ isCompleted: true }).then(data => {
-      this.setState({ todoItems: data.items });
-    });
+    let todoItems = this.state.todoItems;
+
+    if (!todoItems) {
+      return;
+    }
+
+    API.remove(GATE, {
+      id: todoItems.filter(item => item.isCompleted).map(item => item.id)
+    }).then(data => this.setState({ todoItems: data.items }));
   }
 
   /**
@@ -155,9 +150,8 @@ export default class TodoListModel extends Model {
    * @param {Boolean} isCompleted
    */
   toggleItem(id, isCompleted) {
-    this._todosStorage.update({ isCompleted }, { id }).then(data => {
-      this.setState({ todoItems: data.items });
-    });
+    API.update(GATE, { isCompleted }, { id })
+      .then(data => this.setState({ todoItems: data.items }));
   }
 
   /**
@@ -165,8 +159,14 @@ export default class TodoListModel extends Model {
    * @param {Boolean} isCompleted
    */
   toggleAll(isCompleted) {
-    this._todosStorage.update({ isCompleted }).then(data => {
-      this.setState({ todoItems: data.items });
-    });
+    let todoItems = this.state.todoItems;
+
+    if (!todoItems) {
+      return;
+    }
+
+    API.update(GATE, { isCompleted }, {
+      id: todoItems.map(item => item.id)
+    }).then(data => this.setState({ todoItems: data.items }));
   }
 }

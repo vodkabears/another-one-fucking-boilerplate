@@ -14,7 +14,10 @@ export default class PageTypeTodoExample extends Page {
     /**
      * @type {Object}
      */
-    this.state = { SEO: props.SEO };
+    this.state = {
+      SEO: props.SEO,
+      Todo: props.Todo
+    };
   }
 
   /**
@@ -31,17 +34,19 @@ export default class PageTypeTodoExample extends Page {
    */
   render() {
     let stls = this.styles;
+    let props = this.props;
 
     return (
       <div className={stls.page}>
-        <h1 className={stls.title}>{this.props.title}</h1>
-        <Todo query={this.props.params} />
+        <h1 className={stls.title}>{props.title}</h1>
+        <Todo data={this.state.Todo} query={props.params} />
       </div>
     );
   }
 }
 
 PageTypeTodoExample.propTypes = Object.assign({}, Page.propTypes, {
+  Todo: PropTypes.object,
   title: PropTypes.string
 });
 

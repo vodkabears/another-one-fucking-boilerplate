@@ -12,7 +12,7 @@ export default function pageTypeWelcomeProvider(request, data = {}) {
 
   return new Promise(resolve => {
     data.PageTypeWelcome = {
-      SEO: SEO.get({ pageName: 'PageTypeWelcome' })
+      SEO: SEO.get('PageTypeWelcome')
     };
 
     resolve(data);

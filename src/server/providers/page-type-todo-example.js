@@ -1,3 +1,4 @@
+import todoProvider from './todo';
 import SEO from 'server/models/seo';
 
 /**
@@ -10,11 +11,13 @@ export default function pageTypeTodoExampleProvider(request, data = {}) {
     return new Promise(resolve => resolve(data));
   }
 
-  return new Promise(resolve => {
-    data.PageTypeTodoExample = {
-      SEO: SEO.get({ pageName: 'PageTypeTodoExample' })
-    };
+  return todoProvider(request, data)
+    .then(() => {
+      data.PageTypeTodoExample = {
+        SEO: SEO.get('PageTypeTodoExample'),
+        Todo: data.Todo
+      };
 
-    resolve(data);
-  });
+      return data;
+    });
 }

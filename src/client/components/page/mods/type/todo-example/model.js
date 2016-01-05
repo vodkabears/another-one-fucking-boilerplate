@@ -5,6 +5,6 @@ export default class PageTypeTodoExampleModel extends Model {
   load() {
     API
      .get('/api/components/PageTypeTodoExample')
-     .then(data => this.setState(data.PageTypeTodoExample));
+     .then(data => this.setState(data));
   }
 }

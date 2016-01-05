@@ -12,11 +12,10 @@ const PAGES = {
 
 export default class SEO {
   /**
-   * @param {query} Object
-   *  @param {String} pageName
+   * @param {String} pageName
    * @returns {Object}
    */
-  static get(query) {
-    return PAGES[query.pageName];
+  static get(pageName) {
+    return PAGES[pageName];
   }
 }

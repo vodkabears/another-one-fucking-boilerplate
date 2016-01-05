@@ -30,7 +30,7 @@ export default class API {
    * @returns {Promise}
    */
   static get(path, query) {
-    return fetch(API.getQueryString(path, query))
+    return fetch(API.getQueryString(path, query), { credentials: 'same-origin' })
       .then(response => response.json());
   }
 
@@ -57,7 +57,8 @@ export default class API {
     return fetch(path, {
       body,
       headers,
-      method: 'post'
+      method: 'post',
+      credentials: 'same-origin'
     }).then(response => response.json());
   }
 
@@ -85,7 +86,8 @@ export default class API {
     return fetch(API.getQueryString(path, query), {
       body,
       headers,
-      method: 'put'
+      method: 'put',
+      credentials: 'same-origin'
     }).then(response => response.json());
   }
 
@@ -97,7 +99,8 @@ export default class API {
    */
   static remove(path, query) {
     return fetch(API.getQueryString(path, query), {
-      method: 'delete'
+      method: 'delete',
+      credentials: 'same-origin'
     }).then(response => response.json());
   }
 }
