@@ -2,7 +2,7 @@
 
 let path = require('path');
 let webpack = require('webpack');
-let cssnext = require('cssnext');
+let cssnext = require('postcss-cssnext');
 let optimize = webpack.optimize;
 let AssetsPlugin = require('assets-webpack-plugin');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -56,7 +56,10 @@ module.exports = {
         test: /\.jsx?$/,
         include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
-        loader: 'babel'
+        loader: 'babel',
+        query: {
+          presets: ['es2015', 'stage-2', 'react']
+        }
       },
       {
         test: /\.css$/,
