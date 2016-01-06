@@ -6,6 +6,7 @@ import session from 'express-session';
 import ReactDOM from 'react-dom/server';
 import bodyParser from 'body-parser';
 import createRedisStore from 'connect-redis';
+import { MongoClient } from 'mongodb';
 import { match, RoutingContext } from 'react-router';
 import Html from 'client/components/html';
 import routes from 'client/routes';
@@ -17,6 +18,7 @@ const PORT = 3000;
 const YEAR = 1000 * 60 * 60 * 24 * 365;
 const ASSETS = JSON.parse(fs.readFileSync(path.join(__dirname, 'assets.json'), 'utf8'));
 const IS_DEBUG = ENV === 'development';
+const MONGODB_URL = 'mongodb://localhost:27017/boilerplate';
 const REDIS_SETTINGS = {
   host: 'localhost',
   port: 6379
@@ -32,6 +34,7 @@ const SESSION_SETTINGS = {
 };
 
 let server = express();
+let mongoConnection;
 
 if (IS_DEBUG) {
   server.use(express.static(path.join(__dirname, 'public')));
@@ -41,6 +44,22 @@ if (IS_DEBUG) {
     cookie: { secure: true, maxAge: YEAR }
   })));
 }
+
+server.use((req, res, next) => {
+  if (!mongoConnection) {
+    mongoConnection = MongoClient.connect(MONGODB_URL);
+  }
+
+  mongoConnection
+    .then(db => {
+      req.db = db;
+      next();
+    })
+    .catch(err => {
+      mongoConnection = null;
+      next(err);
+    });
+});
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));

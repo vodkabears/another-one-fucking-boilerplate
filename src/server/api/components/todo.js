@@ -4,15 +4,23 @@ import Todos from 'server/models/todos';
 let API = new Router();
 
 API.post('/', (req, res) => {
-  res.send({ items: Todos.add(req, req.body) });
+  Todos.add(req, req.body)
+    .then(items => res.send({ items }));
 });
 
-API.put('/', (req, res) => {
-  res.send({ items: Todos.update(req, req.body, req.query.id) });
+API.put('/edit', (req, res) => {
+  Todos.edit(req, req.body.text, req.query.id)
+    .then(items => res.send({ items }));
+});
+
+API.put('/toggle', (req, res) => {
+  Todos.toggle(req, req.body.isCompleted, req.query.id)
+    .then(items => res.send({ items }));
 });
 
 API.delete('/', (req, res) => {
-  res.send({ items: Todos.remove(req, req.query.id) });
+  Todos.remove(req, req.query.id)
+    .then(items => res.send({ items }));
 });
 
 export default API;

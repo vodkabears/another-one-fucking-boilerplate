@@ -1,79 +1,116 @@
-import uuid from 'node-uuid';
+import { ObjectID } from 'mongodb';
+
+const COLLECTION = 'todos';
 
 export default class Todos {
   /**
    * @param {Object} request
-   * @returns {Object}
+   * @returns {Promise}
    */
   static get(request) {
-    return request.session.todos || [];
+    return request.db.collection(COLLECTION)
+      .find({ _id: request.sessionID })
+      .limit(1)
+      .project({ items: 1 })
+      .toArray()
+      .then(data => {
+        let list = data[0];
+
+        return list && list.items || [];
+      });
   }
 
   /**
    * @param {Object} request
-   * @param {Object|Object[]} items
-   * @returns {Object[]}
+   * @param {Object} item
+   * @returns {Promise}
    */
-  static add(request, items) {
-    Array.isArray(items) || (items = [items]);
+  static add(request, item) {
+    let text = item && item.text;
 
-    if (!items[0]) {
+    if (!text) {
       return;
     }
 
-    items = items.map(item => {
-      let text = item.text;
+    item = {
+      id: (new ObjectID()).toHexString(),
+      text: text.trim(),
+      isCompleted: item.isCompleted
+    };
 
-      return {
-        id: uuid.v1(),
-        text: text ? text.trim() : '',
-        isCompleted: item.isCompleted
-      };
-    });
-
-    let session = request.session;
-    let todos = session.todos;
-
-    !todos && (todos = session.todos = []);
-    todos.push(...items);
-
-    return todos;
+    return request.db.collection(COLLECTION).findOneAndUpdate(
+      { _id: request.sessionID },
+      { $push: { items: item } },
+      { upsert: true, returnOriginal: false, projection: { items: 1 } }
+    ).then(data => data.value.items || []);
   }
 
   /**
    * @param {Object} request
-   * @param {Object} update
+   * @param {String} text
+   * @param {String} id
+   * @returns {Promise}
+   */
+  static edit(request, text, id) {
+    if (!text || !id) {
+      return;
+    }
+
+    return request.db.collection(COLLECTION).findOneAndUpdate(
+      { _id: request.sessionID, 'items.id': id },
+      { $set: { 'items.$.text': text.trim() } },
+      { returnOriginal: false, projection: { items: 1 } }
+    ).then(data => data.value.items || []);
+  }
+
+  /**
+   * @param {Object} request
+   * @param {Boolean} isCompleted
    * @param {String|String[]} ids
    * @returns {Object[]}
    */
-  static update(request, update, ids) {
+  static toggle(request, isCompleted, ids) {
     Array.isArray(ids) || (ids = [ids]);
 
-    if (!update || !ids[0]) {
+    if (typeof isCompleted !== 'boolean' || !ids[0]) {
       return;
     }
 
-    let todos = request.session.todos;
-    let updateParams = Object.keys(update);
+    let collection = request.db.collection(COLLECTION);
+    let sessionID = request.sessionID;
 
-    return todos ? todos.map(todo => {
-      if (ids.includes(todo.id)) {
-        let hasOwnProperty = Object.hasOwnProperty.bind(todo);
+    // http://stackoverflow.com/questions/4669178/how-to-update-multiple-array-elements-in-mongodb
+    // https://jira.mongodb.org/browse/SERVER-1243
+    return collection
+      .find({ _id: sessionID })
+      .limit(1)
+      .project({ items: 1 })
+      .toArray()
+      .then(data => {
+        let list = data[0];
+        let items = list && list.items;
+        let promises = [];
 
-        updateParams.forEach(paramToUpdate => {
-          if (hasOwnProperty(paramToUpdate)) {
-            todo[paramToUpdate] = update[paramToUpdate];
+        items && items.forEach(item => {
+          let id = item.id;
+
+          if (ids.includes(id)) {
+            item.isCompleted = isCompleted;
+            promises.push(collection.updateOne(
+              { _id: sessionID, 'items.id': id },
+              { $set: { 'items.$.isCompleted': isCompleted } }
+            ));
           }
         });
-      }
 
-      return todo;
-    }) : [];
+        return items ? Promise.all(promises).then(() => items) : [];
+      });
   }
 
   /**
    * @param {Object} request
    * @param {String|String[]} ids
+   * @returns {Promise}
    */
   static remove(request, ids) {
     Array.isArray(ids) || (ids = [ids]);
@@ -82,11 +119,10 @@ export default class Todos {
       return;
     }
 
-    let session = request.session;
-    let todos = session.todos;
-
-    todos = session.todos = todos && todos.filter(todo => !ids.includes(todo.id));
-
-    return todos ? todos : [];
+    return request.db.collection(COLLECTION).findOneAndUpdate(
+      { _id: request.sessionID },
+      { $pull: { items: { id: { $in: ids } } } },
+      { returnOriginal: false, projection: { items: 1 } }
+    ).then(data => data.value.items || []);
   }
 }

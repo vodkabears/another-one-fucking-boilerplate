@@ -116,7 +116,7 @@ export default class TodoListModel extends Model {
       return;
     }
 
-    API.update(GATE, { text }, { id })
+    API.update(`${GATE}/edit`, { text }, { id })
       .then(data => this.setState({ todoItems: data.items }));
   }
 
@@ -150,7 +150,7 @@ export default class TodoListModel extends Model {
    * @param {Boolean} isCompleted
    */
   toggleItem(id, isCompleted) {
-    API.update(GATE, { isCompleted }, { id })
+    API.update(`${GATE}/toggle`, { isCompleted }, { id })
       .then(data => this.setState({ todoItems: data.items }));
   }
 
@@ -165,7 +165,7 @@ export default class TodoListModel extends Model {
       return;
     }
 
-    API.update(GATE, { isCompleted }, {
+    API.update(`${GATE}/toggle`, { isCompleted }, {
       id: todoItems.map(item => item.id)
     }).then(data => this.setState({ todoItems: data.items }));
   }

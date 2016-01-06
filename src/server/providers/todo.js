@@ -10,9 +10,9 @@ export default function todoProvider(request, data = {}) {
     return new Promise(resolve => resolve(data));
   }
 
-  return new Promise(resolve => {
-    data.Todo = { items: Todos.get(request) };
+  return Todos.get(request).then(items => {
+    data.Todo = { items };
 
-    resolve(data);
+    return data;
   });
 }
