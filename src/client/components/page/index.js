@@ -5,28 +5,22 @@ export default class Page extends Component {
   /**
    * @override
    */
-  shouldComponentUpdate(nextProps) {
-    let props = this.props;
-    let activeParams = props.activeParams;
-
-    if (!activeParams) {
-      return true;
-    }
-
-    let params = Object.assign({}, props.location.query, props.params);
-    let nextParams = Object.assign({}, nextProps.location.query, nextProps.params);
-
-    return activeParams.some(param => params[param] !== nextParams[param]);
+  componentDidMount() {
+    document.body.className = this.styles.body || '';
   }
 
   /**
    * @override
    */
-  componentDidMount() {
-    document.body.className = this.styles.body || '';
+  componentDidUpdate() {
+    let state = this.state;
+    let SEO = state && state.SEO;
+
+    SEO && (document.title = SEO.title);
   }
 }
 
 Page.propTypes = {
-  activeParams: PropTypes.array
+  SEO: PropTypes.object,
+  location: PropTypes.object
 };

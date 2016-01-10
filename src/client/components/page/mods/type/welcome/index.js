@@ -1,9 +1,31 @@
 import { Link } from 'react-router';
 import { PropTypes } from 'lib/component';
 import Page from 'client/components/page';
+import Model from './model';
 import styles from './styles.css';
 
 export default class PageTypeWelcome extends Page {
+  /**
+   * @override
+   */
+  constructor(props) {
+    super(props);
+
+    /**
+     * @type {Object}
+     */
+    this.state = { SEO: props.SEO };
+  }
+
+  /**
+   * @override
+   */
+   componentDidMount() {
+     super.componentDidMount();
+
+     INITIAL_DATA || this.model.load();
+   }
+
   /**
    * @override
    */
@@ -35,3 +57,4 @@ PageTypeWelcome.defaultProps = Object.assign({}, Page.defaultProps, {
 });
 
 PageTypeWelcome.styles = styles;
+PageTypeWelcome.Model = Model;

@@ -10,24 +10,35 @@ export default class TodoList extends Component {
   constructor(props) {
     super(props);
 
+    let data = this.props.data;
+
     /**
      * @type {Object}
      */
-    this.state = { todoItems: {} };
+    this.state = { todoItems: data && data.items };
   }
 
   /**
    * @override
    */
   componentDidMount() {
-    this.model.load();
+    this.model.inform();
   }
 
   /**
    * @override
    */
   componentDidUpdate() {
-    this.model.save();
+    this.model.inform();
+  }
+
+  /**
+   * @override
+   */
+  componentWillReceiveProps(nextProps) {
+    let data = nextProps.data;
+
+    !this.state.todoItems && data && this.setState({ todoItems: data.items });
   }
 
   /**
@@ -36,8 +47,7 @@ export default class TodoList extends Component {
   render() {
     let items = this.state.todoItems;
     let state = this.props.query.state;
-    let todoItems = Object.keys(items).map(id => {
-      let item = items[id];
+    let todoItems = items && items.map(item => {
       let isCompleted = item.isCompleted;
       let isVisible = !state ||
         state === 'active' && !isCompleted ||
@@ -63,6 +73,7 @@ export default class TodoList extends Component {
 }
 
 TodoList.propTypes = {
+  data: PropTypes.object,
   query: PropTypes.object.isRequired,
   title: PropTypes.string
 };

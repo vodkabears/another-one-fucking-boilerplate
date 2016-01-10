@@ -134,7 +134,7 @@ export default class TodoItem extends Component {
 }
 
 TodoItem.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   isVisible: PropTypes.bool,
   isCompleted: PropTypes.bool

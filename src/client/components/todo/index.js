@@ -9,10 +9,12 @@ export default class Todo extends Component {
    * @override
    */
   render() {
+    let props = this.props;
+
     return (
       <section className={this.styles.todo}>
         <TodoHeader />
-        <TodoList query={this.props.query} />
+        <TodoList data={props.data} query={props.query} />
         <TodoFooter />
       </section>
     );
@@ -20,6 +22,7 @@ export default class Todo extends Component {
 }
 
 Todo.propTypes = {
+  data: PropTypes.object,
   query: PropTypes.object.isRequired,
   title: PropTypes.string
 };
