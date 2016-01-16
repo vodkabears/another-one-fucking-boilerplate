@@ -8,7 +8,7 @@ const ENV = process.env.NODE_ENV || 'development';
 const IS_DEBUG = ENV === 'development';
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src', 'server'),
+  entry: path.resolve(__dirname, 'server'),
 
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -41,14 +41,13 @@ module.exports = {
   devtool: IS_DEBUG ? 'source-map' : '',
 
   resolve: {
-    root: path.resolve(__dirname, 'src')
+    root: __dirname
   },
 
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
-        include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
         loader: 'babel',
         query: {
@@ -57,11 +56,11 @@ module.exports = {
       },
       {
         test: /\.node$/,
-        loader: 'node-loader'
+        loader: 'node'
       },
       {
         test: /\.json$/,
-        loader: 'json-loader'
+        loader: 'json'
       },
       {
         test: /\.css$/,
@@ -69,11 +68,11 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
-        loader: 'null-loader'
+        loader: 'null'
       },
       {
         test: /\.(woff|woff2|ttf|eot)$/,
-        loader: 'null-loader'
+        loader: 'null'
       }
     ]
   }

@@ -23,7 +23,7 @@ const PLUGINS = [
 ];
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src', 'client'),
+  entry: path.resolve(__dirname, 'client'),
 
   output: {
     path: path.resolve(__dirname, 'build', 'public', 'assets'),
@@ -47,14 +47,13 @@ module.exports = {
   devtool: IS_DEBUG ? 'source-map' : '',
 
   resolve: {
-    root: path.resolve(__dirname, 'src')
+    root: __dirname
   },
 
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
-        include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
         loader: 'babel',
         query: {
@@ -64,16 +63,16 @@ module.exports = {
       {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract('style', IS_DEBUG ?
-          'css?modules&importLoaders=1!postcss-loader' :
-          'css?modules&importLoaders=1&minimize!postcss-loader')
+          'css?modules&importLoaders=1!postcss' :
+          'css?modules&importLoaders=1&minimize!postcss')
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
-        loader: 'url-loader?limit=32768!image-webpack'
+        loader: 'url?limit=32768!image-webpack'
       },
       {
         test: /\.(woff|woff2|ttf|eot)$/,
-        loader: 'url-loader?limit=32768'
+        loader: 'url?limit=32768'
       }
     ]
   }
