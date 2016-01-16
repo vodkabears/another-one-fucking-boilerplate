@@ -7,7 +7,7 @@ import styles from './styles.css';
 const ENTER_KEY = 13;
 const ESCAPE_KEY = 27;
 
-export default class TodoItem extends Component {
+export default class TodosItem extends Component {
   constructor(props) {
     super(props);
 
@@ -88,20 +88,20 @@ export default class TodoItem extends Component {
     let props = this.props;
     let isCompleted = props.isCompleted;
     let stls = this.styles;
-    let todoItemStyles;
+    let itemStyles;
 
     if (!props.isVisible) {
-      todoItemStyles = stls.todoItemIsHidden;
+      itemStyles = stls.itemIsHidden;
     } else if (this.state.isEditing) {
-      todoItemStyles = stls.todoItemIsEditing;
+      itemStyles = stls.itemIsEditing;
     } else if (isCompleted) {
-      todoItemStyles = stls.todoItemIsCompleted;
+      itemStyles = stls.itemIsCompleted;
     } else {
-      todoItemStyles = stls.todoItem;
+      itemStyles = stls.item;
     }
 
     return (
-      <li className={todoItemStyles}>
+      <li className={itemStyles}>
         <div className={stls.view}>
           <Checkbox
             className={stls.checkbox}
@@ -133,17 +133,17 @@ export default class TodoItem extends Component {
   }
 }
 
-TodoItem.propTypes = {
+TodosItem.propTypes = {
   id: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   isVisible: PropTypes.bool,
   isCompleted: PropTypes.bool
 };
 
-TodoItem.defaultProps = {
+TodosItem.defaultProps = {
   isVisible: true,
   isCompleted: false
 };
 
-TodoItem.styles = styles;
-TodoItem.Model = Model;
+TodosItem.styles = styles;
+TodosItem.Model = Model;

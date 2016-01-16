@@ -1,12 +1,12 @@
 import { Route, IndexRoute } from 'react-router';
 import PageType404 from './components/page/mods/type/404';
 import PageTypeWelcome from './components/page/mods/type/welcome';
-import PageTypeTodoExample from './components/page/mods/type/todo-example';
+import PageTypeTodosExample from './components/page/mods/type/todos-example';
 
 export default (
   <Route path="/">
     <IndexRoute component={PageTypeWelcome} />
-    <Route path="examples/todo(/:state)" component={PageTypeTodoExample} />
+    <Route path="examples/todos(/:state)" component={PageTypeTodosExample} />
     <Route path="*" component={PageType404} />
   </Route>
 );

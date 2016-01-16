@@ -39,7 +39,7 @@ export default class PageTypeWelcome extends Page {
           <div className={stls.image}></div>
           <h1>{props.title}</h1>
           <p>{props.description}</p>
-          <Link to="/examples/todo">Todo-list example</Link>
+          <Link to="/examples/todos">Todo-list example</Link>
         </div>
       </div>
     );

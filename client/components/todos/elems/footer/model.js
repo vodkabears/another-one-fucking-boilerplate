@@ -1,14 +1,14 @@
 import Model from 'lib/component-model';
 import EVENTS from 'lib/events';
 
-export default class TodoFooterModel extends Model {
+export default class TodosFooterModel extends Model {
   /**
    * @override
    */
   constructor(view) {
     super(view);
 
-    this.on(EVENTS.TodoUpdatedList, this._handleTodoUpdatedList);
+    this.on(EVENTS.TodosUpdatedList, this._handleTodosUpdatedList);
   }
 
   /**
@@ -17,7 +17,7 @@ export default class TodoFooterModel extends Model {
    *  @param {Number} data.completed
    *  @param {Number} data.size
    */
-  _handleTodoUpdatedList(data) {
+  _handleTodosUpdatedList(data) {
     let size = data.size;
 
     this.setState({
@@ -31,6 +31,6 @@ export default class TodoFooterModel extends Model {
    * Clears completed todos
    */
   clearCompleted() {
-    this.emit(EVENTS.TodoClearCompleted);
+    this.emit(EVENTS.TodosClearCompleted);
   }
 }

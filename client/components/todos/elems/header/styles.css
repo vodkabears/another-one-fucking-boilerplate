@@ -1,9 +1,9 @@
-.todoHeader {
+.header {
   position: relative;
 }
 
 .input {
-  composes: input from 'client/components/input/mods/theme/todo/styles.css';
+  composes: input from 'client/components/input/mods/theme/todos/styles.css';
   composes: input from 'client/components/input/mods/size/large/styles.css';
 
   width: 100%;

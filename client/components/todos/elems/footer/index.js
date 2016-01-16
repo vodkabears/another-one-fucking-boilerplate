@@ -1,9 +1,9 @@
 import Component from 'lib/component';
-import TodoFilters from '../filters';
+import TodosFilters from '../filters';
 import Model from './model';
 import styles from './styles.css';
 
-export default class TodoFooter extends Component {
+export default class TodosFooter extends Component {
   /**
    * @override
    */
@@ -34,21 +34,21 @@ export default class TodoFooter extends Component {
     let stls = this.styles;
     let state = this.state;
     let uncompleted = state.uncompleted;
-    let todoFooterStyles;
+    let footerStyles;
 
     if (state.isHidden) {
-      todoFooterStyles = stls.todoFooterIsHidden;
+      footerStyles = stls.footerIsHidden;
     } else if (state.hasCompleted) {
-      todoFooterStyles = stls.todoFooterHasCompleted;
+      footerStyles = stls.footerHasCompleted;
     } else {
-      todoFooterStyles = stls.todoFooter;
+      footerStyles = stls.footer;
     }
 
     return (
       <footer
-        className={todoFooterStyles}>
+        className={footerStyles}>
         <span className={stls.counter}>{uncompleted} items left</span>
-        <TodoFilters />
+        <TodosFilters />
         <button
           className={stls.clearButton}
           onClick={this._handleClearButtonClick.bind(this)}>
@@ -59,5 +59,5 @@ export default class TodoFooter extends Component {
   }
 }
 
-TodoFooter.styles = styles;
-TodoFooter.Model = Model;
+TodosFooter.styles = styles;
+TodosFooter.Model = Model;

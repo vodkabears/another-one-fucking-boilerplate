@@ -46,7 +46,7 @@ export default class PageTypeTodosExample extends Page {
 }
 
 PageTypeTodosExample.propTypes = Object.assign({}, Page.propTypes, {
-  Todos: PropTypes.object,
+  Todo: PropTypes.object,
   title: PropTypes.string
 });
 

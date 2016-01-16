@@ -1,14 +1,14 @@
 import Model from 'lib/component-model';
 import EVENTS from 'lib/events';
 
-export default class TodoHeaderModel extends Model {
+export default class TodosHeaderModel extends Model {
   /**
    * @override
    */
   constructor(view) {
     super(view);
 
-    this.on(EVENTS.TodoUpdatedList, this._handleTodoUpdatedList);
+    this.on(EVENTS.TodosUpdatedList, this._handleTodosUpdatedList);
   }
 
   /**
@@ -17,7 +17,7 @@ export default class TodoHeaderModel extends Model {
    *  @param {Number} data.completed
    *  @param {Number} data.size
    */
-  _handleTodoUpdatedList(data) {
+  _handleTodosUpdatedList(data) {
     let size = data.size;
 
     this.setState({
@@ -30,7 +30,7 @@ export default class TodoHeaderModel extends Model {
    * @param {String} text
    */
   createTodo(text) {
-    this.emit(EVENTS.TodoCreateItem, { text });
+    this.emit(EVENTS.TodosCreateItem, { text });
 
     this.setState({
       input: '',
@@ -51,7 +51,7 @@ export default class TodoHeaderModel extends Model {
    * @param {Boolean} makeCompleted
    */
   toggleAll(makeCompleted) {
-    this.emit(EVENTS.TodoToggleAll, { makeCompleted });
+    this.emit(EVENTS.TodosToggleAll, { makeCompleted });
 
     this.setState({ isCheckboxChecked: makeCompleted });
   }

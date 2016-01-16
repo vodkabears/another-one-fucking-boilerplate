@@ -1,10 +1,10 @@
 import API from 'lib/api';
 import Model from 'lib/component-model';
 
-export default class PageTypeTodoExampleModel extends Model {
+export default class PageTypeTodosExampleModel extends Model {
   load() {
     API
-     .get('/api/components/PageTypeTodoExample')
+     .get('/api/components/PageTypeTodosExample')
      .then(data => this.setState(data));
   }
 }

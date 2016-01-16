@@ -1,24 +1,24 @@
-.todoItem {
+.item {
   position: relative;
 
   border-bottom: 1px solid #ededed;
 }
 
-.todoItemIsCompleted,
-.todoItemIsEditing,
-.todoItemIsHidden {
-  composes: todoItem;
+.itemIsCompleted,
+.itemIsEditing,
+.itemIsHidden {
+  composes: item;
 }
 
-.todoItemIsHidden {
+.itemIsHidden {
   display: none;
 }
 
-.todoItemIsEditing {
+.itemIsEditing {
   border-bottom: none;
 }
 
-.todoItemIsEditing .view {
+.itemIsEditing .view {
   display: none;
 }
 
@@ -26,7 +26,7 @@
   display: none;
 }
 
-.todoItemIsEditing .edit {
+.itemIsEditing .edit {
   display: block;
 }
 
@@ -46,7 +46,7 @@
   transition: color 0.4s;
 }
 
-.todoItemIsCompleted .label {
+.itemIsCompleted .label {
   text-decoration: line-through;
 
   color: #d9d9d9;
@@ -62,7 +62,7 @@
 }
 
 .input {
-  composes: input from 'client/components/input/mods/theme/todo/styles.css';
+  composes: input from 'client/components/input/mods/theme/todos/styles.css';
   composes: input from 'client/components/input/mods/size/large/styles.css';
 
   width: 506px;
@@ -107,6 +107,6 @@
   color: #af5b5e;
 }
 
-.todoItem:hover .deleteButton {
+.item:hover .deleteButton {
   display: block;
 }

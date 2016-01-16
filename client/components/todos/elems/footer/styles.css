@@ -1,4 +1,4 @@
-.todoFooter {
+.footer {
   position: relative;
 
   height: 20px;
@@ -9,7 +9,7 @@
   color: #777;
 }
 
-.todoFooter::before {
+.footer::before {
   position: absolute;
   right: 0;
   bottom: 0;
@@ -28,12 +28,12 @@
   0 17px 2px -6px rgba(0, 0, 0, 0.2);
 }
 
-.todoFooterIsHidden {
+.footerIsHidden {
   display: none;
 }
 
-.todoFooterHasCompleted {
-  composes: todoFooter;
+.footerHasCompleted {
+  composes: footer;
 }
 
 .counter {
@@ -68,6 +68,6 @@
   text-decoration: underline;
 }
 
-.todoFooterHasCompleted .clearButton {
+.footerHasCompleted .clearButton {
   display: inline;
 }

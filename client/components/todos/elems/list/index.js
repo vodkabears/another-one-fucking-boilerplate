@@ -1,9 +1,9 @@
 import Component, { PropTypes } from 'lib/component';
-import TodoItem from '../item';
+import TodosItem from '../item';
 import Model from './model';
 import styles from './styles.css';
 
-export default class TodoList extends Component {
+export default class TodosList extends Component {
   /**
    * @override
    */
@@ -15,7 +15,7 @@ export default class TodoList extends Component {
     /**
      * @type {Object}
      */
-    this.state = { todoItems: data && data.items };
+    this.state = { todos: data && data.items };
   }
 
   /**
@@ -38,23 +38,23 @@ export default class TodoList extends Component {
   componentWillReceiveProps(nextProps) {
     let data = nextProps.data;
 
-    !this.state.todoItems && data && this.setState({ todoItems: data.items });
+    !this.state.todos && data && this.setState({ todos: data.items });
   }
 
   /**
    * @override
    */
   render() {
-    let items = this.state.todoItems;
+    let items = this.state.todos;
     let state = this.props.query.state;
-    let todoItems = items && items.map(item => {
+    let todosItems = items && items.map(item => {
       let isCompleted = item.isCompleted;
       let isVisible = !state ||
         state === 'active' && !isCompleted ||
         state === 'completed' && isCompleted;
 
       return (
-        <TodoItem
+        <TodosItem
           key={item.id}
           id={item.id}
           text={item.text}
@@ -65,22 +65,22 @@ export default class TodoList extends Component {
     });
 
     return (
-      <ul className={this.styles.todoList}>
-        {todoItems}
+      <ul className={this.styles.list}>
+        {todosItems}
       </ul>
     );
   }
 }
 
-TodoList.propTypes = {
+TodosList.propTypes = {
   data: PropTypes.object,
   query: PropTypes.object.isRequired,
   title: PropTypes.string
 };
 
-TodoList.defaultProps = {
+TodosList.defaultProps = {
   title: 'todos'
 };
 
-TodoList.styles = styles;
-TodoList.Model = Model;
+TodosList.styles = styles;
+TodosList.Model = Model;

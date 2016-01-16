@@ -1,9 +1,9 @@
-import todoProvider from './todo';
+import todosProvider from './todos';
 import pageTypeWelcomeProvider from './page-type-welcome';
-import PageTypeTodoExampleProvider from './page-type-todo-example';
+import PageTypeTodosExampleProvider from './page-type-todos-example';
 
 export default {
-  Todo: todoProvider,
+  Todos: todosProvider,
   PageTypeWelcome: pageTypeWelcomeProvider,
-  PageTypeTodoExample: PageTypeTodoExampleProvider
+  PageTypeTodosExample: PageTypeTodosExampleProvider
 };

@@ -4,7 +4,7 @@ const PAGES = {
     description: 'Next-gen boilerplate with trendy front-end technologies'
   },
 
-  PageTypeTodoExample: {
+  PageTypeTodosExample: {
     title: 'Boilerplate • TodoMVC',
     description: 'Todo apps with Boilerplate'
   }

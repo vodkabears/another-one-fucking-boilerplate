@@ -6,7 +6,7 @@ import styles from './styles.css';
 
 const ENTER_KEY = 13;
 
-export default class TodoHeader extends Component {
+export default class TodosHeader extends Component {
   /**
    * @override
    */
@@ -58,7 +58,7 @@ export default class TodoHeader extends Component {
     let state = this.state;
 
     return (
-      <header className={stls.todoHeader}>
+      <header className={stls.header}>
         <Checkbox
           className={stls.checkbox}
           isChecked={state.isCheckboxChecked}
@@ -76,13 +76,13 @@ export default class TodoHeader extends Component {
   }
 }
 
-TodoHeader.propTypes = {
+TodosHeader.propTypes = {
   placeholder: PropTypes.string
 };
 
-TodoHeader.defaultProps = {
+TodosHeader.defaultProps = {
   placeholder: 'What needs to be done?'
 };
 
-TodoHeader.styles = styles;
-TodoHeader.Model = Model;
+TodosHeader.styles = styles;
+TodosHeader.Model = Model;

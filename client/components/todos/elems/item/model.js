@@ -1,13 +1,13 @@
 import Model from 'lib/component-model';
 import EVENTS from 'lib/events';
 
-export default class TodoItemModel extends Model {
+export default class TodosItemModel extends Model {
   /**
    * Toggles the todo
    * @param {Boolean} makeCompleted
    */
    toggle(makeCompleted) {
-     this.emit(EVENTS.TodoToggleItem, {
+     this.emit(EVENTS.TodosToggleItem, {
        id: this.props.id,
        makeCompleted
      });
@@ -17,7 +17,7 @@ export default class TodoItemModel extends Model {
     * Deletes the todo
     */
    remove() {
-     this.emit(EVENTS.TodoDeleteItem, { id: this.props.id });
+     this.emit(EVENTS.TodosDeleteItem, { id: this.props.id });
    }
 
    /**
@@ -41,7 +41,7 @@ export default class TodoItemModel extends Model {
     * Saves changes after editing
     */
    saveChanges() {
-     this.emit(EVENTS.TodoUpdateItem, {
+     this.emit(EVENTS.TodosUpdateItem, {
        id: this.props.id,
        text: this.state.input
      });

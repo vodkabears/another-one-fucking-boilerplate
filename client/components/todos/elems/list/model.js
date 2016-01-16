@@ -2,9 +2,9 @@ import API from 'lib/api';
 import Model from 'lib/component-model';
 import EVENTS from 'lib/events';
 
-const GATE = '/api/components/Todo';
+const GATE = '/api/components/Todos';
 
-export default class TodoListModel extends Model {
+export default class TodosListModel extends Model {
   /**
    * @override
    */
@@ -12,12 +12,12 @@ export default class TodoListModel extends Model {
     super(view);
 
     this
-      .on(EVENTS.TodoCreateItem, this._handleTodoCreateItem)
-      .on(EVENTS.TodoDeleteItem, this._handleTodoDeleteItem)
-      .on(EVENTS.TodoUpdateItem, this._handleTodoUpdateItem)
-      .on(EVENTS.TodoToggleItem, this._handleTodoToggleItem)
-      .on(EVENTS.TodoToggleAll, this._handleTodoToggleAll)
-      .on(EVENTS.TodoClearCompleted, this._handleTodoClearCompleted);
+      .on(EVENTS.TodosCreateItem, this._handleTodosCreateItem)
+      .on(EVENTS.TodosDeleteItem, this._handleTodosDeleteItem)
+      .on(EVENTS.TodosUpdateItem, this._handleTodosUpdateItem)
+      .on(EVENTS.TodosToggleItem, this._handleTodosToggleItem)
+      .on(EVENTS.TodosToggleAll, this._handleTodosToggleAll)
+      .on(EVENTS.TodosClearCompleted, this._handleTodosClearCompleted);
   }
 
   /**
@@ -25,7 +25,7 @@ export default class TodoListModel extends Model {
    * @param {Object} data
    *  @param {String} data.text
    */
-  _handleTodoCreateItem(data) {
+  _handleTodosCreateItem(data) {
     this.addTodo(data.text);
   }
 
@@ -34,7 +34,7 @@ export default class TodoListModel extends Model {
    * @param {Object} data
    *  @param {Number} data.id
    */
-  _handleTodoDeleteItem(data) {
+  _handleTodosDeleteItem(data) {
     this.deleteTodo(data.id);
   }
 
@@ -44,7 +44,7 @@ export default class TodoListModel extends Model {
    *  @param {Number} data.id
    *  @param {String} data.text
    */
-  _handleTodoUpdateItem(data) {
+  _handleTodosUpdateItem(data) {
     this.updateTodo(data.id, data.text);
   }
 
@@ -54,7 +54,7 @@ export default class TodoListModel extends Model {
    *  @param {Number} id
    *  @param {Boolean} makeCompleted
    */
-  _handleTodoToggleItem(data) {
+  _handleTodosToggleItem(data) {
     this.toggleItem(data.id, data.makeCompleted);
   }
 
@@ -63,14 +63,14 @@ export default class TodoListModel extends Model {
    * @param {Object} data
    *  @param {Boolean} makeCompleted
    */
-  _handleTodoToggleAll(data) {
+  _handleTodosToggleAll(data) {
     this.toggleAll(data.makeCompleted);
   }
 
   /**
    * @protected
    */
-  _handleTodoClearCompleted() {
+  _handleTodosClearCompleted() {
     this.deleteCompleted();
   }
 
@@ -79,15 +79,15 @@ export default class TodoListModel extends Model {
    * @protected
    */
   inform() {
-    let todoItems = this.state.todoItems;
+    let todos = this.state.todos;
 
-    if (!todoItems) {
+    if (!todos) {
       return;
     }
 
-    this.emit(EVENTS.TodoUpdatedList, {
-      completed: todoItems.filter(item => item.isCompleted).length,
-      size: todoItems.length
+    this.emit(EVENTS.TodosUpdatedList, {
+      completed: todos.filter(item => item.isCompleted).length,
+      size: todos.length
     });
   }
 
@@ -103,7 +103,7 @@ export default class TodoListModel extends Model {
     API.add(GATE, {
       text,
       isCompleted: false
-    }).then(data => this.setState({ todoItems: data.items }));
+    }).then(data => this.setState({ todos: data.items }));
   }
 
   /**
@@ -117,7 +117,7 @@ export default class TodoListModel extends Model {
     }
 
     API.update(`${GATE}/edit`, { text }, { id })
-      .then(data => this.setState({ todoItems: data.items }));
+      .then(data => this.setState({ todos: data.items }));
   }
 
   /**
@@ -126,22 +126,22 @@ export default class TodoListModel extends Model {
    */
   deleteTodo(id) {
     API.remove(GATE, { id })
-      .then(data => this.setState({ todoItems: data.items }));
+      .then(data => this.setState({ todos: data.items }));
   }
 
   /**
    * Deletes completed todos
    */
   deleteCompleted() {
-    let todoItems = this.state.todoItems;
+    let todos = this.state.todos;
 
-    if (!todoItems) {
+    if (!todos) {
       return;
     }
 
     API.remove(GATE, {
-      id: todoItems.filter(item => item.isCompleted).map(item => item.id)
-    }).then(data => this.setState({ todoItems: data.items }));
+      id: todos.filter(item => item.isCompleted).map(item => item.id)
+    }).then(data => this.setState({ todos: data.items }));
   }
 
   /**
@@ -151,7 +151,7 @@ export default class TodoListModel extends Model {
    */
   toggleItem(id, isCompleted) {
     API.update(`${GATE}/toggle`, { isCompleted }, { id })
-      .then(data => this.setState({ todoItems: data.items }));
+      .then(data => this.setState({ todos: data.items }));
   }
 
   /**
@@ -159,14 +159,14 @@ export default class TodoListModel extends Model {
    * @param {Boolean} isCompleted
    */
   toggleAll(isCompleted) {
-    let todoItems = this.state.todoItems;
+    let todos = this.state.todos;
 
-    if (!todoItems) {
+    if (!todos) {
       return;
     }
 
     API.update(`${GATE}/toggle`, { isCompleted }, {
-      id: todoItems.map(item => item.id)
-    }).then(data => this.setState({ todoItems: data.items }));
+      id: todos.map(item => item.id)
+    }).then(data => this.setState({ todos: data.items }));
   }
 }

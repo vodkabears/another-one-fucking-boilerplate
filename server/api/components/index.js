@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import TodoAPI from './todo';
+import TodosAPI from './todos';
 import PageTypeWelcomeAPI from './page-type-welcome';
-import PageTypeTodoExampleAPI from './page-type-todo-example';
+import PageTypeTodosExampleAPI from './page-type-todos-example';
 
 let API = new Router();
 
-API.use('/Todo', TodoAPI);
+API.use('/Todos', TodosAPI);
 API.use('/PageTypeWelcome', PageTypeWelcomeAPI);
-API.use('/PageTypeTodoExample', PageTypeTodoExampleAPI);
+API.use('/PageTypeTodosExample', PageTypeTodosExampleAPI);
 
 export default API;
