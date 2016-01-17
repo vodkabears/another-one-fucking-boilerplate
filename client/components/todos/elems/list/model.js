@@ -100,7 +100,7 @@ export default class TodosListModel extends Model {
       return;
     }
 
-    API.add(GATE, {
+    API.create(GATE, {
       text,
       isCompleted: false
     }).then(data => this.setState({ todos: data.items }));
