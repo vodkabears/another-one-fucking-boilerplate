@@ -8,11 +8,14 @@ const ENV = process.env.NODE_ENV || 'development';
 const IS_DEBUG = ENV === 'development';
 
 module.exports = {
-  entry: path.resolve(__dirname, 'server'),
+  entry: {
+    db: path.resolve(__dirname, 'db'),
+    server: path.resolve(__dirname, 'server')
+  },
 
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'server.js',
+    filename: '[name].js',
     libraryTarget: 'commonjs2'
   },
 

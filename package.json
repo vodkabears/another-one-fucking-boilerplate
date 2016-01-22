@@ -16,8 +16,9 @@
     "watch:server": "webpack --config webpack.server.config.js --progress --watch",
     "watch:server-bundle": "nodemon build/server.js",
     "watch": "npm-run-all --parallel watch:client watch:server watch:server-bundle",
-    "dev": "npm install && npm-run-all test clean build watch",
-    "prod": "npm install && NODE_ENV=production npm-run-all test clean build && pm2 start build/server.js -i 0"
+    "set-db": "node build/db.js",
+    "dev": "npm install && npm-run-all test clean build set-db watch",
+    "prod": "npm install && NODE_ENV=production npm-run-all test clean build set-db && pm2 start build/server.js -i 0"
   },
   "dependencies": {
     "assets-webpack-plugin": "^3.2.0",
