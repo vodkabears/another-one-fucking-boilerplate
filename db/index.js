@@ -1,7 +1,8 @@
 import { MongoClient } from 'mongodb';
+import config from 'config';
 import createTodos from './todos';
 
-MongoClient.connect('mongodb://localhost:27017/boilerplate')
+MongoClient.connect(config.mongodb)
   .then(db => {
     Promise.all([
       createTodos(db)
