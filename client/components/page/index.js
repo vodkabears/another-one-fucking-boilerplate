@@ -6,7 +6,13 @@ export default class Page extends Component {
    * @override
    */
   componentDidMount() {
+    let model = this.model;
+
     document.body.className = this.styles.body || '';
+
+    if (!INITIAL_DATA && typeof model.load === 'function') {
+      model.load();
+    }
   }
 
   /**

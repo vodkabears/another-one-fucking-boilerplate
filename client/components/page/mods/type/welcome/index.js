@@ -1,6 +1,7 @@
 import { Link } from 'react-router';
 import { PropTypes } from 'lib/component';
 import Page from 'client/components/page';
+import Loader from 'client/components/loader';
 import Model from './model';
 import styles from './styles.css';
 
@@ -14,17 +15,11 @@ export default class PageTypeWelcome extends Page {
     /**
      * @type {Object}
      */
-    this.state = { SEO: props.SEO };
+    this.state = {
+      SEO: props.SEO,
+      isLoading: false
+    };
   }
-
-  /**
-   * @override
-   */
-   componentDidMount() {
-     super.componentDidMount();
-
-     INITIAL_DATA || this.model.load();
-   }
 
   /**
    * @override
@@ -41,6 +36,7 @@ export default class PageTypeWelcome extends Page {
           <p>{props.description}</p>
           <Link to="/examples/todos">Todo-list example</Link>
         </div>
+        <Loader isLoading={this.state.isLoading} />
       </div>
     );
   }

@@ -1,6 +1,7 @@
 import { PropTypes } from 'lib/component';
 import Page from 'client/components/page';
 import Todos from 'client/components/todos';
+import Loader from 'client/components/loader';
 import Model from './model';
 import styles from './styles.css';
 
@@ -16,17 +17,9 @@ export default class PageTypeTodosExample extends Page {
      */
     this.state = {
       SEO: props.SEO,
-      Todos: props.Todos
+      Todos: props.Todos,
+      isLoading: false
     };
-  }
-
-  /**
-   * @override
-   */
-  componentDidMount() {
-    super.componentDidMount();
-
-    INITIAL_DATA || this.model.load();
   }
 
   /**
@@ -35,11 +28,13 @@ export default class PageTypeTodosExample extends Page {
   render() {
     let stls = this.styles;
     let props = this.props;
+    let state = this.state;
 
     return (
       <div className={stls.page}>
         <h1 className={stls.title}>{props.title}</h1>
-        <Todos data={this.state.Todos} query={props.params} />
+        <Todos data={state.Todos} query={props.params} />
+        <Loader isLoading={state.isLoading} />
       </div>
     );
   }
