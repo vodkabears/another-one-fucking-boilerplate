@@ -94,13 +94,14 @@ export default class TodosListModel extends Model {
   /**
    * Adds a new todo
    * @param {String} text
+   * @returns {Promise}
    */
   addTodo(text) {
     if (!text) {
       return;
     }
 
-    API.create(GATE, {
+    return API.create(GATE, {
       text,
       isCompleted: false
     }).then(data => this.setState({ todos: data.items }));
@@ -110,27 +111,30 @@ export default class TodosListModel extends Model {
    * Updates a todo
    * @param {Number} id
    * @param {String} text
+   * @returns {Promise}
    */
   updateTodo(id, text) {
     if (!text) {
       return;
     }
 
-    API.update(`${GATE}/edit`, { text }, { id })
+    return API.update(`${GATE}/edit`, { text }, { id })
       .then(data => this.setState({ todos: data.items }));
   }
 
   /**
    * Deletes a todo
    * @param {Number} id
+   * @returns {Promise}
    */
   deleteTodo(id) {
-    API.remove(GATE, { id })
+    return API.remove(GATE, { id })
       .then(data => this.setState({ todos: data.items }));
   }
 
   /**
    * Deletes completed todos
+   * @returns {Promise}
    */
   deleteCompleted() {
     let todos = this.state.todos;
@@ -139,7 +143,7 @@ export default class TodosListModel extends Model {
       return;
     }
 
-    API.remove(GATE, {
+    return API.remove(GATE, {
       id: todos.filter(item => item.isCompleted).map(item => item.id)
     }).then(data => this.setState({ todos: data.items }));
   }
@@ -148,15 +152,17 @@ export default class TodosListModel extends Model {
    * Toggles a todo
    * @param {Number} id
    * @param {Boolean} isCompleted
+   * @returns {Promise}
    */
   toggleItem(id, isCompleted) {
-    API.update(`${GATE}/toggle`, { isCompleted }, { id })
+    return API.update(`${GATE}/toggle`, { isCompleted }, { id })
       .then(data => this.setState({ todos: data.items }));
   }
 
   /**
    * Toggles all todos
    * @param {Boolean} isCompleted
+   * @returns {Promise}
    */
   toggleAll(isCompleted) {
     let todos = this.state.todos;
@@ -165,7 +171,7 @@ export default class TodosListModel extends Model {
       return;
     }
 
-    API.update(`${GATE}/toggle`, { isCompleted }, {
+    return API.update(`${GATE}/toggle`, { isCompleted }, {
       id: todos.map(item => item.id)
     }).then(data => this.setState({ todos: data.items }));
   }
