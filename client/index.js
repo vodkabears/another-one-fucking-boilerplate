@@ -5,12 +5,15 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 import routes from './routes';
 
 function createElement(Component, props) {
-  INITIAL_DATA && (props = Object.assign({}, props, INITIAL_DATA));
+  if (INITIAL_DATA) {
+    props = Object.assign({}, props, INITIAL_DATA);
 
-  // Clear the initial data after returning the component
-  setTimeout(() => {
-    INITIAL_DATA = null;
-  }, 0);
+    // Clear the initial data after returning the component
+    setTimeout(() => {
+      INITIAL_DATA = null;
+      document.body.removeAttribute('data-initial');
+    }, 0);
+  }
 
   return <Component {...props}/>;
 }

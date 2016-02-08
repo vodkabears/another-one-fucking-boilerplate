@@ -1,4 +1,3 @@
-import escapeJSON from 'lib/escape-json';
 import Component, { PropTypes } from 'lib/component';
 import HtmlYandexMetrica from './elems/yandex-metrica';
 import HtmlGoogleAnalytics from './elems/google-analytics';
@@ -31,9 +30,11 @@ export default class Html extends Component {
           <link rel="apple-touch-icon" href="apple-touch-icon.png" />
           <link rel="stylesheet" href={`/assets/${bundle.css}`} />
         </head>
-        <body>
+        <body data-initial={JSON.stringify(data)}>
           <div id="app" dangerouslySetInnerHTML={{ __html: props.body }} />
-          <script dangerouslySetInnerHTML={{ __html: `var INITIAL_DATA = ${escapeJSON(JSON.stringify(data))}` }}></script>
+          <script
+            dangerouslySetInnerHTML={{ __html: 'var INITIAL_DATA = JSON.parse(document.body.getAttribute("data-initial"));' }}>
+          </script>
           <script src={`/assets/${bundle.js}`}></script>
           <HtmlGoogleAnalytics id="UA-XXXXX-X" />
           <HtmlYandexMetrica id="XXXXXXXX" />
