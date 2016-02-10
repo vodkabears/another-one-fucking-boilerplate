@@ -8,7 +8,7 @@ import SEO from 'server/models/seo';
  */
 export default function pageTypeTodosExampleProvider(request, data = {}) {
   if (data.PageTypeTodosExample) {
-    return new Promise(resolve => resolve(data));
+    return Promise.resolve(data);
   }
 
   return todosProvider(request, data)

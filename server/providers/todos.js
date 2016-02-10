@@ -7,7 +7,7 @@ import Todos from 'server/models/todos';
  */
 export default function todosProvider(request, data = {}) {
   if (data.Todos) {
-    return new Promise(resolve => resolve(data));
+    return Promise.resolve(data);
   }
 
   return Todos.get(request).then(items => {

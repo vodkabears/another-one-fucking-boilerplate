@@ -42,7 +42,11 @@ export default class Todos {
       { _id: request.sessionID },
       { $push: { items: item } },
       { upsert: true, returnOriginal: false, projection: { items: 1 } }
-    ).then(data => data.value.items || []);
+    ).then(data => {
+      let value = data.value;
+
+      return value && value.items || [];
+    });
   }
 
   /**
@@ -60,7 +64,11 @@ export default class Todos {
       { _id: request.sessionID, 'items.id': id },
       { $set: { 'items.$.text': text.trim() } },
       { returnOriginal: false, projection: { items: 1 } }
-    ).then(data => data.value.items || []);
+    ).then(data => {
+      let value = data.value;
+
+      return value && value.items || [];
+    });
   }
 
   /**
@@ -123,6 +131,10 @@ export default class Todos {
       { _id: request.sessionID },
       { $pull: { items: { id: { $in: ids } } } },
       { returnOriginal: false, projection: { items: 1 } }
-    ).then(data => data.value.items || []);
+    ).then(data => {
+      let value = data.value;
+
+      return value && value.items || [];
+    });
   }
 }

@@ -7,7 +7,7 @@ import SEO from 'server/models/seo';
  */
 export default function pageTypeWelcomeProvider(request, data = {}) {
   if (data.PageTypeWelcome) {
-    return new Promise(resolve => resolve(data));
+    return Promise.resolve(data);
   }
 
   return new Promise(resolve => {

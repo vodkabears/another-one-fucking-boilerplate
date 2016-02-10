@@ -8,7 +8,7 @@
     "clean-test": "rm -rf build/test/",
     "lint": "eslint . --debug --ignore-path .gitignore && csscomb -l -v client/",
     "fix": "eslint . --fix --ignore-path .gitignore && csscomb client/",
-    "unit": "npm-run-all clean-test build:test && mocha build/test/",
+    "unit": "npm-run-all clean-test build:test && mocha --recursive build/test/",
     "test": "npm-run-all lint unit",
     "copy-public": "mkdir -p build/ && cp -r client/public/ build/public/",
     "build:test": "webpack --config webpack.test.config.js --progress",

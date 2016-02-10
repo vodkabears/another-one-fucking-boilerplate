@@ -3,8 +3,8 @@
 let path = require('path');
 let glob = require('glob');
 
-const ENTRIES = glob.sync(path.resolve(__dirname, 'test/**/*.test.js')).reduce((entries, entry) => {
-  entries[entry.split('/').pop()] = entry;
+const ENTRIES = glob.sync(path.resolve('test/**/*.test.js')).reduce((entries, entry) => {
+  entries[path.relative(path.resolve('test'), entry)] = entry;
 
   return entries;
 }, {});
@@ -13,7 +13,7 @@ module.exports = {
   entry: ENTRIES,
 
   output: {
-    path: path.resolve(__dirname, 'build', 'test'),
+    path: path.resolve('build', 'test'),
     filename: '[name]',
     libraryTarget: 'commonjs2'
   },
