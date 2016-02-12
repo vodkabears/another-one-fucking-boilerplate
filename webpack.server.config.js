@@ -9,12 +9,12 @@ const IS_DEBUG = ENV === 'development';
 
 module.exports = {
   entry: {
-    db: path.resolve(__dirname, 'db'),
-    server: path.resolve(__dirname, 'server')
+    db: path.join(__dirname, 'db'),
+    server: path.join(__dirname, 'server')
   },
 
   output: {
-    path: path.resolve(__dirname, 'build'),
+    path: path.join(__dirname, 'build'),
     filename: '[name].js',
     libraryTarget: 'commonjs2'
   },

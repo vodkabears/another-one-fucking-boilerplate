@@ -16,17 +16,17 @@ const PLUGINS = [
   new optimize.OccurenceOrderPlugin(),
   new optimize.AggressiveMergingPlugin(),
   new AssetsPlugin({
-    path: path.resolve(__dirname, 'build'),
+    path: path.join(__dirname, 'build'),
     filename: 'assets.json'
   }),
   new ExtractTextPlugin('bundle_[hash].css')
 ];
 
 module.exports = {
-  entry: path.resolve(__dirname, 'client'),
+  entry: path.join(__dirname, 'client'),
 
   output: {
-    path: path.resolve(__dirname, 'build', 'public', 'assets'),
+    path: path.join(__dirname, 'build', 'public', 'assets'),
     filename: 'bundle_[hash].js'
   },
 
