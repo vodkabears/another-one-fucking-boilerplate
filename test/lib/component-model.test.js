@@ -5,15 +5,19 @@ import ComponentModel from 'lib/component-model';
 import ComponentMock from 'test/mocks/component';
 
 let component = new ComponentMock();
-let model = new ComponentModel(component);
 let sandbox = sinon.sandbox.create();
+let model;
 
 describe('ComponentModel', () => {
-  afterEach(() => sandbox.restore());
-
   beforeEach(() => {
+    model = new ComponentModel(component);
     component.props = { text: 'props' };
     component.state = { text: 'state' };
+  });
+
+  afterEach(() => {
+    model.destroy();
+    sandbox.restore();
   });
 
   describe('#props', () => {

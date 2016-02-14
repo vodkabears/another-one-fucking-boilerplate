@@ -14,4 +14,11 @@ describe('Todos provider', () => {
     return provider()
       .then(data => expect(data.Todos).to.be.deep.equal({ items: [] }));
   });
+
+  it('should not fetch data if it is already defined', () => {
+    let prevData = { Todos: {} };
+
+    return provider(null, prevData)
+      .then(data => expect(data.Todos).to.be.equal(prevData.Todos));
+  });
 });

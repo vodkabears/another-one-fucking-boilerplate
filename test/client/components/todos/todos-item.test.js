@@ -5,9 +5,13 @@ import ComponentMock from 'test/mocks/component';
 import TodosItemModel from 'client/components/todos/elems/item/model';
 
 let component = new ComponentMock({ id: 1, text: 'test' });
-let model = new TodosItemModel(component);
+let model;
 
 describe('TodosItem', () => {
+  beforeEach(() => model = new TodosItemModel(component));
+
+  afterEach(() => model.destroy());
+
   describe('#toggle(makeCompleted)', () => {
     it('should emit the "TodosToggleItem" event', done => {
       Dispatcher.once(EVENTS.TodosToggleItem, data => {

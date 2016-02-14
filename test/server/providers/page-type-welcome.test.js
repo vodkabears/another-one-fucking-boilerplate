@@ -11,4 +11,11 @@ describe('PageTypeWelcome provider', () => {
         }
       }));
   });
+
+  it('should not fetch data if it is already defined', () => {
+    let prevData = { PageTypeWelcome: {} };
+
+    return provider(null, prevData)
+      .then(data => expect(data.PageTypeWelcome).to.be.equal(prevData.PageTypeWelcome));
+  });
 });

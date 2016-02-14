@@ -3,36 +3,37 @@ import { expect } from 'chai';
 import sinon from 'sinon';
 import Dispatcher from 'lib/dispatcher';
 
-let sandbox = sinon.sandbox.create();
+let EVENT = 'event';
+let spy;
 
 describe('Dispatcher', () => {
-  afterEach(() => sandbox.restore());
+  afterEach(() => Dispatcher.off(EVENT, spy));
 
   describe('.emit(event, data)', () => {
     it('should emit an event', () => {
-      let spy = sandbox.spy(EventEmitter.prototype, 'emit');
+      spy = sinon.spy(EventEmitter.prototype, 'emit');
 
-      Dispatcher.emit('event', 'data');
+      Dispatcher.emit(EVENT, 'data');
 
-      expect(spy.calledWithExactly('event', 'data')).to.be.true;
+      expect(spy.calledWithExactly(EVENT, 'data')).to.be.true;
     });
   });
 
   describe('.on(event, listener)', () => {
     it('should handle multiple events', () => {
-      let spy = sandbox.spy();
+      spy = sinon.spy();
 
-      Dispatcher.on('event', spy);
-      Dispatcher.emit('event');
-      Dispatcher.emit('event');
+      Dispatcher.on(EVENT, spy);
+      Dispatcher.emit(EVENT);
+      Dispatcher.emit(EVENT);
 
       expect(spy.callCount).to.be.equal(2);
     });
 
     it('should pass data to the handler', () => {
-      let spy = sandbox.spy();
+      spy = sinon.spy();
 
-      Dispatcher.on('event', spy).emit('event', 'data');
+      Dispatcher.on(EVENT, spy).emit(EVENT, 'data');
 
       expect(spy.calledWithExactly('data')).to.be.true;
     });
@@ -40,19 +41,19 @@ describe('Dispatcher', () => {
 
   describe('.once(event, listener)', () => {
     it('should handle an event once', () => {
-      let spy = sandbox.spy();
+      spy = sinon.spy();
 
-      Dispatcher.once('event', spy);
-      Dispatcher.emit('event');
-      Dispatcher.emit('event');
+      Dispatcher.once(EVENT, spy);
+      Dispatcher.emit(EVENT);
+      Dispatcher.emit(EVENT);
 
       expect(spy.callCount).to.be.equal(1);
     });
 
     it('should pass data to the handler', () => {
-      let spy = sandbox.spy();
+      spy = sinon.spy();
 
-      Dispatcher.once('event', spy).emit('event', 'data');
+      Dispatcher.once(EVENT, spy).emit(EVENT, 'data');
 
       expect(spy.calledWithExactly('data')).to.be.true;
     });
@@ -60,9 +61,9 @@ describe('Dispatcher', () => {
 
   describe('.off(event, listener)', () => {
     it('should remove an event listener', () => {
-      let spy = sandbox.spy();
+      spy = sinon.spy();
 
-      Dispatcher.on('event', spy).off('event', spy).emit('event');
+      Dispatcher.on(EVENT, spy).off(EVENT, spy).emit(EVENT);
 
       expect(spy.called).to.be.false;
     });

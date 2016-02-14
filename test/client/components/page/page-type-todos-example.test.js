@@ -5,11 +5,16 @@ import ComponentMock from 'test/mocks/component';
 import PageTypeTodosExampleModel from 'client/components/page/mods/type/todos-example/model';
 
 let component = new ComponentMock();
-let model = new PageTypeTodosExampleModel(component);
 let sandbox = sinon.sandbox.create();
+let model;
 
 describe('PageTypeTodosExample', () => {
-  afterEach(() => sandbox.restore());
+  beforeEach(() => model = new PageTypeTodosExampleModel(component));
+
+  afterEach(() => {
+    model.destroy();
+    sandbox.restore();
+  });
 
   describe('#load()', () => {
     it('should set correct state after loading', () => {

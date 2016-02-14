@@ -7,13 +7,19 @@ import ComponentMock from 'test/mocks/component';
 import TodosListModel from 'client/components/todos/elems/list/model';
 
 let component = new ComponentMock();
-let model = new TodosListModel(component);
 let sandbox = sinon.sandbox.create();
+let model;
 
 describe('TodosList', () => {
-  beforeEach(() => component.state = { todos: [] });
+  beforeEach(() => {
+    component.state = { todos: [] };
+    model = new TodosListModel(component);
+  });
 
-  afterEach(() => sandbox.restore());
+  afterEach(() => {
+    model.destroy();
+    sandbox.restore();
+  });
 
   it('should call #addTodo(text) on the "TodosCreateItem" event', () => {
     let spy = sandbox.spy(model, 'addTodo');
@@ -238,6 +244,15 @@ describe('TodosList', () => {
   });
 
   describe('#deleteCompleted()', () => {
+    it('should not toggle todos if todos are undefined', () => {
+      let spy = sandbox.spy(API, 'remove');
+
+      component.state = {};
+      model.deleteCompleted();
+
+      expect(spy.called).to.be.false;
+    });
+
     it('should call the "/api/components/Todos" gate', () => {
       sandbox.stub(API, 'remove', gate => {
         expect(gate).to.be.equal('/api/components/Todos');

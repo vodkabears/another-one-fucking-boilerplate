@@ -20,4 +20,11 @@ describe('PageTypeTodosExample provider', () => {
         }
       }));
   });
+
+  it('should not fetch data if it is already defined', () => {
+    let prevData = { PageTypeTodosExample: {} };
+
+    return provider(null, prevData)
+      .then(data => expect(data.PageTypeTodosExample).to.be.equal(prevData.PageTypeTodosExample));
+  });
 });

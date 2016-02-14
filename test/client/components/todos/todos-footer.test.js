@@ -5,9 +5,13 @@ import ComponentMock from 'test/mocks/component';
 import TodosFooterModel from 'client/components/todos/elems/footer/model';
 
 let component = new ComponentMock();
-let model = new TodosFooterModel(component);
+let model;
 
 describe('TodosFooter', () => {
+  beforeEach(() => model = new TodosFooterModel(component));
+
+  afterEach(() => model.destroy());
+
   describe('on "TodosUpdatedList" event', () => {
     it('should calculate the number of uncompleted todos', () => {
       Dispatcher.emit(EVENTS.TodosUpdatedList, {

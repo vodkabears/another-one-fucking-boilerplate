@@ -5,11 +5,16 @@ import ComponentMock from 'test/mocks/component';
 import PageTypeWelcomeModel from 'client/components/page/mods/type/welcome/model';
 
 let component = new ComponentMock();
-let model = new PageTypeWelcomeModel(component);
 let sandbox = sinon.sandbox.create();
+let model;
 
 describe('PageTypeWelcome', () => {
-  afterEach(() => sandbox.restore());
+  beforeEach(() => model = new PageTypeWelcomeModel(component));
+
+  afterEach(() => {
+    model.destroy();
+    sandbox.restore();
+  });
 
   describe('#load()', () => {
     it('should set correct state after loading', () => {

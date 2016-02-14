@@ -1,7 +1,7 @@
-import 'expose?FormData!form-data';
-import 'expose?fetch!node-fetch';
 import { expect } from 'chai';
 import nock from 'nock';
+import fetch from 'node-fetch';
+import FormData from 'form-data';
 import API from 'lib/api';
 
 const HOST = 'http://test';
@@ -9,7 +9,17 @@ const PATH = '/api/component';
 const GATE = HOST + PATH;
 
 describe('API', () => {
-  afterEach(() => nock.cleanAll());
+  beforeEach(() => {
+    global.FormData = FormData;
+    global.fetch = fetch;
+  });
+
+  afterEach(() => {
+    delete global.FormData;
+    delete global.fetch;
+
+    nock.cleanAll();
+  });
 
   describe('.getQueryString(path, query)', () => {
     it('should return a correct path if query params are undefined', () => {

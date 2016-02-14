@@ -5,9 +5,13 @@ import ComponentMock from 'test/mocks/component';
 import TodosHeaderModel from 'client/components/todos/elems/header/model';
 
 let component = new ComponentMock();
-let model = new TodosHeaderModel(component);
+let model;
 
 describe('TodosHeader', () => {
+  beforeEach(() => model = new TodosHeaderModel(component));
+
+  afterEach(() => model.destroy());
+
   describe('on "TodosUpdatedList" event', () => {
     it('should have the checked checkbox, if all todos are completed', () => {
       Dispatcher.emit(EVENTS.TodosUpdatedList, {

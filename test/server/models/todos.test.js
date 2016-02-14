@@ -186,11 +186,16 @@ describe('Todos model', () => {
       expect(mongodb.argumentsStack[1][0]._id).to.be.equal(SESSION_ID);
     });
 
-    it('should toggle todos and save them', () => {
+    it('should toggle selected todos and save them', () => {
       mongodb.data = [{
         items: [
           {
             id: '56b8a6a8fd0b51ae4bf72887',
+            text: 'test',
+            isCompleted: false
+          },
+          {
+            id: '56b8a6a8fd0b51ae4bf72888',
             text: 'test',
             isCompleted: false
           }
@@ -198,11 +203,18 @@ describe('Todos model', () => {
       }];
 
       return Model.toggle({ db: mongodb }, true, '56b8a6a8fd0b51ae4bf72887')
-        .then(items => expect(items).to.be.deep.equal([{
-          id: '56b8a6a8fd0b51ae4bf72887',
-          text: 'test',
-          isCompleted: true
-        }]));
+        .then(items => expect(items).to.be.deep.equal([
+          {
+            id: '56b8a6a8fd0b51ae4bf72887',
+            text: 'test',
+            isCompleted: true
+          },
+          {
+            id: '56b8a6a8fd0b51ae4bf72888',
+            text: 'test',
+            isCompleted: false
+          }
+        ]));
     });
 
     it('should build the right update query', () => {
