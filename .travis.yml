@@ -2,11 +2,9 @@ language: node_js
 node_js:
   - 4
   - 5
-env:
-  - CXX=g++-5
+script: npm run ci-test
+env: CXX=g++-5
 addons:
   apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-5
+    sources: ubuntu-toolchain-r-test
+    packages: g++-5
