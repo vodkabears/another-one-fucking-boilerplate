@@ -1,7 +1,6 @@
 import 'babel-polyfill';
 import { render } from 'react-dom';
-import Router from 'react-router/lib/Router';
-import browserHistory from 'react-router/lib/browserHistory';
+import { Router, browserHistory } from 'react-router';
 import routes from './routes';
 
 function createElement(Component, props) {
