@@ -39,8 +39,8 @@ describe('TodosList', () => {
     expect(spy.calledWithExactly(42, 'life')).to.be.true;
   });
 
-  it('should call #toggleItem(id, text) on the "TodosToggleItem" event', () => {
-    let spy = sandbox.spy(model, 'toggleItem');
+  it('should call #toggleTodo(id, text) on the "TodosToggleItem" event', () => {
+    let spy = sandbox.spy(model, 'toggleTodo');
 
     sandbox.stub(API, 'update', () => Promise.resolve());
     Dispatcher.emit(EVENTS.TodosToggleItem, { id: 42, makeCompleted: false });
@@ -292,7 +292,7 @@ describe('TodosList', () => {
     });
   });
 
-  describe('#toggleItem(id, isCompleted)', () => {
+  describe('#toggleTodo(id, isCompleted)', () => {
     it('should call the "/api/components/Todos/toggle" gate', () => {
       sandbox.stub(API, 'update', gate => {
         expect(gate).to.be.equal('/api/components/Todos/toggle');
@@ -300,7 +300,7 @@ describe('TodosList', () => {
         return Promise.resolve({});
       });
 
-      return model.toggleItem(1, true);
+      return model.toggleTodo(1, true);
     });
 
     it('should correctly toggle a todo', () => {
@@ -312,7 +312,7 @@ describe('TodosList', () => {
         }]
       }));
 
-      return model.toggleItem(1, true).then(() => {
+      return model.toggleTodo(1, true).then(() => {
         expect(component.state.todos).to.be.deep.equal([{
           id: 1,
           text: 'test',
@@ -339,7 +339,7 @@ describe('TodosList', () => {
         return Promise.resolve({});
       });
 
-      return model.toggleItem(1, true);
+      return model.toggleTodo(1, true);
     });
 
     it('should toggle all todos', () => {

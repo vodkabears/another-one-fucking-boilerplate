@@ -55,7 +55,7 @@ export default class TodosListModel extends Model {
    *  @param {Boolean} makeCompleted
    */
   _handleTodosToggleItem(data) {
-    this.toggleItem(data.id, data.makeCompleted);
+    this.toggleTodo(data.id, data.makeCompleted);
   }
 
   /**
@@ -154,7 +154,7 @@ export default class TodosListModel extends Model {
    * @param {Boolean} isCompleted
    * @returns {Promise}
    */
-  toggleItem(id, isCompleted) {
+  toggleTodo(id, isCompleted) {
     return API.update(`${GATE}/toggle`, { isCompleted }, { id })
       .then(data => this.setState({ todos: data.items }));
   }
