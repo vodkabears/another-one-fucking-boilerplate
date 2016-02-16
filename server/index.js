@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom/server';
 import bodyParser from 'body-parser';
 import createRedisStore from 'connect-redis';
 import { MongoClient } from 'mongodb';
-import { match, RoutingContext } from 'react-router';
+import { match, RouterContext } from 'react-router';
 import Html from 'client/components/html';
 import routes from 'client/routes';
 import config from 'config';
@@ -66,7 +66,7 @@ server.use((req, res) => {
             ReactDOM.renderToStaticMarkup(<Html
               data={data}
               bundle={ASSETS.main}
-              body={ReactDOM.renderToString(<RoutingContext {...renderProps} />)}
+              body={ReactDOM.renderToString(<RouterContext {...renderProps} />)}
             />));
       };
 

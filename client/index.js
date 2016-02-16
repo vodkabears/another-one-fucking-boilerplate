@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import { render } from 'react-dom';
-import { Router } from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
+import Router from 'react-router/lib/Router';
+import browserHistory from 'react-router/lib/browserHistory';
 import routes from './routes';
 
 function createElement(Component, props) {
@@ -19,7 +19,7 @@ function createElement(Component, props) {
 }
 
 render(
-  <Router history={createBrowserHistory()} createElement={createElement}>
+  <Router history={browserHistory} createElement={createElement}>
     {routes}
   </Router>,
   document.getElementById('app'));
