@@ -22,9 +22,18 @@
     "watch": "npm-run-all --parallel watch:client watch:server watch:server-bundle",
     "set-db": "node build/db.js",
     "dev": "npm install && npm-run-all test clean build set-db watch",
-    "prod": "npm install && NODE_ENV=production npm-run-all test clean build set-db && pm2 start build/server.js -i 0"
+    "prod:build": "npm install && NODE_ENV=production npm-run-all test clean build && npm prune --production",
+    "prod": "npm run prod:build && npm run set-db; pm2 start build/server.js -i 0 -l /var/log/node/ || pm2 reload all",
+    "deploy": "npm install shipit-cli shipit-deploy && shipit production deploy"
+  },
+  "os" : ["darwin", "linux"],
+  "engines": {
+    "node" : ">=4"
   },
   "dependencies": {
+    "hiredis": "^0.4.1"
+  },
+  "devDependencies": {
     "assets-webpack-plugin": "^3.2.0",
     "babel-core": "^6.3.26",
     "babel-loader": "^6.2.1",
@@ -47,7 +56,6 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
     "form-data": "^1.0.0-rc3",
-    "hiredis": "^0.4.1",
     "image-webpack-loader": "^1.6.2",
     "istanbul": "^v1.0.0-alpha",
     "json-loader": "^0.5.4",
@@ -66,6 +74,8 @@
     "react": "^0.14.5",
     "react-dom": "^0.14.5",
     "react-router": "^2.0.0",
+    "shipit-cli": "^1.4.1",
+    "shipit-deploy": "^2.1.3",
     "sinon": "2.0.0-pre",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
