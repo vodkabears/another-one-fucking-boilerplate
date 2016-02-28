@@ -54,4 +54,12 @@ module.exports = shipit => {
     'deploy:clean',
     'deploy:finish'
   ]);
+
+  shipit.task('rollback', [
+    'rollback:init',
+    'deploy:publish',
+    'deploy:startup',
+    'deploy:clean',
+    'rollback:finish'
+  ]);
 };
