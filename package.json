@@ -26,9 +26,12 @@
     "prod": "npm run prod:build && npm run set-db; pm2 start build/server.js -i 0 -l /var/log/node/ || pm2 reload all",
     "deploy": "npm install shipit-cli shipit-deploy && shipit production deploy"
   },
-  "os" : ["darwin", "linux"],
+  "os": [
+    "darwin",
+    "linux"
+  ],
   "engines": {
-    "node" : ">=4"
+    "node": ">=4"
   },
   "dependencies": {
     "hiredis": "^0.4.1"
@@ -78,7 +81,8 @@
     "sinon": "2.0.0-pre",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.11"
+    "webpack": "^1.12.11",
+    "whatwg-fetch": "^0.11.0"
   },
   "pre-commit": "test"
 }

@@ -43,6 +43,9 @@ Deployment settings in `shipitfile.js`
 * [CSS modules](https://github.com/css-modules/css-modules)
 * [Optimizations of the client bundle](https://github.com/webpack/docs/wiki/optimization)
 * Automatic [image optimization](https://github.com/tcoopman/image-webpack-loader) and inlining when it is possible
+* Polyfills
+ * [Babel polyfill](https://babeljs.io/docs/usage/polyfill/)
+ * [Fetch](https://github.com/github/fetch)
 * Cache busting
 * Auto rebuild
 * [Express server](https://github.com/expressjs/express/)
