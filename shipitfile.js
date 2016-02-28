@@ -18,6 +18,7 @@ module.exports = shipit => {
         'client',
         'server',
         'config',
+        'LICENSE',
         'README.md',
         '*.config.js',
         'shipitfile.js'
