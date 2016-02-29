@@ -15,7 +15,7 @@ function createElement(Component, props) {
     }, 0);
   }
 
-  return <Component {...props}/>;
+  return <Component {...props} />;
 }
 
 render(
