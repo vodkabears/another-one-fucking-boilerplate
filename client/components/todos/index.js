@@ -23,12 +23,7 @@ export default class Todos extends Component {
 
 Todos.propTypes = {
   data: PropTypes.object,
-  query: PropTypes.object.isRequired,
-  title: PropTypes.string
-};
-
-Todos.defaultProps = {
-  title: 'todos'
+  query: PropTypes.object.isRequired
 };
 
 Todos.styles = styles;

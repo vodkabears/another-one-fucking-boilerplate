@@ -1,5 +1,4 @@
 import todosProvider from './todos';
-import SEO from 'server/models/seo';
 
 /**
  * @param {Object} request
@@ -14,7 +13,6 @@ export default function pageTypeTodosExampleProvider(request, data = {}) {
   return todosProvider(request, data)
     .then(() => {
       data.PageTypeTodosExample = {
-        SEO: SEO.get('PageTypeTodosExample'),
         Todos: data.Todos
       };
 

@@ -1,6 +1,7 @@
 import Component, { PropTypes } from 'lib/component';
 import HtmlYandexMetrica from './elems/yandex-metrica';
 import HtmlGoogleAnalytics from './elems/google-analytics';
+import t from './i18n';
 
 export default class Html extends Component {
   /**
@@ -9,23 +10,16 @@ export default class Html extends Component {
   render() {
     let props = this.props;
     let data = props.data;
-    let SEO = data.SEO;
     let bundle = props.bundle;
-    let title;
-    let description;
-
-    if (SEO) {
-      title = SEO.title;
-      description = SEO.description;
-    }
+    let pageName = props.pageName;
 
     return (
       <html lang={props.lang}>
         <head>
           <meta charsSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
-          <title>{title}</title>
-          <meta name="description" content={description} />
+          <title>{t(`${pageName}_title`) || t('default_title')}</title>
+          <meta name="description" content={t(`${pageName}_description`) || t('default_description')} />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="apple-touch-icon" href="apple-touch-icon.png" />
           <link rel="stylesheet" href={`/assets/${bundle.css}`} />
@@ -45,14 +39,6 @@ export default class Html extends Component {
 }
 
 Html.propTypes = {
-  lang: PropTypes.string,
-  title: PropTypes.string,
-  description: PropTypes.string,
+  lang: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired
-};
-
-Html.defaultProps = {
-  lang: 'en',
-  title: 'Boilerplate',
-  description: 'OMFG. Another one boilerplate.'
 };

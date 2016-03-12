@@ -1,5 +1,4 @@
 export default {
-  env: 'development',
   port: 3000,
   mongodb: 'mongodb://localhost:27017/boilerplate',
   redis: {

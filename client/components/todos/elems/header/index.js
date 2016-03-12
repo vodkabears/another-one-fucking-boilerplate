@@ -1,8 +1,9 @@
-import Component, { PropTypes } from 'lib/component';
+import Component from 'lib/component';
 import Checkbox from 'client/components/checkbox';
 import Input from 'client/components/input';
 import Model from './model';
 import styles from './styles.css';
+import i18n from './i18n';
 
 const ENTER_KEY = 13;
 
@@ -67,7 +68,7 @@ export default class TodosHeader extends Component {
         <Input
           value={state.input}
           className={stls.input}
-          placeholder={this.props.placeholder}
+          placeholder={this.t('placeholder')}
           onChange={this._handleInputChange.bind(this)}
           onKeyDown={this._handleInputKeyDown.bind(this)}
         />
@@ -76,13 +77,6 @@ export default class TodosHeader extends Component {
   }
 }
 
-TodosHeader.propTypes = {
-  placeholder: PropTypes.string
-};
-
-TodosHeader.defaultProps = {
-  placeholder: 'What needs to be done?'
-};
-
+TodosHeader.i18n = i18n;
 TodosHeader.styles = styles;
 TodosHeader.Model = Model;

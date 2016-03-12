@@ -1,4 +1,4 @@
-import devConfig from './development';
-import prodConfig from './production';
+import commonConfig from './common';
+import serverConfig from './server';
 
-export default process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
+export default Object.assign({}, serverConfig, commonConfig);

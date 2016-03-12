@@ -8,6 +8,12 @@
   transform: translate(-50%, -50%);
 }
 
+.langSwitcher {
+  composes: langSwitcher from 'client/components/lang-switcher/styles.css';
+
+  margin-bottom: 10px;
+}
+
 .image {
   display: inline-block;
 

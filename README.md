@@ -42,6 +42,7 @@ Deployment settings in `shipitfile.js`
   * [Autoprefixer](https://github.com/postcss/autoprefixer)
   * [CSSNext](https://github.com/MoOx/postcss-cssnext)
 * [CSS modules](https://github.com/css-modules/css-modules)
+* I18N modules, like CSS modules, but for i18n
 * [Optimizations of the client bundle](https://github.com/webpack/docs/wiki/optimization)
 * Automatic [image optimization](https://github.com/tcoopman/image-webpack-loader) and inlining when it is possible
 * Polyfills
@@ -66,7 +67,7 @@ Deployment settings in `shipitfile.js`
 * [Travis CI](https://travis-ci.org/)
 * [Coveralls](https://coveralls.io/)
 * HTML best practice from [HTML5 boilerplate](https://github.com/h5bp/html5-boilerplate)
-* TodoMVC
+* To-do list example
 * Up-to-date dependencies
 
 ### Architecture
@@ -75,11 +76,9 @@ Deployment settings in `shipitfile.js`
 
 ### Roadmap
 
-* Replace JSX transcompilation
 * Service workers
 * Streaming server-side rendering
 * Per-page resource loading
-* i18n
 * Integrate useful hipster technologies to be hot and fashionable
 
 ### Note

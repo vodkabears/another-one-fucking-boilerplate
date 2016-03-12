@@ -13,11 +13,7 @@ describe('PageTypeTodosExample provider', () => {
 
     return provider()
       .then(data => expect(data.PageTypeTodosExample).to.be.deep.equal({
-        Todos: { items: [] },
-        SEO: {
-          title: 'Boilerplate • TodoMVC',
-          description: 'Todo apps with Boilerplate'
-        }
+        Todos: { items: [] }
       }));
   });
 

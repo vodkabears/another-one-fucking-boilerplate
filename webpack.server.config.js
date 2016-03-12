@@ -35,7 +35,10 @@ module.exports = {
   debug: IS_DEBUG,
 
   plugins: [
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENV) }),
+    new webpack.DefinePlugin({
+      LANG: JSON.stringify(null),
+      'process.env.NODE_ENV': JSON.stringify(ENV)
+    }),
     new webpack.ProvidePlugin({ React: 'react' }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new ExtractTextPlugin('.modules.css')

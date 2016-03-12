@@ -1,56 +1,28 @@
 import { Link } from 'react-router';
-import { PropTypes } from 'lib/component';
 import Page from 'client/components/page';
-import Loader from 'client/components/loader';
-import Model from './model';
+import LangSwitcher from 'client/components/lang-switcher';
 import styles from './styles.css';
+import i18n from './i18n';
 
 export default class PageTypeWelcome extends Page {
   /**
    * @override
    */
-  constructor(props) {
-    super(props);
-
-    /**
-     * @type {Object}
-     */
-    this.state = {
-      SEO: props.SEO,
-      isLoading: false
-    };
-  }
-
-  /**
-   * @override
-   */
   render() {
+    let t = this.t;
     let stls = this.styles;
-    let props = this.props;
 
     return (
-      <div>
-        <div className={stls.page}>
-          <div className={stls.image}></div>
-          <h1>{props.title}</h1>
-          <p>{props.description}</p>
-          <Link to="/examples/todos">Todo-list example</Link>
-        </div>
-        <Loader isLoading={this.state.isLoading} />
+      <div className={stls.page}>
+        <LangSwitcher className={stls.langSwitcher} />
+        <div className={stls.image}></div>
+        <h1>{t('boilerplate')}</h1>
+        <p>{t('another_one')}</p>
+        <Link to="/examples/todos">{t('todo_list_example')}</Link>
       </div>
     );
   }
 }
 
-PageTypeWelcome.propTypes = Object.assign({}, Page.propTypes, {
-  title: PropTypes.string,
-  description: PropTypes.string
-});
-
-PageTypeWelcome.defaultProps = Object.assign({}, Page.defaultProps, {
-  title: 'Boilerplate',
-  description: 'Another one'
-});
-
+PageTypeWelcome.i18n = i18n;
 PageTypeWelcome.styles = styles;
-PageTypeWelcome.Model = Model;
