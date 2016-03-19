@@ -5,16 +5,19 @@ import express from 'express';
 import session from 'express-session';
 import ReactDOM from 'react-dom/server';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import createRedisStore from 'connect-redis';
 import { MongoClient } from 'mongodb';
 import { match, RouterContext } from 'react-router';
 import Html from 'client/components/html';
 import routes from 'client/routes';
+import I18N from 'lib/i18n';
 import config from 'config';
 import API from './api';
 import providers from './providers';
 
 const PORT = config.port;
+const LANGS = config.langs;
 const ASSETS = JSON.parse(fs.readFileSync(path.join(__dirname, 'assets.json'), 'utf8'));
 
 let server = express();
@@ -23,6 +26,33 @@ let mongoConnection;
 if (config.env === 'development') {
   server.use(express.static(path.join(__dirname, 'public')));
 }
+
+server.use(cookieParser());
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({ extended: true }));
+
+server.use((req, res, next) => {
+  let langFromQuery = req.query.lang;
+  let langFromCookies = req.cookies.lang;
+  let langFromAccepts = req.acceptsLanguages(LANGS);
+  let lang;
+
+  if (langFromQuery && LANGS.includes(langFromQuery)) {
+    lang = langFromQuery;
+  } else if (langFromCookies && LANGS.includes(langFromCookies)) {
+    lang = langFromCookies;
+  } else if (langFromAccepts && LANGS.includes(langFromAccepts)) {
+    lang = langFromAccepts;
+  } else {
+    lang = LANGS[0];
+  }
+
+  req.lang = lang;
+  I18N.setLang(lang);
+  res.cookie('lang', lang, { maxAge: 1000 * 60 * 60 * 24 * 365 * 100 });
+
+  next();
+});
 
 server.use(session(Object.assign({}, config.session, {
   store: new (createRedisStore(session))(config.redis)
@@ -44,9 +74,6 @@ server.use((req, res, next) => {
     });
 });
 
-server.use(bodyParser.json());
-server.use(bodyParser.urlencoded({ extended: true }));
-
 server.use('/api', API);
 
 server.use((req, res) => {
@@ -56,6 +83,7 @@ server.use((req, res) => {
     } else if (redirectLocation) {
       res.redirect(302, redirectLocation.pathname + redirectLocation.search);
     } else if (renderProps) {
+      let lang = req.lang;
       let page = renderProps.components[1];
       let pageName = page.name;
       let provider = providers[pageName];
@@ -64,9 +92,11 @@ server.use((req, res) => {
           .status(200).send(
             '<!doctype html>' +
             ReactDOM.renderToStaticMarkup(<Html
+              lang={lang}
               data={data}
-              bundle={ASSETS.main}
               body={ReactDOM.renderToString(<RouterContext {...renderProps} />)}
+              bundle={ASSETS[lang]}
+              pageName={pageName}
             />));
       };
 

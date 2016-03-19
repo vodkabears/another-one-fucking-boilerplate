@@ -8,9 +8,9 @@ let AssetsPlugin = require('assets-webpack-plugin');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const ENV = process.env.NODE_ENV || 'development';
+const LANGS = ['en', 'ru'];
 const IS_DEBUG = ENV === 'development';
 const PLUGINS = [
-  new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(ENV) }),
   new webpack.ProvidePlugin({ React: 'react' }),
   new optimize.DedupePlugin(),
   new optimize.OccurenceOrderPlugin(),
@@ -22,20 +22,28 @@ const PLUGINS = [
   new ExtractTextPlugin('bundle_[hash].css')
 ];
 
-module.exports = {
-  entry: path.join(__dirname, 'client'),
+module.exports = LANGS.map(lang => ({
+  entry: { [lang]: path.join(__dirname, 'client') },
 
   output: {
     path: path.join(__dirname, 'build', 'public', 'assets'),
-    filename: 'bundle_[hash].js'
+    filename: 'bundle_[hash].' + lang + '.js'
   },
 
   cache: IS_DEBUG,
 
   debug: IS_DEBUG,
 
-  plugins: IS_DEBUG ?
-    PLUGINS : PLUGINS.concat(new optimize.UglifyJsPlugin({ comments: false })),
+  plugins: PLUGINS.concat([
+    new webpack.IgnorePlugin(new RegExp(`^\.\/(?!${lang}$)`), /i18n$/),
+    new webpack.IgnorePlugin(/^config(\/server)?(\/)?$/),
+    new webpack.DefinePlugin({
+      LANG: JSON.stringify(lang),
+      'process.env.NODE_ENV': JSON.stringify(ENV)
+    })
+  ]).concat(IS_DEBUG ? [] : [
+    new optimize.UglifyJsPlugin({ comments: false })
+  ]),
 
   postcss: [
     cssnext({
@@ -73,4 +81,4 @@ module.exports = {
       }
     ]
   }
-};
+}));

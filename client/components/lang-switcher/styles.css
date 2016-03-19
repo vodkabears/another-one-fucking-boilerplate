@@ -1,0 +1,28 @@
+.langSwitcher {
+  font-size: 13px;
+
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+.langSwitcher li {
+  display: inline-block;
+}
+
+.langSwitcher li:not(:last-child) {
+  margin-right: 5px;
+}
+
+.langSwitcher a {
+  text-transform: capitalize;
+}
+
+:lang(en) .langSwitcher a[data-lang='en'],
+:lang(ru) .langSwitcher a[data-lang='ru'] {
+  text-decoration: none;
+  pointer-events: none;
+
+  color: inherit;
+}
