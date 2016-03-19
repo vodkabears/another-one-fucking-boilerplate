@@ -58,10 +58,6 @@ module.exports = {
         loader: 'babel'
       },
       {
-        test: /\.node$/,
-        loader: 'node'
-      },
-      {
         test: /\.json$/,
         loader: 'json'
       },
