@@ -68,6 +68,33 @@ Deployment settings in `shipitfile.js`
 * To-do list example
 * Up-to-date dependencies
 
+### Directories
+
+```
+.
+├── client
+│   ├── components
+│   └── public
+├── config
+│   ├── common
+│   └── server
+├── db
+├── lib
+├── server
+│   ├── api
+│   │   └── components
+│   ├── models
+│   └── providers
+└── test
+    ├── client
+    │   └── components
+    ├── lib
+    ├── mocks
+    └── server
+        ├── models
+        └── providers
+```
+
 ### Architecture
 
 ![Architecture](https://raw.githubusercontent.com/VodkaBears/vodkabears.github.com/master/aofb.png)
