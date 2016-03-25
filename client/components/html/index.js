@@ -40,5 +40,5 @@ export default class Html extends Component {
 
 Html.propTypes = {
   lang: PropTypes.string.isRequired,
-  body: PropTypes.string.isRequired
+  body: PropTypes.object.isRequired
 };

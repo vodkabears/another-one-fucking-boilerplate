@@ -102,7 +102,6 @@ Deployment settings in `shipitfile.js`
 ### Roadmap
 
 * Service workers
-* Streaming server-side rendering
 * Per-page resource loading
 * Integrate useful hipster technologies to be hot and fashionable
 

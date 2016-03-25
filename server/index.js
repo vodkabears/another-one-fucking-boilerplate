@@ -3,9 +3,9 @@ import fs from 'fs';
 import path from 'path';
 import express from 'express';
 import session from 'express-session';
-import ReactDOM from 'react-dom/server';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
+import ReactDOMStream from 'react-dom-stream/server';
 import createRedisStore from 'connect-redis';
 import { MongoClient } from 'mongodb';
 import { match, RouterContext } from 'react-router';
@@ -89,15 +89,16 @@ server.use((req, res) => {
       let provider = providers[pageName];
       let loadPage = function(data = {}) {
         res
-          .status(200).send(
-            '<!doctype html>' +
-            ReactDOM.renderToStaticMarkup(<Html
-              lang={lang}
-              data={data}
-              body={ReactDOM.renderToString(<RouterContext {...renderProps} />)}
-              bundle={ASSETS[lang]}
-              pageName={pageName}
-            />));
+          .header('Content-Type', 'text/html; charset=utf-8')
+          .write('<!doctype html>');
+
+        ReactDOMStream.renderToStaticMarkup(<Html
+          lang={lang}
+          data={data}
+          body={ReactDOMStream.renderToString(<RouterContext {...renderProps} />)}
+          bundle={ASSETS[lang]}
+          pageName={pageName}
+        />).pipe(res);
       };
 
       req.query = renderProps.location.query;
